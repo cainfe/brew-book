@@ -1,4 +1,4 @@
-# brew-book
+# Brew Book
 A personal project born from my love for coffee. This application aims to be a digital companion for my brewing adventures, helping me track my coffee journey and refine my brewing techniques.
 
 ### Key Features:
