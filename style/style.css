@@ -1,0 +1,22 @@
+html {
+    font-family: 'Roboto', sans-serif;
+    background-color: #F2F3AE;
+}
+
+.page-title {
+    text-align: center;
+    color: #3C1518;
+}
+
+.brew-card {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 1rem;
+    background-color: #A44200;
+    max-width: 66%;
+    margin: 0 auto;
+    color: white;
+}
