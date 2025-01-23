@@ -1,109 +1,164 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Home | Brew Book</title>
     <link rel="stylesheet" type="text/css" href="./style/normalize.css">
     <link rel="stylesheet" type="text/css" href="./style/style.css">
 </head>
+
 <body>
     <h1 class="page-title">Brew Book</h1>
     <form class="brew-card">
-        <label for="method">Method:</label>
-        <select id="method" name="method">
-            <option value="Pour Over">Pour Over</option>
-            <option value="French Press">French Press</option>
-            <option value="Aeropress">Aeropress</option>
-            <option value="Espresso">Espresso</option>
-            <option value="Cold Brew">Cold Brew</option>
-            <option value="Other">Other: [Specify]</option>
-        </select><br>
+        <div class="brew-card-field">
+            <label for="method">Method:</label>
+            <select id="method" name="method">
+                <option value="Pour Over">Pour Over</option>
+                <option value="French Press">French Press</option>
+                <option value="Aeropress">Aeropress</option>
+                <option value="Espresso">Espresso</option>
+                <option value="Cold Brew">Cold Brew</option>
+                <option value="Other">Other: [Specify]</option>
+            </select><br>
+        </div>
 
         <h3>Coffee Beans</h3>
-        <label for="bean-name">Name:</label>
-        <input type="text" id="bean-name" name="bean-name"><br>
+        <div class="brew-card-field">
+            <label for="bean-name">Name:</label>
+            <input type="text" id="bean-name" name="bean-name"><br>
+        </div>
 
-        <label for="bean-roaster">Roaster:</label>
-        <input type="text" id="bean-roaster" name="bean-roaster"><br>
+        <div class="brew-card-field">
+            <label for="bean-roaster">Roaster:</label>
+            <input type="text" id="bean-roaster" name="bean-roaster"><br>
+        </div>
 
-        <label for="bean-roast-date">Roast Date:</label>
-        <input type="date" id="bean-roast-date" name="bean-roast-date"><br>
+        <div class="brew-card-field">
+            <label for="bean-roast-date">Roast Date:</label>
+            <input type="date" id="bean-roast-date" name="bean-roast-date"><br>
+        </div>
 
-        <label for="bean-variety">Variety:</label>
-        <input type="text" id="bean-variety" name="bean-variety"><br>
+        <div class="brew-card-field">
+            <label for="bean-variety">Variety:</label>
+            <input type="text" id="bean-variety" name="bean-variety"><br>
+        </div>
 
-        <label for="bean-region">Region/Country:</label>
-        <input type="text" id="bean-region" name="bean-region"><br>
+        <div class="brew-card-field">
+            <label for="bean-region">Region/Country:</label>
+            <input type="text" id="bean-region" name="bean-region"><br>
+        </div>
 
-        <label for="bean-process">Process:</label>
-        <input type="text" id="bean-process" name="bean-process"><br>
+        <div class="brew-card-field">
+            <label for="bean-process">Process:</label>
+            <input type="text" id="bean-process" name="bean-process"><br>
+        </div>
 
-        <label for="bean-roast-level">Roast Level:</label>
-        <select id="bean-roast-level" name="bean-roast-level">
-            <option value="Light">Light</option>
-            <option value="Medium">Medium</option>
-            <option value="Dark">Dark</option>
-        </select><br>
+        <div class="brew-card-field">
+            <label for="bean-roast-level">Roast Level:</label>
+            <select id="bean-roast-level" name="bean-roast-level">
+                <option value="Light">Light</option>
+                <option value="Medium">Medium</option>
+                <option value="Dark">Dark</option>
+            </select><br>
+        </div>
 
-        <label for="bean-notes-roaster">Tasting Notes (Roaster):</label>
-        <textarea id="bean-notes-roaster" name="bean-notes-roaster"></textarea><br>
+        <div class="brew-card-field">
+            <label for="bean-notes-roaster">Tasting Notes (Roaster):</label>
+            <textarea id="bean-notes-roaster" name="bean-notes-roaster"></textarea><br>
+        </div>
 
         <h3>Grind Size</h3>
-        <label for="grind-setting">Setting:</label>
-        <input type="number" id="grind-setting" name="grind-setting"><br>
+        <div class="brew-card-field">
+            <label for="grind-setting">Setting:</label>
+            <input type="number" id="grind-setting" name="grind-setting"><br>
+        </div>
 
-        <label for="grind-description">Description:</label>
-        <input type="text" id="grind-description" name="grind-description"><br>
+        <div class="brew-card-field">
+            <label for="grind-description">Description:</label>
+            <input type="text" id="grind-description" name="grind-description"><br>
+        </div>
 
         <h3>Water</h3>
-        <label for="water-source">Source:</label>
-        <input type="text" id="water-source" name="water-source"><br>
+        <div class="brew-card-field">
+            <label for="water-source">Source:</label>
+            <input type="text" id="water-source" name="water-source"><br>
+        </div>
 
-        <label for="water-temp">Temperature:</label>
-        <input type="number" id="water-temp" name="water-temp"><br>
+        <div class="brew-card-field">
+            <label for="water-temp">Temperature:</label>
+            <input type="number" id="water-temp" name="water-temp"><br>
+        </div>
 
-        <label for="water-volume">Volume:</label>
-        <input type="number" id="water-volume" name="water-volume"><br>
+        <div class="brew-card-field">
+            <label for="water-volume">Volume:</label>
+            <input type="number" id="water-volume" name="water-volume"><br>
+        </div>
 
         <h3>Brewing Parameters</h3>
-        <label for="bloom">Bloom:</label>
-        <input type="number" id="bloom" name="bloom"><br>
+        <div class="brew-card-field">
+            <label for="bloom">Bloom:</label>
+            <input type="number" id="bloom" name="bloom"><br>
+        </div>
 
-        <label for="bloom-water-volume">Water Volume:</label>
-        <input type="number" id="bloom-water-volume" name="bloom-water-volume"><br>
+        <div class="brew-card-field">
+            <label for="bloom-water-volume">Water Volume:</label>
+            <input type="number" id="bloom-water-volume" name="bloom-water-volume"><br>
+        </div>
 
-        <label for="bloom-time">Bloom time:</label>
-        <input type="number" id="bloom-time" name="bloom-time"><br>
+        <div class="brew-card-field">
+            <label for="bloom-time">Bloom time:</label>
+            <input type="number" id="bloom-time" name="bloom-time"><br>
+        </div>
 
-        <label for="pouring-method">Pouring Method:</label>
-        <input type="text" id="pouring-method" name="pouring-method"><br>
+        <div class="brew-card-field">
+            <label for="pouring-method">Pouring Method:</label>
+            <input type="text" id="pouring-method" name="pouring-method"><br>
+        </div>
 
-        <label for="total-brew-time">Total Brew Time:</label>
-        <input type="number" id="total-brew-time" name="total-brew-time"><br>
+        <div class="brew-card-field">
+            <label for="total-brew-time">Total Brew Time:</label>
+            <input type="number" id="total-brew-time" name="total-brew-time"><br>
+        </div>
 
-        <label for="ratio">Ratio (Coffee:Water):</label>
-        <input type="text" id="ratio" name="ratio"><br>
+        <div class="brew-card-field">
+            <label for="ratio">Ratio (Coffee:Water):</label>
+            <input type="text" id="ratio" name="ratio"><br>
+        </div>
 
         <h3>Tasting Notes</h3>
-        <label for="aroma">Aroma:</label>
-        <input type="text" id="aroma" name="aroma"><br>
+        <div class="brew-card-field">
+            <label for="aroma">Aroma:</label>
+            <input type="text" id="aroma" name="aroma"><br>
+        </div>
 
-        <label for="flavor">Flavor:</label>
-        <input type="text" id="flavor" name="flavor"><br>
+        <div class="brew-card-field">
+            <label for="flavor">Flavor:</label>
+            <input type="text" id="flavor" name="flavor"><br>
+        </div>
 
-        <label for="acidity">Acidity:</label>
-        <input type="text" id="acidity" name="acidity"><br>
+        <div class="brew-card-field">
+            <label for="acidity">Acidity:</label>
+            <input type="text" id="acidity" name="acidity"><br>
+        </div>
 
-        <label for="body">Body:</label>
-        <input type="text" id="body" name="body"><br>
+        <div class="brew-card-field">
+            <label for="body">Body:</label>
+            <input type="text" id="body" name="body"><br>
+        </div>
 
-        <label for="aftertaste">Aftertaste:</label>
-        <input type="text" id="aftertaste" name="aftertaste"><br>
+        <div class="brew-card-field">
+            <label for="aftertaste">Aftertaste:</label>
+            <input type="text" id="aftertaste" name="aftertaste"><br>
+        </div>
 
-        <label for="overall">Overall:</label>
-        <input type="text" id="overall" name="overall"><br>
+        <div class="brew-card-field">
+            <label for="overall">Overall:</label>
+            <input type="text" id="overall" name="overall"><br>
+        </div>
 
         <h3>Notes</h3>
         <textarea id="notes" name="notes"></textarea><br>
     </form>
 </body>
+
 </html>
