@@ -9,7 +9,7 @@
 
 <body>
     <h1 class="page-title">Brew Book</h1>
-    <form class="brew-card">
+    <form id="new-brew-form" class="brew-card">
         <div class="brew-card-field">
             <label for="method">Method:</label>
             <select id="method" name="method">
@@ -63,8 +63,8 @@
         </div>
 
         <div class="brew-card-field">
-            <label for="bean-notes-roaster">Tasting Notes (Roaster):</label>
-            <textarea id="bean-notes-roaster" name="bean-notes-roaster"></textarea><br>
+            <label for="bean-tasting-notes">Tasting Notes (Roaster):</label>
+            <textarea id="bean-tasting-notes" name="bean-tasting-notes"></textarea><br>
         </div>
 
         <h3>Grind Size</h3>
@@ -85,8 +85,8 @@
         </div>
 
         <div class="brew-card-field">
-            <label for="water-temp">Temperature:</label>
-            <input type="number" id="water-temp" name="water-temp"><br>
+            <label for="water-temperature">Temperature:</label>
+            <input type="number" id="water-temperature" name="water-temperature"><br>
         </div>
 
         <div class="brew-card-field">
@@ -152,12 +152,14 @@
         </div>
 
         <div class="brew-card-field">
-            <label for="overall">Overall:</label>
-            <input type="text" id="overall" name="overall"><br>
+            <label for="overall-impression">Overall:</label>
+            <input type="text" id="overall-impression" name="overall-impression"><br>
         </div>
 
         <h3>Notes</h3>
         <textarea id="notes" name="notes"></textarea><br>
+
+        <button type="submit" id="submit-button">Submit</button>
     </form>
 </body>
 
