@@ -1,11 +1,13 @@
 import { storeBrew } from './storage.js';
 
 document.addEventListener('DOMContentLoaded', function () {
+    buildBrewCard();
+
     const newBrewForm = document.getElementById('new-brew-form');
 
-    newBrewForm.addEventListener('submit', function(event) {
+    newBrewForm.addEventListener('submit', function (event) {
         event.preventDefault();
-        
+
         // Get the form data
         let data = {
             method: document.getElementById('method').value,
@@ -42,50 +44,112 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-function storeBrewData(data) {
-    // validate the input data
-    if (!data) return;
+function buildBrewCard(data = {}) {
+    const form = document.createElement('form');
+    form.id = 'new-brew-form';
+    form.className = 'brew-card';
 
-    // Create a new Brew object
-    let bean = {
-        name: data.beanName,
-        roaster: data.beanRoaster,
-        roastDate: data.beanRoastDate,
-        variety: data.beanVariety,
-        region: data.beanRegion,
-        process: data.beanProcess,
-        roastLevel: data.beanRoastLevel,
-        tastingNotes: data.beanTastingNotes
-    }
+    const sections = [
+        { header: null, fields: [{ label: 'Method:', type: 'select', id: 'method', name: 'method', options: ['Pour Over', 'French Press', 'Aeropress', 'Espresso', 'Cold Brew', 'Other: [Specify]'] }] },
+        { header: 'Coffee Beans', fields: [
+            { label: 'Name:', type: 'text', id: 'bean-name', name: 'bean-name' },
+            { label: 'Roaster:', type: 'text', id: 'bean-roaster', name: 'bean-roaster' },
+            { label: 'Roast Date:', type: 'date', id: 'bean-roast-date', name: 'bean-roast-date' },
+            { label: 'Variety:', type: 'text', id: 'bean-variety', name: 'bean-variety' },
+            { label: 'Region/Country:', type: 'text', id: 'bean-region', name: 'bean-region' },
+            { label: 'Process:', type: 'text', id: 'bean-process', name: 'bean-process' },
+            { label: 'Roast Level:', type: 'select', id: 'bean-roast-level', name: 'bean-roast-level', options: ['Light', 'Medium', 'Dark'] },
+            { label: 'Tasting Notes (Roaster):', type: 'textarea', id: 'bean-tasting-notes', name: 'bean-tasting-notes' }
+        ]},
+        { header: 'Grind Size', fields: [
+            { label: 'Setting:', type: 'number', id: 'grind-setting', name: 'grind-setting' },
+            { label: 'Description:', type: 'text', id: 'grind-description', name: 'grind-description' }
+        ]},
+        { header: 'Water', fields: [
+            { label: 'Source:', type: 'text', id: 'water-source', name: 'water-source' },
+            { label: 'Temperature:', type: 'number', id: 'water-temperature', name: 'water-temperature' },
+            { label: 'Volume:', type: 'number', id: 'water-volume', name: 'water-volume' }
+        ]},
+        { header: 'Brewing Parameters', fields: [
+            { label: 'Bloom:', type: 'number', id: 'bloom', name: 'bloom' },
+            { label: 'Water Volume:', type: 'number', id: 'bloom-water-volume', name: 'bloom-water-volume' },
+            { label: 'Bloom time:', type: 'number', id: 'bloom-time', name: 'bloom-time' },
+            { label: 'Pouring Method:', type: 'text', id: 'pouring-method', name: 'pouring-method' },
+            { label: 'Total Brew Time:', type: 'number', id: 'total-brew-time', name: 'total-brew-time' },
+            { label: 'Ratio (Coffee:Water):', type: 'text', id: 'ratio', name: 'ratio' }
+        ]},
+        { header: 'Tasting Notes', fields: [
+            { label: 'Aroma:', type: 'text', id: 'aroma', name: 'aroma' },
+            { label: 'Flavor:', type: 'text', id: 'flavor', name: 'flavor' },
+            { label: 'Acidity:', type: 'text', id: 'acidity', name: 'acidity' },
+            { label: 'Body:', type: 'text', id: 'body', name: 'body' },
+            { label: 'Aftertaste:', type: 'text', id: 'aftertaste', name: 'aftertaste' },
+            { label: 'Overall:', type: 'text', id: 'overall-impression', name: 'overall-impression' }
+        ]},
+        { header: 'Notes', fields: [
+            { label: null, type: 'textarea', id: 'notes', name: 'notes' }
+        ]}
+    ];
 
-    let brew = {
-        method: data.method,
-        bean: bean,
-        grindSetting: data.grindSetting,
-        grindDescription: data.grindDescription,
-        waterSource: data.waterSource,
-        waterTemperature: data.waterTemperature,
-        waterVolume: data.waterVolume,
-        bloom: data.bloom,
-        bloomWaterVolume: data.bloomWaterVolume,
-        bloomTime: data.bloomTime,
-        pouringMethod: data.pouringMethod,
-        totalBrewTime: data.totalBrewTime,
-        ratio: data.ratio,
-        aroma: data.aroma,
-        flavor: data.flavor,
-        acidity: data.acidity,
-        body: data.body,
-        aftertaste: data.aftertaste,
-        overallImpression: data.overallImpression,
-        notes: data.notes
-    }
+    sections.forEach(section => {
+        if (section.header) {
+            const header = document.createElement('h3');
+            header.textContent = section.header;
+            form.appendChild(header);
+        }
 
-    console.log(brew);
-    console.log("here");
+        section.fields.forEach(field => {
+            const div = document.createElement('div');
+            div.className = 'brew-card-field';
 
-    // Store the new Brew object in localStorage
-    let brews = JSON.parse(localStorage.getItem('brews')) || [];
-    brews.push(brew);
-    localStorage.setItem('brews', JSON.stringify(brews));
+            if (field.label) {
+                const label = document.createElement('label');
+                label.htmlFor = field.id;
+                label.textContent = field.label;
+                div.appendChild(label);
+            }
+
+            let input;
+            if (field.type === 'select') {
+                input = document.createElement('select');
+                input.id = field.id;
+                input.name = field.name;
+                field.options.forEach(option => {
+                    const opt = document.createElement('option');
+                    opt.value = option;
+                    opt.textContent = option;
+                    input.appendChild(opt);
+                });
+                if (data[field.name]) {
+                    input.value = data[field.name];
+                }
+            } else if (field.type === 'textarea') {
+                input = document.createElement('textarea');
+                input.id = field.id;
+                input.name = field.name;
+                if (data[field.name]) {
+                    input.value = data[field.name];
+                }
+            } else {
+                input = document.createElement('input');
+                input.type = field.type;
+                input.id = field.id;
+                input.name = field.name;
+                if (data[field.name]) {
+                    input.value = data[field.name];
+                }
+            }
+
+            div.appendChild(input);
+            form.appendChild(div);
+        });
+    });
+
+    const submitButton = document.createElement('button');
+    submitButton.type = 'submit';
+    submitButton.id = 'submit-button';
+    submitButton.textContent = 'Submit';
+    form.appendChild(submitButton);
+
+    document.body.appendChild(form);
 }
