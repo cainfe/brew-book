@@ -1,4 +1,6 @@
-document.addEventListener('DOMContentLoaded', function() {
+import { storeBrew } from './storage.js';
+
+document.addEventListener('DOMContentLoaded', function () {
     const newBrewForm = document.getElementById('new-brew-form');
 
     newBrewForm.addEventListener('submit', function(event) {
@@ -36,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         // Store the brew data
-        storeBrewData(data);
+        storeBrew(data);
     });
 });
 
