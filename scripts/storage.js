@@ -45,3 +45,7 @@ export function storeBrew(data = {}) {
     brews.push(brew);
     localStorage.setItem('brews', JSON.stringify(brews));
 }
+
+export function getBrews() {
+    return JSON.parse(localStorage.getItem('brews')) || [];
+}

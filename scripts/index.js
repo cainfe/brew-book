@@ -1,4 +1,4 @@
-import { storeBrew } from './storage.js';
+import { storeBrew, getBrews } from './storage.js';
 
 document.addEventListener('DOMContentLoaded', function () {
     buildBrewCard();
@@ -42,9 +42,11 @@ document.addEventListener('DOMContentLoaded', function () {
         // Store the brew data
         storeBrew(data);
     });
+
+    listBrews(getBrews());
 });
 
-function buildBrewCard(data = {}) {
+function buildBrewCard(brew = {}) {
     const form = document.createElement('form');
     form.id = 'new-brew-form';
     form.className = 'brew-card';
@@ -120,23 +122,23 @@ function buildBrewCard(data = {}) {
                     opt.textContent = option;
                     input.appendChild(opt);
                 });
-                if (data[field.name]) {
-                    input.value = data[field.name];
+                if (brew[field.name]) {
+                    input.value = brew[field.name];
                 }
             } else if (field.type === 'textarea') {
                 input = document.createElement('textarea');
                 input.id = field.id;
                 input.name = field.name;
-                if (data[field.name]) {
-                    input.value = data[field.name];
+                if (brew[field.name]) {
+                    input.value = brew[field.name];
                 }
             } else {
                 input = document.createElement('input');
                 input.type = field.type;
                 input.id = field.id;
                 input.name = field.name;
-                if (data[field.name]) {
-                    input.value = data[field.name];
+                if (brew[field.name]) {
+                    input.value = brew[field.name];
                 }
             }
 
@@ -152,4 +154,11 @@ function buildBrewCard(data = {}) {
     form.appendChild(submitButton);
 
     document.body.appendChild(form);
+}
+
+function listBrews(brews = {}) {
+    console.log(brews);
+    brews.forEach(brew => {
+        buildBrewCard(brew);
+    });
 }
