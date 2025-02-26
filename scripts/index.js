@@ -47,9 +47,10 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function buildBrewCard(brew = {}) {
+    const brewCard = document.createElement('li');
+    brewCard.className = 'brew-card';
     const form = document.createElement('form');
     form.id = 'new-brew-form';
-    form.className = 'brew-card';
 
     const sections = [
         { header: null, fields: [{ label: 'Method:', type: 'select', id: 'method', name: 'method', options: ['Pour Over', 'French Press', 'Aeropress', 'Espresso', 'Cold Brew', 'Other: [Specify]'] }] },
@@ -152,8 +153,9 @@ function buildBrewCard(brew = {}) {
     submitButton.id = 'submit-button';
     submitButton.textContent = 'Submit';
     form.appendChild(submitButton);
+    brewCard.appendChild(form);
 
-    document.body.appendChild(form);
+    document.getElementById("brews-list").appendChild(brewCard);
 }
 
 function listBrews(brews = {}) {
