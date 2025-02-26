@@ -157,7 +157,6 @@ function buildBrewCard(brew = {}) {
 }
 
 function listBrews(brews = {}) {
-    console.log(brews);
     brews.forEach(brew => {
         buildBrewCard(brew);
     });

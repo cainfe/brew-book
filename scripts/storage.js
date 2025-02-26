@@ -37,9 +37,6 @@ export function storeBrew(data = {}) {
         notes: data.notes
     }
 
-    console.log(brew);
-    console.log("here");
-
     // Store the new Brew object in localStorage
     let brews = JSON.parse(localStorage.getItem('brews')) || [];
     brews.push(brew);
