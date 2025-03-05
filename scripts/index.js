@@ -8,17 +8,22 @@ document.addEventListener('DOMContentLoaded', function () {
     newBrewForm.addEventListener('submit', function (event) {
         event.preventDefault();
 
+        let bean = {
+            name: document.getElementById('bean-name').value,
+            roaster: document.getElementById('bean-roaster').value,
+            roastDate: document.getElementById('bean-roast-date').value,
+            variety: document.getElementById('bean-variety').value,
+            region: document.getElementById('bean-region').value,
+            process: document.getElementById('bean-process').value,
+            roastLevel: document.getElementById('bean-roast-level').value,
+            tastingNotes: document.getElementById('bean-tasting-notes').value
+        }
+
         // Get the form data
         let data = {
+            id: Date.now().toString(),
             method: document.getElementById('method').value,
-            beanName: document.getElementById('bean-name').value,
-            beanRoaster: document.getElementById('bean-roaster').value,
-            beanRoastDate: document.getElementById('bean-roast-date').value,
-            beanVariety: document.getElementById('bean-variety').value,
-            beanRegion: document.getElementById('bean-region').value,
-            beanProcess: document.getElementById('bean-process').value,
-            beanRoastLevel: document.getElementById('bean-roast-level').value,
-            beanTastingNotes: document.getElementById('bean-tasting-notes').value,
+            bean: bean,
             grindSetting: document.getElementById('grind-setting').value,
             grindDescription: document.getElementById('grind-description').value,
             waterSource: document.getElementById('water-source').value,
@@ -47,10 +52,13 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function buildBrewCard(brew = {}) {
+    const isNewBrew = Object.keys(brew).length === 0;
+
     const brewCard = document.createElement('li');
     brewCard.className = 'brew-card';
     const form = document.createElement('form');
-    form.id = 'new-brew-form';
+    if (isNewBrew) form.id = 'new-brew-form';
+    else form.id = `brew-form-${brew.id}`;
 
     const sections = [
         { header: null, fields: [{ label: 'Method:', type: 'select', id: 'method', name: 'method', options: ['Pour Over', 'French Press', 'Aeropress', 'Espresso', 'Cold Brew', 'Other: [Specify]'] }] },
