@@ -1,5 +1,9 @@
 import { storeBrew, getBrews } from './storage.js';
 
+const brewFormFields = [
+    // Add your form fields here
+];
+
 document.addEventListener('DOMContentLoaded', function () {
     buildBrewCard();
 
@@ -61,44 +65,44 @@ function buildBrewCard(brew = {}) {
     else form.id = `brew-form-${brew.id}`;
 
     const sections = [
-        { header: null, fields: [{ label: 'Method:', type: 'select', id: 'method', name: 'method', options: ['Pour Over', 'French Press', 'Aeropress', 'Espresso', 'Cold Brew', 'Other: [Specify]'] }] },
+        { header: null, fields: [{ label: 'Method:', type: 'select', id: 'method', name: 'method', dataName: 'method', options: ['Pour Over', 'French Press', 'Aeropress', 'Espresso', 'Cold Brew', 'Other: [Specify]'] }] },
         { header: 'Coffee Beans', fields: [
-            { label: 'Name:', type: 'text', id: 'bean-name', name: 'bean-name' },
-            { label: 'Roaster:', type: 'text', id: 'bean-roaster', name: 'bean-roaster' },
-            { label: 'Roast Date:', type: 'date', id: 'bean-roast-date', name: 'bean-roast-date' },
-            { label: 'Variety:', type: 'text', id: 'bean-variety', name: 'bean-variety' },
-            { label: 'Region/Country:', type: 'text', id: 'bean-region', name: 'bean-region' },
-            { label: 'Process:', type: 'text', id: 'bean-process', name: 'bean-process' },
-            { label: 'Roast Level:', type: 'select', id: 'bean-roast-level', name: 'bean-roast-level', options: ['Light', 'Medium', 'Dark'] },
-            { label: 'Tasting Notes (Roaster):', type: 'textarea', id: 'bean-tasting-notes', name: 'bean-tasting-notes' }
+            { label: 'Name:', type: 'text', id: 'bean-name', name: 'bean-name', dataName: 'bean.name' },
+            { label: 'Roaster:', type: 'text', id: 'bean-roaster', name: 'bean-roaster', dataName: 'bean.roaster' },
+            { label: 'Roast Date:', type: 'date', id: 'bean-roast-date', name: 'bean-roast-date', dataName: 'bean.roastDate' },
+            { label: 'Variety:', type: 'text', id: 'bean-variety', name: 'bean-variety', dataName: 'bean.variety' },
+            { label: 'Region/Country:', type: 'text', id: 'bean-region', name: 'bean-region', dataName: 'bean.region' },
+            { label: 'Process:', type: 'text', id: 'bean-process', name: 'bean-process', dataName: 'bean.process' },
+            { label: 'Roast Level:', type: 'select', id: 'bean-roast-level', name: 'bean-roast-level', dataName: 'bean.roastLevel', options: ['Light', 'Medium', 'Dark'] },
+            { label: 'Tasting Notes (Roaster):', type: 'textarea', id: 'bean-tasting-notes', name: 'bean-tasting-notes', dataName: 'bean.tastingNotes' }
         ]},
         { header: 'Grind Size', fields: [
-            { label: 'Setting:', type: 'number', id: 'grind-setting', name: 'grind-setting' },
-            { label: 'Description:', type: 'text', id: 'grind-description', name: 'grind-description' }
+            { label: 'Setting:', type: 'number', id: 'grind-setting', name: 'grind-setting', dataName: 'grindSetting' },
+            { label: 'Description:', type: 'text', id: 'grind-description', name: 'grind-description', dataName: 'grindDescription' }
         ]},
         { header: 'Water', fields: [
-            { label: 'Source:', type: 'text', id: 'water-source', name: 'water-source' },
-            { label: 'Temperature:', type: 'number', id: 'water-temperature', name: 'water-temperature' },
-            { label: 'Volume:', type: 'number', id: 'water-volume', name: 'water-volume' }
+            { label: 'Source:', type: 'text', id: 'water-source', name: 'water-source', dataName: 'waterSource' },
+            { label: 'Temperature:', type: 'number', id: 'water-temperature', name: 'water-temperature', dataName: 'waterTemperature' },
+            { label: 'Volume:', type: 'number', id: 'water-volume', name: 'water-volume', dataName: 'waterVolume' }
         ]},
         { header: 'Brewing Parameters', fields: [
-            { label: 'Bloom:', type: 'number', id: 'bloom', name: 'bloom' },
-            { label: 'Water Volume:', type: 'number', id: 'bloom-water-volume', name: 'bloom-water-volume' },
-            { label: 'Bloom time:', type: 'number', id: 'bloom-time', name: 'bloom-time' },
-            { label: 'Pouring Method:', type: 'text', id: 'pouring-method', name: 'pouring-method' },
-            { label: 'Total Brew Time:', type: 'number', id: 'total-brew-time', name: 'total-brew-time' },
-            { label: 'Ratio (Coffee:Water):', type: 'text', id: 'ratio', name: 'ratio' }
+            { label: 'Bloom:', type: 'number', id: 'bloom', name: 'bloom', dataName: 'bloom' },
+            { label: 'Water Volume:', type: 'number', id: 'bloom-water-volume', name: 'bloom-water-volume', dataName: 'bloomWaterVolume' },
+            { label: 'Bloom time:', type: 'number', id: 'bloom-time', name: 'bloom-time', dataName: 'bloomTime' },
+            { label: 'Pouring Method:', type: 'text', id: 'pouring-method', name: 'pouring-method', dataName: 'pouringMethod' },
+            { label: 'Total Brew Time:', type: 'number', id: 'total-brew-time', name: 'total-brew-time', dataName: 'totalBrewTime' },
+            { label: 'Ratio (Coffee:Water):', type: 'text', id: 'ratio', name: 'ratio', dataName: 'ratio' }
         ]},
         { header: 'Tasting Notes', fields: [
-            { label: 'Aroma:', type: 'text', id: 'aroma', name: 'aroma' },
-            { label: 'Flavor:', type: 'text', id: 'flavor', name: 'flavor' },
-            { label: 'Acidity:', type: 'text', id: 'acidity', name: 'acidity' },
-            { label: 'Body:', type: 'text', id: 'body', name: 'body' },
-            { label: 'Aftertaste:', type: 'text', id: 'aftertaste', name: 'aftertaste' },
-            { label: 'Overall:', type: 'text', id: 'overall-impression', name: 'overall-impression' }
+            { label: 'Aroma:', type: 'text', id: 'aroma', name: 'aroma', dataName: 'aroma' },
+            { label: 'Flavor:', type: 'text', id: 'flavor', name: 'flavor', dataName: 'flavor' },
+            { label: 'Acidity:', type: 'text', id: 'acidity', name: 'acidity', dataName: 'acidity' },
+            { label: 'Body:', type: 'text', id: 'body', name: 'body', dataName: 'body' },
+            { label: 'Aftertaste:', type: 'text', id: 'aftertaste', name: 'aftertaste', dataName: 'aftertaste' },
+            { label: 'Overall:', type: 'text', id: 'overall-impression', name: 'overall-impression', dataName: 'overallImpression' }
         ]},
         { header: 'Notes', fields: [
-            { label: null, type: 'textarea', id: 'notes', name: 'notes' }
+            { label: null, type: 'textarea', id: 'notes', name: 'notes', dataName: 'notes' }
         ]}
     ];
 
@@ -131,24 +135,21 @@ function buildBrewCard(brew = {}) {
                     opt.textContent = option;
                     input.appendChild(opt);
                 });
-                if (brew[field.name]) {
-                    input.value = brew[field.name];
-                }
             } else if (field.type === 'textarea') {
                 input = document.createElement('textarea');
                 input.id = field.id;
                 input.name = field.name;
-                if (brew[field.name]) {
-                    input.value = brew[field.name];
-                }
             } else {
                 input = document.createElement('input');
                 input.type = field.type;
                 input.id = field.id;
                 input.name = field.name;
-                if (brew[field.name]) {
-                    input.value = brew[field.name];
-                }
+            }
+
+            if (brew[field.dataName]) {
+                input.value = brew[field.dataName];
+            } else if (field.dataName.startsWith("bean.") && brew.bean && brew.bean[field.dataName.substring(5)]) {
+                input.value = brew.bean[field.dataName.substring(5)];
             }
 
             div.appendChild(input);
