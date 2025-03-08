@@ -1,11 +1,12 @@
-import { upsertBrew, getBrews, deleteBrew } from './storage.js';
+import { upsertBrew, getBrews, getBrewById, deleteBrew } from './storage.js';
 
 const brewFormFields = [
     // Add your form fields here
 ];
 
 document.addEventListener('DOMContentLoaded', function () {
-    buildBrewCard();
+    const newBrewCard = buildBrewCard();
+    document.getElementById("brews-list").appendChild(newBrewCard);
 
     listBrews(getBrews());
 });
@@ -143,9 +144,26 @@ function buildBrewCard(brew = {}) {
         editButton.id = 'brew-edit-button';
         editButton.textContent = 'Edit Brew';
         editButton.addEventListener('click', function () {
-            initiiateEditBrew(brew.id);
+            initiateEditBrew(brew.id);
         });
         form.appendChild(editButton);
+
+        const saveEditsButton = document.createElement('button');
+        saveEditsButton.type = 'submit';
+        saveEditsButton.id = 'brew-save-button';
+        saveEditsButton.textContent = 'Save Edits';
+        saveEditsButton.classList.add('hidden');
+        form.appendChild(saveEditsButton);
+
+        const cancelButton = document.createElement('button');
+        cancelButton.type = 'button';
+        cancelButton.id = 'brew-cancel-button';
+        cancelButton.textContent = 'Cancel';
+        cancelButton.classList.add('hidden');
+        cancelButton.addEventListener('click', function () {
+            cancelEditBrew(brew.id);
+        });
+        form.appendChild(cancelButton);
     }
 
     form.addEventListener('submit', function (event) {
@@ -153,16 +171,26 @@ function buildBrewCard(brew = {}) {
         const brewData = new FormData(form);
         const brew = getBrewFromForm(brewData);
         upsertBrew(brew);
+        
+        if (isNewBrew) {
+            const newBrewCard = buildBrewCard(brew);
+            document.getElementById("brews-list").appendChild(newBrewCard);
+            form.reset();
+        } else {
+            const updatedBrewCard = buildBrewCard(brew);
+            form.replaceWith(updatedBrewCard);
+        }
     });
 
     brewCard.appendChild(form);
 
-    document.getElementById("brews-list").appendChild(brewCard);
+    return brewCard;
 }
 
 function listBrews(brews = {}) {
     brews.forEach(brew => {
-        buildBrewCard(brew);
+        const brewCard = buildBrewCard(brew);
+        document.getElementById("brews-list").appendChild(brewCard);
     });
 }
 
@@ -178,27 +206,47 @@ function submitDeleteBrew(brewId) {
     }
 }
 
-function initiiateEditBrew(brewId) {
+function initiateEditBrew(brewId) {
     const brewCard = document.getElementById(`brew-form-${brewId}`);
     if (brewCard) {
         const inputs = brewCard.querySelectorAll('input, select, textarea');
         inputs.forEach(input => {
             input.disabled = false;
         });
+
+        const saveButton = brewCard.querySelector('#brew-save-button');
+        const cancelButton = brewCard.querySelector('#brew-cancel-button');
+        saveButton.classList.remove('hidden');
+        cancelButton.classList.remove('hidden');
+
+        const editButton = brewCard.querySelector('#brew-edit-button');
+        editButton.classList.add('hidden');
     }
-    const deleteButton = brewCard.querySelector('#brew-delete-button');
-    if (deleteButton) {
-        deleteButton.remove();
+}
+
+function cancelEditBrew(brewId) {
+    const brewCardForm = document.getElementById(`brew-form-${brewId}`);
+    if (brewCardForm) {
+        const inputs = brewCardForm.querySelectorAll('input, select, textarea');
+        inputs.forEach(input => {
+            input.disabled = true;
+        });
+        
+        const brew = getBrewById(brewId);
+        if (brew) {
+            const oldBrewCard = brewCardForm.closest('.brew-card');
+            const newBrewCard = buildBrewCard(brew);
+            oldBrewCard.replaceWith(newBrewCard);
+        }
+
+        const saveButton = brewCardForm.querySelector('#brew-save-button');
+        const cancelButton = brewCardForm.querySelector('#brew-cancel-button');
+        saveButton.classList.add('hidden');
+        cancelButton.classList.add('hidden');
+
+        const editButton = brewCardForm.querySelector('#brew-edit-button');
+        editButton.classList.remove('hidden');
     }
-    const editButton = brewCard.querySelector('#brew-edit-button');
-    if (editButton) {
-        editButton.remove();
-    }
-    const submitButton = document.createElement('button');
-    submitButton.type = 'submit';
-    submitButton.id = 'brew-submit-button';
-    submitButton.textContent = 'Save Brew';
-    brewCard.appendChild(submitButton);
 }
 
 function getBrewFromForm(brewFormData) {

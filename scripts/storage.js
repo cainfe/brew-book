@@ -26,6 +26,11 @@ export function getBrews() {
     return brews ? JSON.parse(brews) : [];
 }
 
+export function getBrewById(id) {
+    const brews = getBrews();
+    return brews.find(brew => brew.id === id);
+}
+
 export function deleteBrew(id) {
     let brews = getBrews();
     brews = brews.filter(brew => brew.id !== id);

@@ -96,3 +96,7 @@ body {
     margin-right: auto;
     white-space: nowrap;
 }
+
+.hidden {
+    display: none;
+}
