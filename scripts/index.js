@@ -178,7 +178,7 @@ function buildBrewCard(brew = {}) {
             form.reset();
         } else {
             const updatedBrewCard = buildBrewCard(brew);
-            form.replaceWith(updatedBrewCard);
+            brewCard.replaceWith(updatedBrewCard);
         }
     });
 
