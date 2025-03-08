@@ -1,4 +1,4 @@
-import { storeBrew, getBrews, deleteBrew } from './storage.js';
+import { upsertBrew, getBrews, deleteBrew } from './storage.js';
 
 const brewFormFields = [
     // Add your form fields here
@@ -6,51 +6,6 @@ const brewFormFields = [
 
 document.addEventListener('DOMContentLoaded', function () {
     buildBrewCard();
-
-    const newBrewForm = document.getElementById('new-brew-form');
-
-    newBrewForm.addEventListener('submit', function (event) {
-        event.preventDefault();
-
-        let bean = {
-            name: document.getElementById('bean-name').value,
-            roaster: document.getElementById('bean-roaster').value,
-            roastDate: document.getElementById('bean-roast-date').value,
-            variety: document.getElementById('bean-variety').value,
-            region: document.getElementById('bean-region').value,
-            process: document.getElementById('bean-process').value,
-            roastLevel: document.getElementById('bean-roast-level').value,
-            tastingNotes: document.getElementById('bean-tasting-notes').value
-        }
-
-        // Get the form data
-        let data = {
-            id: Date.now().toString(),
-            method: document.getElementById('method').value,
-            bean: bean,
-            grindSetting: document.getElementById('grind-setting').value,
-            grindDescription: document.getElementById('grind-description').value,
-            waterSource: document.getElementById('water-source').value,
-            waterTemperature: document.getElementById('water-temperature').value,
-            waterVolume: document.getElementById('water-volume').value,
-            bloom: document.getElementById('bloom').value,
-            bloomWaterVolume: document.getElementById('bloom-water-volume').value,
-            bloomTime: document.getElementById('bloom-time').value,
-            pouringMethod: document.getElementById('pouring-method').value,
-            totalBrewTime: document.getElementById('total-brew-time').value,
-            ratio: document.getElementById('ratio').value,
-            aroma: document.getElementById('aroma').value,
-            flavor: document.getElementById('flavor').value,
-            acidity: document.getElementById('acidity').value,
-            body: document.getElementById('body').value,
-            aftertaste: document.getElementById('aftertaste').value,
-            overallImpression: document.getElementById('overall-impression').value,
-            notes: document.getElementById('notes').value
-        }
-
-        // Store the brew data
-        storeBrew(data);
-    });
 
     listBrews(getBrews());
 });
@@ -65,6 +20,7 @@ function buildBrewCard(brew = {}) {
     else form.id = `brew-form-${brew.id}`;
 
     const sections = [
+        { header: null, fields: [{ type: 'hidden', id: 'id', name: 'id', dataName: 'id' }] },
         { header: null, fields: [{ label: 'Method:', type: 'select', id: 'method', name: 'method', dataName: 'method', options: ['Pour Over', 'French Press', 'Aeropress', 'Espresso', 'Cold Brew', 'Other: [Specify]'] }] },
         { header: 'Coffee Beans', fields: [
             { label: 'Name:', type: 'text', id: 'bean-name', name: 'bean-name', dataName: 'bean.name' },
@@ -139,6 +95,11 @@ function buildBrewCard(brew = {}) {
                 input = document.createElement('textarea');
                 input.id = field.id;
                 input.name = field.name;
+            } else if (field.type === 'hidden') {
+                input = document.createElement('input');
+                input.type = 'hidden';
+                input.id = field.id;
+                input.name = field.name;
             } else {
                 input = document.createElement('input');
                 input.type = field.type;
@@ -176,7 +137,23 @@ function buildBrewCard(brew = {}) {
             submitDeleteBrew(brew.id);
         });
         form.appendChild(deleteButton);
+
+        const editButton = document.createElement('button');
+        editButton.type = 'button';
+        editButton.id = 'brew-edit-button';
+        editButton.textContent = 'Edit Brew';
+        editButton.addEventListener('click', function () {
+            initiiateEditBrew(brew.id);
+        });
+        form.appendChild(editButton);
     }
+
+    form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        const brewData = new FormData(form);
+        const brew = getBrewFromForm(brewData);
+        upsertBrew(brew);
+    });
 
     brewCard.appendChild(form);
 
@@ -199,4 +176,71 @@ function submitDeleteBrew(brewId) {
             brewCardContainer.remove();
         }
     }
+}
+
+function initiiateEditBrew(brewId) {
+    const brewCard = document.getElementById(`brew-form-${brewId}`);
+    if (brewCard) {
+        const inputs = brewCard.querySelectorAll('input, select, textarea');
+        inputs.forEach(input => {
+            input.disabled = false;
+        });
+    }
+    const deleteButton = brewCard.querySelector('#brew-delete-button');
+    if (deleteButton) {
+        deleteButton.remove();
+    }
+    const editButton = brewCard.querySelector('#brew-edit-button');
+    if (editButton) {
+        editButton.remove();
+    }
+    const submitButton = document.createElement('button');
+    submitButton.type = 'submit';
+    submitButton.id = 'brew-submit-button';
+    submitButton.textContent = 'Save Brew';
+    brewCard.appendChild(submitButton);
+}
+
+function getBrewFromForm(brewFormData) {
+    let bean = {
+        name: brewFormData.get('bean-name'),
+        roaster: brewFormData.get('bean-roaster'),
+        roastDate: brewFormData.get('bean-roast-date'),
+        variety: brewFormData.get('bean-variety'),
+        region: brewFormData.get('bean-region'),
+        process: brewFormData.get('bean-process'),
+        roastLevel: brewFormData.get('bean-roast-level'),
+        tastingNotes: brewFormData.get('bean-tasting-notes')
+    }
+
+    let brew = {
+        method: brewFormData.get('method'),
+        bean: bean,
+        grindSetting: brewFormData.get('grind-setting'),
+        grindDescription: brewFormData.get('grind-description'),
+        waterSource: brewFormData.get('water-source'),
+        waterTemperature: brewFormData.get('water-temperature'),
+        waterVolume: brewFormData.get('water-volume'),
+        bloom: brewFormData.get('bloom'),
+        bloomWaterVolume: brewFormData.get('bloom-water-volume'),
+        bloomTime: brewFormData.get('bloom-time'),
+        pouringMethod: brewFormData.get('pouring-method'),
+        totalBrewTime: brewFormData.get('total-brew-time'),
+        ratio: brewFormData.get('ratio'),
+        aroma: brewFormData.get('aroma'),
+        flavor: brewFormData.get('flavor'),
+        acidity: brewFormData.get('acidity'),
+        body: brewFormData.get('body'),
+        aftertaste: brewFormData.get('aftertaste'),
+        overallImpression: brewFormData.get('overall-impression'),
+        notes: brewFormData.get('notes')
+    }
+
+    if (!brewFormData.get('id')) {
+        brew.id = Date.now().toString();
+    } else {
+        brew.id = brewFormData.get('id');
+    }
+
+    return brew;
 }

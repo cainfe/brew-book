@@ -1,9 +1,23 @@
-export function storeBrew(brew) {
+export function upsertBrew(brew) {
     const brews = getBrews();
     if (!brew.id) {
         brew.id = Date.now().toString(); // Generate a unique ID using the current timestamp
     }
-    brews.push(brew);
+
+    if (brews.some(existingBrew => existingBrew.id === brew.id)) {
+        // Update existing brew
+        console.log("Updating brew with ID:", brew.id);
+        brews.forEach((existingBrew, index) => {
+            if (existingBrew.id === brew.id) {
+                brews[index] = brew;
+            }
+        });
+    } else {
+        // Add new brew
+        console.log("Adding new brew with ID:", brew.id);
+        brews.push(brew);
+    }
+    
     localStorage.setItem('brews', JSON.stringify(brews));
 }
 
