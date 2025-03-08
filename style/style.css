@@ -42,18 +42,7 @@ body {
     width: 100%;
 }
 
-#bean-tasting-notes {
-    resize: none;
-}
-
-#notes {
-    width: 100%;
-    min-height: 100px;
-    max-height: 200px;
-    resize: vertical;
-}
-
-#brew-submit-button {
+.brew-card button {
     width: 100%;
     margin-top: 1rem;
     background-color: #E7D7C1;
@@ -65,6 +54,22 @@ body {
     font-weight: bold;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: background-color 0.3s ease;
+}
+
+#brew-delete-button {
+    background-color: #D9534F;
+    color: white;
+}
+
+#bean-tasting-notes {
+    resize: none;
+}
+
+#notes {
+    width: 100%;
+    min-height: 100px;
+    max-height: 200px;
+    resize: vertical;
 }
 
 #brew-submit-button:hover {

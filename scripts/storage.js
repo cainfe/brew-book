@@ -11,3 +11,9 @@ export function getBrews() {
     const brews = localStorage.getItem('brews');
     return brews ? JSON.parse(brews) : [];
 }
+
+export function deleteBrew(id) {
+    let brews = getBrews();
+    brews = brews.filter(brew => brew.id !== id);
+    localStorage.setItem('brews', JSON.stringify(brews));
+}

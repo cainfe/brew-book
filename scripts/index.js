@@ -1,4 +1,4 @@
-import { storeBrew, getBrews } from './storage.js';
+import { storeBrew, getBrews, deleteBrew } from './storage.js';
 
 const brewFormFields = [
     // Add your form fields here
@@ -167,6 +167,15 @@ function buildBrewCard(brew = {}) {
         submitButton.id = 'brew-submit-button';
         submitButton.textContent = 'Add Brew';
         form.appendChild(submitButton);
+    } else {
+        const deleteButton = document.createElement('button');
+        deleteButton.type = 'button';
+        deleteButton.id = 'brew-delete-button';
+        deleteButton.textContent = 'Delete Brew';
+        deleteButton.addEventListener('click', function () {
+            submitDeleteBrew(brew.id);
+        });
+        form.appendChild(deleteButton);
     }
 
     brewCard.appendChild(form);
@@ -178,4 +187,16 @@ function listBrews(brews = {}) {
     brews.forEach(brew => {
         buildBrewCard(brew);
     });
+}
+
+function submitDeleteBrew(brewId) {
+    deleteBrew(brewId);
+    
+    const brewCard = document.getElementById(`brew-form-${brewId}`);
+    if (brewCard) {
+        const brewCardContainer = brewCard.closest('.brew-card');
+        if (brewCardContainer) {
+            brewCardContainer.remove();
+        }
+    }
 }
