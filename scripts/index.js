@@ -152,16 +152,23 @@ function buildBrewCard(brew = {}) {
                 input.value = brew.bean[field.dataName.substring(5)];
             }
 
+            if (!isNewBrew) {
+                input.disabled = true;
+            }
+
             div.appendChild(input);
             form.appendChild(div);
         });
     });
 
-    const submitButton = document.createElement('button');
-    submitButton.type = 'submit';
-    submitButton.id = 'submit-button';
-    submitButton.textContent = 'Submit';
-    form.appendChild(submitButton);
+    if (isNewBrew) {
+        const submitButton = document.createElement('button');
+        submitButton.type = 'submit';
+        submitButton.id = 'brew-submit-button';
+        submitButton.textContent = 'Add Brew';
+        form.appendChild(submitButton);
+    }
+
     brewCard.appendChild(form);
 
     document.getElementById("brews-list").appendChild(brewCard);
