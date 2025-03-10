@@ -1,9 +1,5 @@
 import { upsertBrew, getBrews, getBrewById, deleteBrew } from './storage.js';
 
-const brewFormFields = [
-    // Add your form fields here
-];
-
 document.addEventListener('DOMContentLoaded', function () {
     const newBrewCard = buildBrewCard();
     document.getElementById("brews-list").appendChild(newBrewCard);
