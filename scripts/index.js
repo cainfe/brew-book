@@ -288,3 +288,14 @@ function getBrewFromForm(brewFormData) {
 
     return brew;
 }
+
+function toggleMenu(menuId) {
+    const panel = document.getElementById(menuId);
+    if (panel.style.right === '0px') {
+        panel.style.right = '-500px';
+    } else {
+        panel.style.right = '0px';
+    }
+}
+
+window.toggleMenu = toggleMenu;
