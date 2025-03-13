@@ -152,4 +152,28 @@ body {
     border-radius: 1rem 0 0 1rem;
     transition: right 0.3s ease;
     z-index: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.menu-panel-header {
+    width: 418px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu-panel-content {
+    width: 418px;
+    overflow: hidden;
+    overflow-y: scroll;
+    scrollbar-width: none;
+}
+
+.menu-panel-content::-webkit-scrollbar {
+    display: none;
+}
+
+#beans-list {
+    list-style: none;
 }
