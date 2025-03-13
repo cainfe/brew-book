@@ -1,4 +1,5 @@
 import { upsertBrew, getBrews, getBrewById, deleteBrew } from './storage.js';
+import { toggleMenu } from './sideMenu.js';
 
 document.addEventListener('DOMContentLoaded', function () {
     const newBrewCard = buildBrewCard();
@@ -287,31 +288,6 @@ function getBrewFromForm(brewFormData) {
     }
 
     return brew;
-}
-
-function toggleMenu(menuId) {
-    const panel = document.getElementById(menuId);
-    if (isMenuOpen(panel)) {
-        closeMenu(panel);
-    } else {
-        const menus = document.querySelectorAll('.menu-panel');
-        menus.forEach(menu => {
-            closeMenu(menu);
-        });
-        openMenu(panel);
-    }
-}
-
-function isMenuOpen(panel) {
-    return panel.style.right === '0px';
-}
-
-function openMenu(panel) {
-    panel.style.right = '0px';
-}
-
-function closeMenu(panel) {
-    panel.style.right = '-500px';
 }
 
 window.toggleMenu = toggleMenu;
