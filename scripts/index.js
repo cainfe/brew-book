@@ -291,11 +291,27 @@ function getBrewFromForm(brewFormData) {
 
 function toggleMenu(menuId) {
     const panel = document.getElementById(menuId);
-    if (panel.style.right === '0px') {
-        panel.style.right = '-500px';
+    if (isMenuOpen(panel)) {
+        closeMenu(panel);
     } else {
-        panel.style.right = '0px';
+        const menus = document.querySelectorAll('.menu-panel');
+        menus.forEach(menu => {
+            closeMenu(menu);
+        });
+        openMenu(panel);
     }
+}
+
+function isMenuOpen(panel) {
+    return panel.style.right === '0px';
+}
+
+function openMenu(panel) {
+    panel.style.right = '0px';
+}
+
+function closeMenu(panel) {
+    panel.style.right = '-500px';
 }
 
 window.toggleMenu = toggleMenu;
