@@ -145,7 +145,6 @@ body {
 .menu-panel {
     position: absolute;
     background-color: #a78a7f;
-    top: 0;
     right: -500px;
     width: 500px;
     height: 100%;
