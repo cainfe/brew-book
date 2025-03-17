@@ -12,8 +12,10 @@ function buildBrewCard(brew = {}) {
     const isNewBrew = Object.keys(brew).length === 0;
 
     const brewCard = document.createElement('li');
-    brewCard.className = 'brew-card';
+    brewCard.classList.add('brew-card');
+    brewCard.classList.add('content-card');
     const form = document.createElement('form');
+    form.classList.add('content-card-form');
     if (isNewBrew) form.id = 'new-brew-form';
     else form.id = `brew-form-${brew.id}`;
 
@@ -69,7 +71,7 @@ function buildBrewCard(brew = {}) {
 
         section.fields.forEach(field => {
             const div = document.createElement('div');
-            div.className = 'brew-card-field';
+            div.classList.add('content-card-form-field');
 
             if (field.label) {
                 const label = document.createElement('label');

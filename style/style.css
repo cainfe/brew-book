@@ -24,25 +24,39 @@ body {
     margin-bottom: 0;
 }
 
-.brew-card {
-    padding: 1rem 5rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.content-card {
+    padding: 1rem 2rem;
     border-radius: 1rem;
     background-color: #735751;
-    min-width: min-content;
-    max-width: 500px;
-    margin: 0 auto;
     color: white;
 }
 
-.brew-card form {
+.content-card-form {
     width: 100%;
 }
 
-.brew-card button {
+.content-card-form-field {
+    display: flex;
+    flex-wrap: nowrap;
+    width: 100%;
+    margin: 0.25rem 0;
+    min-width: min-content;
+}
+
+.content-card-form-field label {
+    margin-right: auto;
+    white-space: nowrap;
+}
+
+.content-card-form input:disabled, .content-card-form select:disabled, .content-card-form textarea:disabled {
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid white;
+    color: white;
+    opacity: 1;
+}
+
+.content-card button {
     width: 100%;
     margin-top: 1rem;
     background-color: #E7D7C1;
@@ -56,6 +70,28 @@ body {
     transition: background-color 0.3s ease;
 }
 
+.content-card button:hover {
+    opacity: 0.8;
+}
+
+.content-card-wide-textarea {
+    width: 100%;
+    min-height: 100px;
+    max-height: 200px;
+    resize: vertical;
+}
+
+.brew-card {
+    padding: 1rem 5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-width: min-content;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
 #brew-delete-button {
     background-color: #D9534F;
     color: white;
@@ -65,43 +101,18 @@ body {
     resize: none;
 }
 
-#notes {
+#notes, #tasting-notes {
     width: 100%;
     min-height: 100px;
     max-height: 200px;
     resize: vertical;
 }
 
-#brew-submit-button:hover {
-    background-color: #D6C4A7;
-}
-
-.brew-card form input:disabled, .brew-card form select:disabled, .brew-card form textarea:disabled {
-    background-color: transparent;
-    border: none;
-    border-bottom: 1px solid white;
-    color: white;
-    opacity: 1;
-}
-
-.brew-card-field {
-    display: flex;
-    flex-wrap: nowrap;
-    width: 100%;
-    margin: 0.25rem 0;
-    min-width: min-content;
-}
-
-.brew-card-field label {
-    margin-right: auto;
-    white-space: nowrap;
-}
-
 .hidden {
     display: none;
 }
 
-#wrapper {
+#menu-wrapper {
     position: fixed;
     top: 50%;
     transform: translateY(-50%);
