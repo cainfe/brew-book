@@ -12,18 +12,6 @@ body {
     color: #735751;
 }
 
-#brews-list {
-    list-style: none;
-}
-
-#brews-list li {
-    margin-bottom: 20px;
-}
-
-#brews-list li:last-child {
-    margin-bottom: 0;
-}
-
 .content-card {
     padding: 1rem 2rem;
     border-radius: 1rem;
@@ -74,6 +62,19 @@ body {
     opacity: 0.8;
 }
 
+
+.content-card-list {
+    list-style: none;
+}
+
+.content-card-list li {
+    margin-bottom: 20px;
+}
+
+.content-card-list li:last-child {
+    margin-bottom: 0;
+}
+
 .content-card-wide-textarea {
     width: 100%;
     min-height: 100px;
@@ -92,7 +93,7 @@ body {
     margin: 0 auto;
 }
 
-#brew-delete-button {
+#brew-delete-button, #bean-delete-button {
     background-color: #D9534F;
     color: white;
 }
@@ -182,8 +183,4 @@ body {
 
 .menu-panel-content::-webkit-scrollbar {
     display: none;
-}
-
-#beans-list {
-    list-style: none;
 }
