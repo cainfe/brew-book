@@ -28,7 +28,8 @@ export function buildBrewCard(brew = {}) {
             { label: 'Grind Setting:', type: 'number', id: 'grind-setting', name: 'grind-setting', dataName: 'grindSetting' },
             { label: 'Dose (g):', type: 'number', step: '0.1', id: 'dose', name: 'dose', dataName: 'dose' },
             { label: 'Yield (g):', type: 'number', step: '0.1', id: 'yield', name: 'yield', dataName: 'yield' },
-            { label: 'Brew Ratio:', type: 'number', step: '0.1', id: 'brew-ratio', name: 'brew-ratio', dataName: 'brewRatio' }
+            { label: 'Brew Ratio:', type: 'number', step: '0.1', id: 'brew-ratio', name: 'brew-ratio', dataName: 'brewRatio' },
+            { label: 'Elapsed Time (s):', type: 'number', step: '1', id: 'elapsed-time', name: 'elapsed-time', dataName: 'elapsedTime' }
         ]},
         { header: 'Tasting Notes', fields: [
             { label: 'Aroma:', type: 'text', id: 'aroma', name: 'aroma', dataName: 'aroma' },
@@ -247,6 +248,7 @@ function getBrewFromForm(brewFormData) {
         dose: brewFormData.get('dose'),
         yield: brewFormData.get('yield'),
         brewRatio: brewFormData.get('brew-ratio'),
+        elapsedTime: brewFormData.get('elapsed-time'),
         ratio: brewFormData.get('ratio'),
         aroma: brewFormData.get('aroma'),
         flavor: brewFormData.get('flavor'),
