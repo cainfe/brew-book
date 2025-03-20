@@ -1,4 +1,5 @@
 import { upsertBrew, deleteBrew, getBrewById } from './storage.js';
+import { getBeans } from './storage.js';
 
 export function buildBrewCard(brew = {}) {
     const isNewBrew = Object.keys(brew).length === 0;
@@ -13,17 +14,10 @@ export function buildBrewCard(brew = {}) {
 
     const sections = [
         { header: null, fields: [{ type: 'hidden', id: 'id', name: 'id', dataName: 'id' }] },
-        { header: null, fields: [{ label: 'Method:', type: 'select', id: 'method', name: 'method', dataName: 'method', options: ['Pour Over', 'French Press', 'Aeropress', 'Espresso', 'Cold Brew', 'Other: [Specify]'] }] },
-        { header: 'Coffee Beans', fields: [
-            { label: 'Name:', type: 'text', id: 'bean-name', name: 'bean-name', dataName: 'bean.name' },
-            { label: 'Roaster:', type: 'text', id: 'bean-roaster', name: 'bean-roaster', dataName: 'bean.roaster' },
-            { label: 'Roast Date:', type: 'date', id: 'bean-roast-date', name: 'bean-roast-date', dataName: 'bean.roastDate' },
-            { label: 'Variety:', type: 'text', id: 'bean-variety', name: 'bean-variety', dataName: 'bean.variety' },
-            { label: 'Region/Country:', type: 'text', id: 'bean-region', name: 'bean-region', dataName: 'bean.region' },
-            { label: 'Process:', type: 'text', id: 'bean-process', name: 'bean-process', dataName: 'bean.process' },
-            { label: 'Roast Level:', type: 'select', id: 'bean-roast-level', name: 'bean-roast-level', dataName: 'bean.roastLevel', options: ['Light', 'Medium', 'Dark'] },
-            { label: 'Tasting Notes (Roaster):', type: 'textarea', id: 'bean-tasting-notes', name: 'bean-tasting-notes', dataName: 'bean.tastingNotes' }
-        ]},
+        { header: null, fields: [
+            { label: 'Method:', type: 'select', id: 'method', name: 'method', dataName: 'method', options: ['Pour Over', 'French Press', 'Aeropress', 'Espresso', 'Cold Brew', 'Other: [Specify]'] },
+            { label: 'Beans:', type: 'select', id: 'bean-id', name: 'bean-id', dataName: 'beanId', options: ['Select Bean'] }
+        ] },
         { header: 'Grind Size', fields: [
             { label: 'Setting:', type: 'number', id: 'grind-setting', name: 'grind-setting', dataName: 'grindSetting' },
             { label: 'Description:', type: 'text', id: 'grind-description', name: 'grind-description', dataName: 'grindDescription' }
@@ -83,6 +77,16 @@ export function buildBrewCard(brew = {}) {
                     opt.textContent = option;
                     input.appendChild(opt);
                 });
+
+                if (field.id === 'bean-id') {
+                    const beans = getBeans();
+                    beans.forEach(bean => {
+                        const opt = document.createElement('option');
+                        opt.value = bean.id;
+                        opt.textContent = bean.name;
+                        input.appendChild(opt);
+                    });
+                }
             } else if (field.type === 'textarea') {
                 input = document.createElement('textarea');
                 input.id = field.id;
@@ -101,8 +105,6 @@ export function buildBrewCard(brew = {}) {
 
             if (brew[field.dataName]) {
                 input.value = brew[field.dataName];
-            } else if (field.dataName.startsWith("bean.") && brew.bean && brew.bean[field.dataName.substring(5)]) {
-                input.value = brew.bean[field.dataName.substring(5)];
             }
 
             if (!isNewBrew) {
@@ -241,20 +243,9 @@ function cancelEditBrew(brewId) {
 }
 
 function getBrewFromForm(brewFormData) {
-    let bean = {
-        name: brewFormData.get('bean-name'),
-        roaster: brewFormData.get('bean-roaster'),
-        roastDate: brewFormData.get('bean-roast-date'),
-        variety: brewFormData.get('bean-variety'),
-        region: brewFormData.get('bean-region'),
-        process: brewFormData.get('bean-process'),
-        roastLevel: brewFormData.get('bean-roast-level'),
-        tastingNotes: brewFormData.get('bean-tasting-notes')
-    }
-
     let brew = {
         method: brewFormData.get('method'),
-        bean: bean,
+        beanId: brewFormData.get('bean-id'),
         grindSetting: brewFormData.get('grind-setting'),
         grindDescription: brewFormData.get('grind-description'),
         waterSource: brewFormData.get('water-source'),
