@@ -21,18 +21,13 @@ export function buildBrewCard(brew = {}) {
             { label: 'Beans:', type: 'select', id: 'bean-id', name: 'bean-id', dataName: 'beanId', options: ['Select Bean'] }
         ] },
         { header: 'Grind Size', fields: [
-            { label: 'Setting:', type: 'number', id: 'grind-setting', name: 'grind-setting', dataName: 'grindSetting' },
-            { label: 'Description:', type: 'text', id: 'grind-description', name: 'grind-description', dataName: 'grindDescription' }
+            { label: 'Setting:', type: 'number', id: 'grind-setting', name: 'grind-setting', dataName: 'grindSetting' }
         ]},
         { header: 'Water', fields: [
-            { label: 'Source:', type: 'text', id: 'water-source', name: 'water-source', dataName: 'waterSource' },
             { label: 'Temperature:', type: 'number', id: 'water-temperature', name: 'water-temperature', dataName: 'waterTemperature' },
             { label: 'Volume:', type: 'number', id: 'water-volume', name: 'water-volume', dataName: 'waterVolume' }
         ]},
         { header: 'Brewing Parameters', fields: [
-            { label: 'Bloom:', type: 'number', id: 'bloom', name: 'bloom', dataName: 'bloom' },
-            { label: 'Water Volume:', type: 'number', id: 'bloom-water-volume', name: 'bloom-water-volume', dataName: 'bloomWaterVolume' },
-            { label: 'Bloom time:', type: 'number', id: 'bloom-time', name: 'bloom-time', dataName: 'bloomTime' },
             { label: 'Pouring Method:', type: 'text', id: 'pouring-method', name: 'pouring-method', dataName: 'pouringMethod' },
             { label: 'Total Brew Time:', type: 'number', id: 'total-brew-time', name: 'total-brew-time', dataName: 'totalBrewTime' },
             { label: 'Ratio (Coffee:Water):', type: 'text', id: 'ratio', name: 'ratio', dataName: 'ratio' }
@@ -246,13 +241,8 @@ function getBrewFromForm(brewFormData) {
         time: brewFormData.get('time'),
         beanId: brewFormData.get('bean-id'),
         grindSetting: brewFormData.get('grind-setting'),
-        grindDescription: brewFormData.get('grind-description'),
-        waterSource: brewFormData.get('water-source'),
         waterTemperature: brewFormData.get('water-temperature'),
         waterVolume: brewFormData.get('water-volume'),
-        bloom: brewFormData.get('bloom'),
-        bloomWaterVolume: brewFormData.get('bloom-water-volume'),
-        bloomTime: brewFormData.get('bloom-time'),
         pouringMethod: brewFormData.get('pouring-method'),
         totalBrewTime: brewFormData.get('total-brew-time'),
         ratio: brewFormData.get('ratio'),
