@@ -28,9 +28,9 @@ export function buildBrewCard(brew = {}) {
             { label: 'Volume:', type: 'number', id: 'water-volume', name: 'water-volume', dataName: 'waterVolume' }
         ]},
         { header: 'Brewing Parameters', fields: [
-            { label: 'Pouring Method:', type: 'text', id: 'pouring-method', name: 'pouring-method', dataName: 'pouringMethod' },
-            { label: 'Total Brew Time:', type: 'number', id: 'total-brew-time', name: 'total-brew-time', dataName: 'totalBrewTime' },
-            { label: 'Ratio (Coffee:Water):', type: 'text', id: 'ratio', name: 'ratio', dataName: 'ratio' }
+            { label: 'Dose (g):', type: 'number', step: '0.1', id: 'dose', name: 'dose', dataName: 'dose' },
+            { label: 'Yield (g):', type: 'number', step: '0.1', id: 'yield', name: 'yield', dataName: 'yield' },
+            { label: 'Brew Ratio:', type: 'number', step: '0.1', id: 'brew-ratio', name: 'brew-ratio', dataName: 'brewRatio' }
         ]},
         { header: 'Tasting Notes', fields: [
             { label: 'Aroma:', type: 'text', id: 'aroma', name: 'aroma', dataName: 'aroma' },
@@ -93,6 +93,9 @@ export function buildBrewCard(brew = {}) {
                 input.type = field.type;
                 input.id = field.id;
                 input.name = field.name;
+                if (field.step) {
+                    input.step = field.step;
+                }
             }
 
             if (brew[field.dataName]) {
@@ -243,8 +246,9 @@ function getBrewFromForm(brewFormData) {
         grindSetting: brewFormData.get('grind-setting'),
         waterTemperature: brewFormData.get('water-temperature'),
         waterVolume: brewFormData.get('water-volume'),
-        pouringMethod: brewFormData.get('pouring-method'),
-        totalBrewTime: brewFormData.get('total-brew-time'),
+        dose: brewFormData.get('dose'),
+        yield: brewFormData.get('yield'),
+        brewRatio: brewFormData.get('brew-ratio'),
         ratio: brewFormData.get('ratio'),
         aroma: brewFormData.get('aroma'),
         flavor: brewFormData.get('flavor'),
