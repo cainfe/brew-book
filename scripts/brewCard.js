@@ -16,6 +16,8 @@ export function buildBrewCard(brew = {}) {
         { header: null, fields: [{ type: 'hidden', id: 'id', name: 'id', dataName: 'id' }] },
         { header: null, fields: [
             { label: 'Method:', type: 'select', id: 'method', name: 'method', dataName: 'method', options: ['Pour Over', 'French Press', 'Aeropress', 'Espresso', 'Cold Brew', 'Other: [Specify]'] },
+            { label: 'Date:', type: 'date', id: 'date', name: 'date', dataName: 'date' },
+            { label: 'Time:', type: 'time', id: 'time', name: 'time', dataName: 'time' },
             { label: 'Beans:', type: 'select', id: 'bean-id', name: 'bean-id', dataName: 'beanId', options: ['Select Bean'] }
         ] },
         { header: 'Grind Size', fields: [
@@ -89,11 +91,6 @@ export function buildBrewCard(brew = {}) {
                 }
             } else if (field.type === 'textarea') {
                 input = document.createElement('textarea');
-                input.id = field.id;
-                input.name = field.name;
-            } else if (field.type === 'hidden') {
-                input = document.createElement('input');
-                input.type = 'hidden';
                 input.id = field.id;
                 input.name = field.name;
             } else {
@@ -245,6 +242,8 @@ function cancelEditBrew(brewId) {
 function getBrewFromForm(brewFormData) {
     let brew = {
         method: brewFormData.get('method'),
+        date: brewFormData.get('date'),
+        time: brewFormData.get('time'),
         beanId: brewFormData.get('bean-id'),
         grindSetting: brewFormData.get('grind-setting'),
         grindDescription: brewFormData.get('grind-description'),
