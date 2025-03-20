@@ -20,14 +20,12 @@ export function buildBrewCard(brew = {}) {
             { label: 'Time:', type: 'time', id: 'time', name: 'time', dataName: 'time' },
             { label: 'Beans:', type: 'select', id: 'bean-id', name: 'bean-id', dataName: 'beanId', options: ['Select Bean'] }
         ] },
-        { header: 'Grind Size', fields: [
-            { label: 'Setting:', type: 'number', id: 'grind-setting', name: 'grind-setting', dataName: 'grindSetting' }
-        ]},
         { header: 'Water', fields: [
             { label: 'Temperature:', type: 'number', id: 'water-temperature', name: 'water-temperature', dataName: 'waterTemperature' },
             { label: 'Volume:', type: 'number', id: 'water-volume', name: 'water-volume', dataName: 'waterVolume' }
         ]},
         { header: 'Brewing Parameters', fields: [
+            { label: 'Grind Setting:', type: 'number', id: 'grind-setting', name: 'grind-setting', dataName: 'grindSetting' },
             { label: 'Dose (g):', type: 'number', step: '0.1', id: 'dose', name: 'dose', dataName: 'dose' },
             { label: 'Yield (g):', type: 'number', step: '0.1', id: 'yield', name: 'yield', dataName: 'yield' },
             { label: 'Brew Ratio:', type: 'number', step: '0.1', id: 'brew-ratio', name: 'brew-ratio', dataName: 'brewRatio' }
