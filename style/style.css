@@ -154,6 +154,16 @@ body {
     cursor: pointer;
 }
 
+#menu-options img.active {
+    opacity: 0.5;
+}
+
+#menu-options img.close-icon {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
 .menu-panel {
     position: absolute;
     background-color: #a78a7f;
