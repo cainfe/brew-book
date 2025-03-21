@@ -122,7 +122,8 @@ export function buildBrewCard(brew = {}) {
         deleteButton.id = 'brew-delete-button';
         deleteButton.textContent = 'Delete Brew';
         deleteButton.addEventListener('click', function () {
-            submitDeleteBrew(brew.id);
+            if (confirm("Are you sure you want to delete this brew?"))
+                submitDeleteBrew(brew.id);
         });
         form.appendChild(deleteButton);
 

@@ -85,7 +85,8 @@ export function buildBeanCard(bean = {}) {
         deleteButton.id = 'bean-delete-button';
         deleteButton.textContent = 'Delete Bean';
         deleteButton.addEventListener('click', function () {
-            submitDeleteBean(bean.id);
+            if (confirm(`Are you sure you want to delete the bean "${bean.name}"?`)) 
+                submitDeleteBean(bean.id);
         });
         form.appendChild(deleteButton);
 
