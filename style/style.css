@@ -93,9 +93,9 @@ body {
     margin: 0 auto;
 }
 
-#brew-delete-button, #bean-delete-button {
-    background-color: #D9534F;
-    color: white;
+.dangerous {
+    background-color: #D9534F !important;
+    color: white !important;
 }
 
 #bean-tasting-notes {
