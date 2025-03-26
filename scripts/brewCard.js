@@ -56,33 +56,33 @@ export function buildBrewCard(brew = {}) {
     form.appendChild(methodsContainer);
 
     const sections = [
-        { header: null, fields: [{ type: 'hidden', id: 'id', name: 'id', dataName: 'id' }] },
+        { header: null, fields: [{ type: 'hidden', name: 'id', dataName: 'id' }] },
         { header: null, fields: [
-            { label: 'Date:', type: 'date', id: 'date', name: 'date', dataName: 'date' },
-            { label: 'Time:', type: 'time', id: 'time', name: 'time', dataName: 'time' },
-            { label: 'Beans:', type: 'select', id: 'bean-id', name: 'bean-id', dataName: 'beanId', options: ['Select Bean'] }
+            { label: 'Date:', type: 'date', name: 'date', dataName: 'date' },
+            { label: 'Time:', type: 'time', name: 'time', dataName: 'time' },
+            { label: 'Beans:', type: 'select', name: 'bean-id', dataName: 'beanId', options: ['Select Bean'] }
         ] },
         { header: 'Water', fields: [
-            { label: 'Temperature:', type: 'number', id: 'water-temperature', name: 'water-temperature', dataName: 'waterTemperature' },
-            { label: 'Volume:', type: 'number', id: 'water-volume', name: 'water-volume', dataName: 'waterVolume' }
+            { label: 'Temperature:', type: 'number', name: 'water-temperature', dataName: 'waterTemperature' },
+            { label: 'Volume:', type: 'number', name: 'water-volume', dataName: 'waterVolume' }
         ]},
         { header: 'Brewing Parameters', fields: [
-            { label: 'Grind Setting:', type: 'number', id: 'grind-setting', name: 'grind-setting', dataName: 'grindSetting' },
-            { label: 'Dose (g):', type: 'number', step: '0.1', id: 'dose', name: 'dose', dataName: 'dose' },
-            { label: 'Yield (g):', type: 'number', step: '0.1', id: 'yield', name: 'yield', dataName: 'yield' },
-            { label: 'Brew Ratio:', type: 'number', step: '0.1', id: 'brew-ratio', name: 'brew-ratio', dataName: 'brewRatio' },
-            { label: 'Elapsed Time (s):', type: 'number', step: '1', id: 'elapsed-time', name: 'elapsed-time', dataName: 'elapsedTime' }
+            { label: 'Grind Setting:', type: 'number', name: 'grind-setting', dataName: 'grindSetting' },
+            { label: 'Dose (g):', type: 'number', step: '0.1', name: 'dose', dataName: 'dose' },
+            { label: 'Yield (g):', type: 'number', step: '0.1', name: 'yield', dataName: 'yield' },
+            { label: 'Brew Ratio:', type: 'number', step: '0.1', name: 'brew-ratio', dataName: 'brewRatio' },
+            { label: 'Elapsed Time (s):', type: 'number', step: '1', name: 'elapsed-time', dataName: 'elapsedTime' }
         ]},
         { header: 'Tasting Notes', fields: [
-            { label: 'Aroma:', type: 'text', id: 'aroma', name: 'aroma', dataName: 'aroma' },
-            { label: 'Flavor:', type: 'text', id: 'flavor', name: 'flavor', dataName: 'flavor' },
-            { label: 'Acidity:', type: 'text', id: 'acidity', name: 'acidity', dataName: 'acidity' },
-            { label: 'Body:', type: 'text', id: 'body', name: 'body', dataName: 'body' },
-            { label: 'Aftertaste:', type: 'text', id: 'aftertaste', name: 'aftertaste', dataName: 'aftertaste' },
-            { label: 'Overall:', type: 'text', id: 'overall-impression', name: 'overall-impression', dataName: 'overallImpression' }
+            { label: 'Aroma:', type: 'text', name: 'aroma', dataName: 'aroma' },
+            { label: 'Flavor:', type: 'text', name: 'flavor', dataName: 'flavor' },
+            { label: 'Acidity:', type: 'text', name: 'acidity', dataName: 'acidity' },
+            { label: 'Body:', type: 'text', name: 'body', dataName: 'body' },
+            { label: 'Aftertaste:', type: 'text', name: 'aftertaste', dataName: 'aftertaste' },
+            { label: 'Overall:', type: 'text', name: 'overall-impression', dataName: 'overallImpression' }
         ]},
         { header: 'Notes', fields: [
-            { label: null, type: 'textarea', id: 'notes', name: 'notes', dataName: 'notes' }
+            { label: null, type: 'textarea', name: 'notes', dataName: 'notes' }
         ]}
     ];
 
@@ -99,7 +99,6 @@ export function buildBrewCard(brew = {}) {
 
             if (field.label) {
                 const label = document.createElement('label');
-                label.htmlFor = field.id;
                 label.textContent = field.label;
                 div.appendChild(label);
             }
@@ -107,7 +106,6 @@ export function buildBrewCard(brew = {}) {
             let input;
             if (field.type === 'select') {
                 input = document.createElement('select');
-                input.id = field.id;
                 input.name = field.name;
                 field.options.forEach(option => {
                     const opt = document.createElement('option');
@@ -116,7 +114,7 @@ export function buildBrewCard(brew = {}) {
                     input.appendChild(opt);
                 });
 
-                if (field.id === 'bean-id') {
+                if (field.name === 'bean-id') {
                     const beans = getBeans();
                     beans.forEach(bean => {
                         const opt = document.createElement('option');
@@ -127,12 +125,14 @@ export function buildBrewCard(brew = {}) {
                 }
             } else if (field.type === 'textarea') {
                 input = document.createElement('textarea');
-                input.id = field.id;
                 input.name = field.name;
+                if (field.name === 'notes') {
+                    input.classList.add('full-width');
+                }
+
             } else {
                 input = document.createElement('input');
                 input.type = field.type;
-                input.id = field.id;
                 input.name = field.name;
                 if (field.step) {
                     input.step = field.step;

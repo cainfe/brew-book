@@ -98,11 +98,7 @@ body {
     color: white !important;
 }
 
-#bean-tasting-notes {
-    resize: none;
-}
-
-#notes, #tasting-notes {
+.content-card textarea.full-width {
     width: 100%;
     min-height: 100px;
     max-height: 200px;

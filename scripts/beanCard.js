@@ -49,6 +49,9 @@ export function buildBeanCard(bean = {}) {
             input = document.createElement('textarea');
             input.id = field.id;
             input.name = field.name;
+            if (field.name === 'tasting-notes') {
+                input.classList.add('full-width');
+            }
         } else if (field.type === 'hidden') {
             input = document.createElement('input');
             input.type = 'hidden';
