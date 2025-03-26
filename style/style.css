@@ -194,3 +194,43 @@ body {
 .menu-panel-content::-webkit-scrollbar {
     display: none;
 }
+
+.methods-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 1rem 0;
+}
+
+.methods-container input[type="radio"] {
+    display: none;
+}
+
+.method-label {
+    display: inline-block;
+    cursor: pointer;
+    margin: 0.5rem;
+    transition: transform 0.2s ease;
+}
+
+.method-label:hover {
+    transform: scale(1.1);
+}
+
+input[name="method"]:disabled + .method-label:hover {
+    transform: none;
+}
+
+.method-image {
+    border: 2px solid transparent;
+    border-radius: 8px;
+    transition: border-color 0.2s ease;
+    padding: 0.5rem;
+}
+
+input[name="method"]:checked + .method-label .method-image {
+    border-color: #a78a7f;
+    background-color: #E7D7C1;
+}

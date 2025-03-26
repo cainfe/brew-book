@@ -12,10 +12,52 @@ export function buildBrewCard(brew = {}) {
     if (isNewBrew) form.id = 'new-brew-form';
     else form.id = `brew-form-${brew.id}`;
 
+    const methodsContainer = document.createElement('div');
+    methodsContainer.classList.add('methods-container');
+    const methods = [
+        { id: 'method-pour-over-'+(brew.id ? brew.id : 'new'), value: 'Pour Over', imgSrc: './images/pour-over.png', alt: 'Pour Over' },
+        { id: 'method-french-press-'+(brew.id ? brew.id : 'new'), value: 'French Press', imgSrc: './images/french-press.png', alt: 'French Press' },
+        { id: 'method-aeropress-'+(brew.id ? brew.id : 'new'), value: 'Aeropress', imgSrc: './images/aeropress.png', alt: 'Aeropress' },
+        { id: 'method-espresso-'+(brew.id ? brew.id : 'new'), value: 'Espresso', imgSrc: './images/coffee-machine.png', alt: 'Espresso' },
+        { id: 'method-cold-brew-'+(brew.id ? brew.id : 'new'), value: 'Cold Brew', imgSrc: './images/cold-brew.png', alt: 'Cold Brew' }
+    ];
+    
+    methods.forEach(method => {
+        const radio = document.createElement('input');
+        radio.type = 'radio';
+        radio.name = 'method';
+        radio.value = method.value;
+        radio.id = method.id;
+    
+        const label = document.createElement('label');
+        label.htmlFor = method.id;
+        label.classList.add('method-label');
+    
+        const img = document.createElement('img');
+        img.src = method.imgSrc;
+        img.alt = method.alt;
+        img.classList.add('method-image');
+        img.title = method.value;
+    
+        label.appendChild(img);
+
+        if (!isNewBrew) {
+            radio.disabled = true;
+        }
+
+        if (brew.method === method.value) {
+            radio.checked = true;
+        }
+
+        methodsContainer.appendChild(radio);
+        methodsContainer.appendChild(label);
+    });
+
+    form.appendChild(methodsContainer);
+
     const sections = [
         { header: null, fields: [{ type: 'hidden', id: 'id', name: 'id', dataName: 'id' }] },
         { header: null, fields: [
-            { label: 'Method:', type: 'select', id: 'method', name: 'method', dataName: 'method', options: ['Pour Over', 'French Press', 'Aeropress', 'Espresso', 'Cold Brew', 'Other: [Specify]'] },
             { label: 'Date:', type: 'date', id: 'date', name: 'date', dataName: 'date' },
             { label: 'Time:', type: 'time', id: 'time', name: 'time', dataName: 'time' },
             { label: 'Beans:', type: 'select', id: 'bean-id', name: 'bean-id', dataName: 'beanId', options: ['Select Bean'] }
