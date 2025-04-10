@@ -230,3 +230,45 @@ input[name="method"]:checked + .method-label .method-image {
     border-color: #a78a7f;
     background-color: #E7D7C1;
 }
+
+.tasting-notes-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+    align-items: center;
+    width: 100%;
+    padding: 1rem 0;
+}
+
+.tasting-notes-list {
+    flex-basis: 100%;
+    flex-wrap: wrap;
+    overflow: hidden;
+    overflow-y: auto;
+    display: flex;
+    align-items: flex-start;
+    height: 100px;
+}
+
+.tasting-note {
+    display: inline-block;
+    margin: 0.25rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 8px;
+    border: 1px dashed white;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.tasting-note.hidden, .tasting-notes-search.hidden {
+    display: none;
+}
+
+.tasting-note:hover:not(.disabled) {
+    transform: scale(1.1);
+    background-color: #d4c0b0;
+    cursor: pointer;
+}
+
+.tasting-note.selected {
+    background-color: #a78a7f;
+}

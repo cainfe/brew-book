@@ -1,5 +1,6 @@
 import { upsertBrew, deleteBrew, getBrewById } from './storage.js';
 import { getBeans } from './storage.js';
+import { getTastingNotesInput, toggleTastingNotesEditable } from './tastingNotes.js';
 
 export function buildBrewCard(brew = {}) {
     const isNewBrew = Object.keys(brew).length === 0;
@@ -81,9 +82,7 @@ export function buildBrewCard(brew = {}) {
             { label: 'Aftertaste:', type: 'text', name: 'aftertaste', dataName: 'aftertaste' },
             { label: 'Overall:', type: 'text', name: 'overall-impression', dataName: 'overallImpression' }
         ]},
-        { header: 'Notes', fields: [
-            { label: null, type: 'textarea', name: 'notes', dataName: 'notes' }
-        ]}
+        { header: 'Notes', fields: [] }
     ];
 
     sections.forEach(section => {
@@ -152,6 +151,12 @@ export function buildBrewCard(brew = {}) {
         });
     });
 
+    const tastingNotesContainer = getTastingNotesInput(brew.tastingNotes ? brew.tastingNotes.split(', ') : []);
+    if (!isNewBrew) {
+        toggleTastingNotesEditable(tastingNotesContainer, false);
+    }
+    form.appendChild(tastingNotesContainer);
+
     if (isNewBrew) {
         const submitButton = document.createElement('button');
         submitButton.type = 'submit';
@@ -199,8 +204,14 @@ export function buildBrewCard(brew = {}) {
 
     form.addEventListener('submit', function (event) {
         event.preventDefault();
+
         const brewData = new FormData(form);
         const brew = getBrewFromForm(brewData);
+
+        const selectedNotesContainer = form.querySelector('.tasting-notes-list');
+        const selectedNotes = Array.from(selectedNotesContainer.querySelectorAll('.tasting-note.selected')).map(note => note.textContent);
+        brew.tastingNotes = selectedNotes.join(', ');
+
         upsertBrew(brew);
         
         if (isNewBrew) {
@@ -245,6 +256,11 @@ function initiateEditBrew(brewId) {
             input.disabled = false;
         });
 
+        const tastingNotesContainer = brewCard.querySelector('.tasting-notes-container');
+        if (tastingNotesContainer) {
+            toggleTastingNotesEditable(tastingNotesContainer, true);
+        }
+
         const saveButton = brewCard.querySelector('.save-button');
         const cancelButton = brewCard.querySelector('.cancel-button');
         saveButton.classList.remove('hidden');
@@ -262,6 +278,11 @@ function cancelEditBrew(brewId) {
         inputs.forEach(input => {
             input.disabled = true;
         });
+
+        const tastingNotesContainer = brewCardForm.querySelector('.tasting-notes-container');
+        if (tastingNotesContainer) {
+            toggleTastingNotesEditable(tastingNotesContainer, false);
+        }
         
         const brew = getBrewById(brewId);
         if (brew) {
@@ -303,9 +324,7 @@ function getBrewFromForm(brewFormData) {
         notes: brewFormData.get('notes')
     }
 
-    if (!brewFormData.get('id')) {
-        brew.id = Date.now().toString();
-    } else {
+    if (brewFormData.get('id')) {
         brew.id = brewFormData.get('id');
     }
 
