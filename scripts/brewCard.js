@@ -1,6 +1,6 @@
 import { upsertBrew, deleteBrew, getBrewById } from './storage.js';
 import { getBeans } from './storage.js';
-import { getTastingNotesInput, toggleTastingNotesEditable } from './tastingNotes.js';
+import { getTastingNotesInput, toggleTastingNotesEditable, getSelectedTastingNotes } from './tastingNotes.js';
 
 export function buildBrewCard(brew = {}) {
     const isNewBrew = Object.keys(brew).length === 0;
@@ -208,9 +208,8 @@ export function buildBrewCard(brew = {}) {
         const brewData = new FormData(form);
         const brew = getBrewFromForm(brewData);
 
-        const selectedNotesContainer = form.querySelector('.tasting-notes-list');
-        const selectedNotes = Array.from(selectedNotesContainer.querySelectorAll('.tasting-note.selected')).map(note => note.textContent);
-        brew.tastingNotes = selectedNotes.join(', ');
+        const tastingNotes = getSelectedTastingNotes(tastingNotesContainer);
+        brew.tastingNotes = tastingNotes ? tastingNotes.join(', ') : '';
 
         upsertBrew(brew);
         

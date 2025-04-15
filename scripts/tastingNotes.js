@@ -125,3 +125,8 @@ function showNote(note) {
 function isNoteSelected(note) {
     return note.classList.contains('selected');
 }
+
+export function getSelectedTastingNotes(notesContainer) {
+    const selectedNotes = Array.from(notesContainer.querySelectorAll('.tasting-note.selected')).map(note => note.textContent);
+    return selectedNotes.length > 0 ? selectedNotes : null;
+}
