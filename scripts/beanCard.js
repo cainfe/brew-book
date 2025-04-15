@@ -1,4 +1,5 @@
 import { deleteBean, getBeanById, upsertBean } from './storage.js';
+import { getTastingNotesInput, toggleTastingNotesEditable, getSelectedTastingNotes } from './tastingNotes.js';
 
 export function buildBeanCard(bean = {}) {
     const isNewBean = Object.keys(bean).length === 0;
@@ -24,9 +25,7 @@ export function buildBeanCard(bean = {}) {
             { label: 'Roaster:', type: 'text', name: 'roaster', dataName: 'roaster' },
             { label: 'Roast Level:', type: 'select', name: 'roast-level', dataName: 'roastLevel', options: ['Light', 'Medium', 'Dark'] },
         ]},
-        { header: 'Tasting Notes', fields: [
-            { label: null, type: 'textarea', name: 'tasting-notes', dataName: 'tastingNotes' }
-        ]}
+        { header: 'Tasting Notes', fields: [] }
     ];
 
     sections.forEach(section => {
@@ -85,6 +84,12 @@ export function buildBeanCard(bean = {}) {
         });
     });
 
+    const tastingNotesContainer = getTastingNotesInput(bean.tastingNotes ? bean.tastingNotes.split(', ') : []);
+    if (!isNewBean) {
+        toggleTastingNotesEditable(tastingNotesContainer, false);
+    }
+    form.appendChild(tastingNotesContainer);
+
     if (isNewBean) {
         const submitButton = document.createElement('button');
         submitButton.type = 'submit';
@@ -132,8 +137,13 @@ export function buildBeanCard(bean = {}) {
 
     form.addEventListener('submit', function (event) {
         event.preventDefault();
+
         const beanData = new FormData(form);
         const bean = getBeanFromForm(beanData);
+
+        const tastingNotes = getSelectedTastingNotes(tastingNotesContainer);
+        bean.tastingNotes = tastingNotes ? tastingNotes.join(', ') : '';
+
         upsertBean(bean);
 
         if (isNewBean) {
@@ -178,6 +188,11 @@ function initiateEditBean(beanId) {
             input.disabled = false;
         });
 
+        const tastingNotesContainer = beanCard.querySelector('.tasting-notes-container');
+        if (tastingNotesContainer) {
+            toggleTastingNotesEditable(tastingNotesContainer, true);
+        }
+
         const saveButton = beanCard.querySelector('.save-button');
         const cancelButton = beanCard.querySelector('.cancel-button');
         saveButton.classList.remove('hidden');
@@ -195,6 +210,11 @@ function cancelEditBean(beanId) {
         inputs.forEach(input => {
             input.disabled = true;
         });
+
+        const tastingNotesContainer = beanCardForm.querySelector('.tasting-notes-container');
+        if (tastingNotesContainer) {
+            toggleTastingNotesEditable(tastingNotesContainer, false);
+        }
         
         const bean = getBeanById(beanId);
         if (bean) {
