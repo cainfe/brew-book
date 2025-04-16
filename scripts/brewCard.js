@@ -74,7 +74,7 @@ export function buildBrewCard(brew = {}) {
             { label: 'Brew Ratio:', type: 'number', step: '0.1', name: 'brew-ratio', dataName: 'brewRatio' },
             { label: 'Elapsed Time (s):', type: 'number', step: '1', name: 'elapsed-time', dataName: 'elapsedTime' }
         ]},
-        { header: 'Tasting Notes', fields: [
+        { header: 'Sensory Profile', fields: [
             { label: 'Aroma:', type: 'text', name: 'aroma', dataName: 'aroma' },
             { label: 'Flavor:', type: 'text', name: 'flavor', dataName: 'flavor' },
             { label: 'Acidity:', type: 'text', name: 'acidity', dataName: 'acidity' },
@@ -82,7 +82,7 @@ export function buildBrewCard(brew = {}) {
             { label: 'Aftertaste:', type: 'text', name: 'aftertaste', dataName: 'aftertaste' },
             { label: 'Overall:', type: 'text', name: 'overall-impression', dataName: 'overallImpression' }
         ]},
-        { header: 'Notes', fields: [] }
+        { header: 'Tasting Notes', fields: [] }
     ];
 
     sections.forEach(section => {
@@ -128,7 +128,6 @@ export function buildBrewCard(brew = {}) {
                 if (field.name === 'notes') {
                     input.classList.add('full-width');
                 }
-
             } else {
                 input = document.createElement('input');
                 input.type = field.type;
