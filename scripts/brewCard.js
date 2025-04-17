@@ -5,201 +5,47 @@ import { getTastingNotesInput, toggleTastingNotesEditable, getSelectedTastingNot
 export function buildBrewCard(brew = {}) {
     const isNewBrew = Object.keys(brew).length === 0;
 
-    const brewCard = document.createElement('li');
-    brewCard.classList.add('brew-card');
-    brewCard.classList.add('content-card');
-    const form = document.createElement('form');
-    form.classList.add('content-card-form');
-    if (isNewBrew) form.id = 'new-brew-form';
-    else form.id = `brew-form-${brew.id}`;
+    const template = document.getElementById('brew-card-template');
 
-    const methodsContainer = document.createElement('div');
-    methodsContainer.classList.add('methods-container');
-    const methods = [
-        { id: 'method-pour-over-'+(brew.id ? brew.id : 'new'), value: 'Pour Over', imgSrc: './images/pour-over.png', alt: 'Pour Over' },
-        { id: 'method-french-press-'+(brew.id ? brew.id : 'new'), value: 'French Press', imgSrc: './images/french-press.png', alt: 'French Press' },
-        { id: 'method-aeropress-'+(brew.id ? brew.id : 'new'), value: 'Aeropress', imgSrc: './images/aeropress.png', alt: 'Aeropress' },
-        { id: 'method-espresso-'+(brew.id ? brew.id : 'new'), value: 'Espresso', imgSrc: './images/coffee-machine.png', alt: 'Espresso' },
-        { id: 'method-cold-brew-'+(brew.id ? brew.id : 'new'), value: 'Cold Brew', imgSrc: './images/cold-brew.png', alt: 'Cold Brew' }
-    ];
+    if (!template) return null;
+    const clone = template.content.cloneNode(true);
     
-    methods.forEach(method => {
-        const radio = document.createElement('input');
-        radio.type = 'radio';
-        radio.name = 'method';
-        radio.value = method.value;
-        radio.id = method.id;
-    
-        const label = document.createElement('label');
-        label.htmlFor = method.id;
-        label.classList.add('method-label');
-    
-        const img = document.createElement('img');
-        img.src = method.imgSrc;
-        img.alt = method.alt;
-        img.classList.add('method-image');
-        img.title = method.value;
-    
-        label.appendChild(img);
-
-        if (!isNewBrew) {
-            radio.disabled = true;
-        }
-
-        if (brew.method === method.value) {
-            radio.checked = true;
-        }
-
-        methodsContainer.appendChild(radio);
-        methodsContainer.appendChild(label);
+    const allElements = clone.querySelectorAll('*');
+    allElements.forEach(element => {
+        if (element.getAttribute('id')) element.setAttribute('id', `${element.getAttribute('id')}-${brew.id ? brew.id : 'new'}`);
     });
 
-    form.appendChild(methodsContainer);
+    const brewCard = clone.querySelector('.brew-card');
+    const form = clone.querySelector('form');
+    const tastingNotesContainer = clone.querySelector('.tasting-notes-container');
 
-    const sections = [
-        { header: null, fields: [{ type: 'hidden', name: 'id', dataName: 'id' }] },
-        { header: null, fields: [
-            { label: 'Date:', type: 'date', name: 'date', dataName: 'date' },
-            { label: 'Time:', type: 'time', name: 'time', dataName: 'time' },
-            { label: 'Beans:', type: 'select', name: 'bean-id', dataName: 'beanId', options: ['Select Bean'] }
-        ] },
-        { header: 'Water', fields: [
-            { label: 'Temperature:', type: 'number', name: 'water-temperature', dataName: 'waterTemperature' },
-            { label: 'Volume:', type: 'number', name: 'water-volume', dataName: 'waterVolume' }
-        ]},
-        { header: 'Brewing Parameters', fields: [
-            { label: 'Grind Setting:', type: 'number', name: 'grind-setting', dataName: 'grindSetting' },
-            { label: 'Dose (g):', type: 'number', step: '0.1', name: 'dose', dataName: 'dose' },
-            { label: 'Yield (g):', type: 'number', step: '0.1', name: 'yield', dataName: 'yield' },
-            { label: 'Brew Ratio:', type: 'number', step: '0.1', name: 'brew-ratio', dataName: 'brewRatio' },
-            { label: 'Elapsed Time (s):', type: 'number', step: '1', name: 'elapsed-time', dataName: 'elapsedTime' }
-        ]},
-        { header: 'Sensory Profile', fields: [
-            { label: 'Aroma:', type: 'text', name: 'aroma', dataName: 'aroma' },
-            { label: 'Flavor:', type: 'text', name: 'flavor', dataName: 'flavor' },
-            { label: 'Acidity:', type: 'text', name: 'acidity', dataName: 'acidity' },
-            { label: 'Body:', type: 'text', name: 'body', dataName: 'body' },
-            { label: 'Aftertaste:', type: 'text', name: 'aftertaste', dataName: 'aftertaste' },
-            { label: 'Overall:', type: 'text', name: 'overall-impression', dataName: 'overallImpression' }
-        ]},
-        { header: 'Tasting Notes', fields: [] }
-    ];
+    const submitButton = clone.querySelector('.submit-button');
+    if (isNewBrew) submitButton.classList.remove('hidden');
+    else submitButton.classList.add('hidden');
 
-    sections.forEach(section => {
-        if (section.header) {
-            const header = document.createElement('h3');
-            header.textContent = section.header;
-            form.appendChild(header);
-        }
-
-        section.fields.forEach(field => {
-            const div = document.createElement('div');
-            div.classList.add('content-card-form-field');
-
-            if (field.label) {
-                const label = document.createElement('label');
-                label.textContent = field.label;
-                div.appendChild(label);
-            }
-
-            let input;
-            if (field.type === 'select') {
-                input = document.createElement('select');
-                input.name = field.name;
-                field.options.forEach(option => {
-                    const opt = document.createElement('option');
-                    opt.value = option;
-                    opt.textContent = option;
-                    input.appendChild(opt);
-                });
-
-                if (field.name === 'bean-id') {
-                    const beans = getBeans();
-                    beans.forEach(bean => {
-                        const opt = document.createElement('option');
-                        opt.value = bean.id;
-                        opt.textContent = bean.name;
-                        input.appendChild(opt);
-                    });
-                }
-            } else if (field.type === 'textarea') {
-                input = document.createElement('textarea');
-                input.name = field.name;
-                if (field.name === 'notes') {
-                    input.classList.add('full-width');
-                }
-            } else {
-                input = document.createElement('input');
-                input.type = field.type;
-                input.name = field.name;
-                if (field.step) {
-                    input.step = field.step;
-                }
-            }
-
-            if (brew[field.dataName]) {
-                input.value = brew[field.dataName];
-            }
-
-            if (!isNewBrew) {
-                input.disabled = true;
-            }
-
-            div.appendChild(input);
-            form.appendChild(div);
-        });
+    const deleteButton = clone.querySelector('.delete-button');
+    if (isNewBrew) deleteButton.classList.add('hidden');
+    else deleteButton.classList.remove('hidden');
+    deleteButton.addEventListener('click', function () {
+        if (confirm("Are you sure you want to delete this brew?"))
+            submitDeleteBrew(brew.id);
     });
 
-    const tastingNotesContainer = getTastingNotesInput(brew.tastingNotes ? brew.tastingNotes.split(', ') : []);
-    if (!isNewBrew) {
-        toggleTastingNotesEditable(tastingNotesContainer, false);
-    }
-    form.appendChild(tastingNotesContainer);
+    const editButton = clone.querySelector('.edit-button');
+    if (isNewBrew) editButton.classList.add('hidden');
+    else editButton.classList.remove('hidden');
+    editButton.addEventListener('click', function () {
+        initiateEditBrew(brew.id);
+    });
 
-    if (isNewBrew) {
-        const submitButton = document.createElement('button');
-        submitButton.type = 'submit';
-        submitButton.textContent = 'Add Brew';
-        submitButton.classList.add('submit-button');
-        form.appendChild(submitButton);
-    } else {
-        const deleteButton = document.createElement('button');
-        deleteButton.type = 'button';
-        deleteButton.textContent = 'Delete Brew';
-        deleteButton.classList.add('delete-button');
-        deleteButton.classList.add('dangerous');
-        deleteButton.addEventListener('click', function () {
-            if (confirm("Are you sure you want to delete this brew?"))
-                submitDeleteBrew(brew.id);
-        });
-        form.appendChild(deleteButton);
+    const saveEditsButton = clone.querySelector('.save-button');
+    saveEditsButton.classList.add('hidden');
 
-        const editButton = document.createElement('button');
-        editButton.type = 'button';
-        editButton.textContent = 'Edit Brew';
-        editButton.classList.add('edit-button');
-        editButton.addEventListener('click', function () {
-            initiateEditBrew(brew.id);
-        });
-        form.appendChild(editButton);
+    const cancelButton = clone.querySelector('.cancel-button');
+    cancelButton.addEventListener('click', function () {
+        cancelEditBrew(brew.id);
+    });
 
-        const saveEditsButton = document.createElement('button');
-        saveEditsButton.type = 'submit';
-        saveEditsButton.textContent = 'Save Edits';
-        saveEditsButton.classList.add('hidden');
-        saveEditsButton.classList.add('save-button');
-        form.appendChild(saveEditsButton);
-
-        const cancelButton = document.createElement('button');
-        cancelButton.type = 'button';
-        cancelButton.textContent = 'Cancel';
-        cancelButton.classList.add('hidden');
-        cancelButton.classList.add('cancel-button');
-        cancelButton.addEventListener('click', function () {
-            cancelEditBrew(brew.id);
-        });
-        form.appendChild(cancelButton);
-    }
 
     form.addEventListener('submit', function (event) {
         event.preventDefault();
