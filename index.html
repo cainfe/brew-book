@@ -21,7 +21,7 @@
                 <li><a onclick="toggleMenu('settings-menu')"><img src="./images/cogwheel.png" alt="cogwheel" title="Settings Menu"></a></li>
             </ul>
         </div>
-        
+
         <div id="bean-menu" class="menu-panel">
             <div class="menu-panel-header">
                 <h1>Beans</h1>
@@ -52,5 +52,138 @@
         </div>
     </div>
 </body>
+
+<template>
+    <li class="brew-card content-card">
+        <form class="content-card-form" id="new-brew">
+            <div class="methods-container">
+                <input type="radio" name="method" value="Pour Over" id="method-pour-over">
+                <label for="method-pour-over" class="method-label">
+                    <img src="./images/pour-over.png" alt="Pour Over" class="method-image" title="Pour Over">
+                </label>
+                <input type="radio" name="method" value="French Press" id="method-french-press">
+                <label for="method-french-press" class="method-label">
+                    <img src="./images/french-press.png" alt="French Press" class="method-image" title="French Press">
+                </label>
+                <input type="radio" name="method" value="Aeropress" id="method-aeropress">
+                <label for="method-aeropress" class="method-label">
+                    <img src="./images/aeropress.png" alt="Aeropress" class="method-image" title="Aeropress">
+                </label>
+                <input type="radio" name="method" value="Espresso" id="method-espresso">
+                <label for="method-espresso" class="method-label">
+                    <img src="./images/coffee-machine.png" alt="Espresso" class="method-image" title="Espresso">
+                </label>
+                <input type="radio" name="method" value="Cold Brew" id="method-cold-brew">
+                <label for="method-cold-brew" class="method-label">
+                    <img src="./images/cold-brew.png" alt="Cold Brew" class="method-image" title="Cold Brew">
+                </label>
+            </div>
+            <div class="content-card-form-field">
+                <input type="hidden" name="id"></div>
+            <div class="content-card-form-field">
+                <label>Date:</label>
+                <input type="date" name="date"></div>
+            <div class="content-card-form-field">
+                <label>Time:</label>
+                <input type="time" name="time"></div>
+            <div class="content-card-form-field">
+                <label>Beans:</label>
+                <select name="bean-id">
+                    <option value="Select Bean" disabled selected>Select Bean</option>
+                </select></div>
+            <h3>Water</h3>
+            <div class="content-card-form-field">
+                <label>Temperature:</label>
+                <input type="number" name="water-temperature"></div>
+            <div class="content-card-form-field">
+                <label>Volume:</label>
+                <input type="number" name="water-volume"></div>
+            <h3>Brewing Parameters</h3>
+            <div class="content-card-form-field">
+                <label>Grind Setting:</label>
+                <input type="number" name="grind-setting">
+            </div>
+            <div class="content-card-form-field">
+                <label>Dose (g):</label>
+                <input type="number" name="dose" step="0.1">
+            </div>
+            <div class="content-card-form-field">
+                <label>Yield (g):</label>
+                <input type="number" name="yield" step="0.1">
+            </div>
+            <div class="content-card-form-field">
+                <label>Brew Ratio:</label>
+                <input type="number" name="brew-ratio" step="0.1"></div>
+            <div class="content-card-form-field">
+                <label>Elapsed Time (s):</label>
+                <input type="number" name="elapsed-time" step="1"></div>
+            <h3>Sensory Profile</h3>
+            <div class="content-card-form-field">
+                <label>Aroma:</label>
+                <input type="text" name="aroma"></div>
+            <div class="content-card-form-field">
+                <label>Flavor:</label>
+                <input type="text" name="flavor"></div>
+            <div class="content-card-form-field">
+                <label>Acidity:</label>
+                <input type="text" name="acidity"></div>
+            <div class="content-card-form-field">
+                <label>Body:</label>
+                <input type="text" name="body"></div>
+            <div class="content-card-form-field">
+                <label>Aftertaste:</label>
+                <input type="text" name="aftertaste"></div>
+            <div class="content-card-form-field">
+                <label>Overall:</label>
+                <input type="text" name="overall-impression">
+            </div>
+            <h3>Tasting Notes</h3>
+            <div class="tasting-notes-container"><input type="text" placeholder="Type a tasting note..." class="tasting-notes-search">
+                <div class="tasting-notes-list">
+                    <div class="tasting-note">Chocolate</div>
+                    <div class="tasting-note">Caramel</div>
+                    <div class="tasting-note">Nutty</div>
+                    <div class="tasting-note">Fruity</div>
+                    <div class="tasting-note">Citrus</div>
+                    <div class="tasting-note">Floral</div>
+                    <div class="tasting-note">Spicy</div>
+                    <div class="tasting-note">Earthy</div>
+                    <div class="tasting-note">Sweet</div>
+                    <div class="tasting-note">Savory</div>
+                    <div class="tasting-note">Cocoa</div>
+                    <div class="tasting-note">Brown Sugar</div>
+                    <div class="tasting-note">Vanilla</div>
+                    <div class="tasting-note">Vanillin</div>
+                    <div class="tasting-note">Overall Sweet</div>
+                    <div class="tasting-note">Black Tea</div>
+                    <div class="tasting-note">Berry</div>
+                    <div class="tasting-note">Dried Fruit</div>
+                    <div class="tasting-note">Other Fruit</div>
+                    <div class="tasting-note">Citrus Fruit</div>
+                    <div class="tasting-note">Sour</div>
+                    <div class="tasting-note">Alcohol/Fermented</div>
+                    <div class="tasting-note">Olive Oil</div>
+                    <div class="tasting-note">Raw</div>
+                    <div class="tasting-note">Green/Vegetative</div>
+                    <div class="tasting-note">Beany</div>
+                    <div class="tasting-note">Papery/Misty</div>
+                    <div class="tasting-note">Chemical</div>
+                    <div class="tasting-note">Pipe Tobacco</div>
+                    <div class="tasting-note">Tobacco</div>
+                    <div class="tasting-note">Burnt</div>
+                    <div class="tasting-note">Cereal</div>
+                    <div class="tasting-note">Pungent</div>
+                    <div class="tasting-note">Pepper</div>
+                    <div class="tasting-note">Brown Spice</div>
+                </div>
+            </div>
+            <button type="submit" class="submit-button">Add Brew</button>
+            <button type="button" class="hidden delete-button dangerous">Delete Brew</button>
+            <button type="button" class="hidden edit-button">Edit Brew</button>
+            <button type="submit" class="hidden save-button">Save Edits</button>
+            <button type="button" class="hidden cancel-button">Cancel</button>
+        </form>
+    </li>
+</template>
 
 </html>
