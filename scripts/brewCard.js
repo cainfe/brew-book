@@ -27,6 +27,18 @@ export function buildBrewCard(brew = {}) {
     const form = clone.querySelector('form');
     const tastingNotesContainer = clone.querySelector('.tasting-notes-container');
 
+    const beans = getBeans();
+    const beanSelect = clone.querySelector('select[name="bean-id"]');
+    if (beanSelect) {
+        beans.forEach(bean => {
+            const option = document.createElement('option');
+            option.value = bean.id;
+            option.textContent = bean.name;
+            if (brew.beanId === bean.id) option.selected = true;
+            beanSelect.appendChild(option);
+        });
+    }
+
     const submitButton = clone.querySelector('.submit-button');
     if (isNewBrew) submitButton.classList.remove('hidden');
     else submitButton.classList.add('hidden');
