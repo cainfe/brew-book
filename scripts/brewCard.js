@@ -25,7 +25,13 @@ export function buildBrewCard(brew = {}) {
 
     const brewCard = clone.querySelector('.brew-card');
     const form = clone.querySelector('form');
-    const tastingNotesContainer = clone.querySelector('.tasting-notes-container');
+
+    const tastingNotesContainer = getTastingNotesInput();
+    const tastingNotesTitle = clone.querySelector('.tasting-notes-title');
+    toggleTastingNotesEditable(tastingNotesContainer, isNewBrew);
+    if (tastingNotesTitle) {
+        tastingNotesTitle.after(tastingNotesContainer);
+    }
 
     const beans = getBeans();
     const beanSelect = clone.querySelector('select[name="bean-id"]');
