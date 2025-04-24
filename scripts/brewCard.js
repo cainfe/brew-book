@@ -12,7 +12,15 @@ export function buildBrewCard(brew = {}) {
     
     const allElements = clone.querySelectorAll('*');
     allElements.forEach(element => {
-        if (element.getAttribute('id')) element.setAttribute('id', `${element.getAttribute('id')}-${brew.id ? brew.id : 'new'}`);
+        if (element.getAttribute('id')) {
+            const newId = `${element.getAttribute('id')}-${brew.id ? brew.id : 'new'}`;
+            allElements.forEach(forElement => {
+                if (forElement.getAttribute('for') === element.getAttribute('id')) {
+                    forElement.setAttribute('for', newId);
+                }
+            });
+            element.setAttribute('id', newId);
+        }
     });
 
     const brewCard = clone.querySelector('.brew-card');
