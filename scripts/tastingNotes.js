@@ -123,7 +123,19 @@ function updateSuggestions(query, notesListContainer) {
 }
 
 function toggleNoteSelected(noteElement) {
-    noteElement.classList.toggle('selected');
+    if (isNoteSelected(noteElement)) {
+        deselectNote(noteElement);
+    } else {
+        selectNote(noteElement);
+    }
+}
+
+function selectNote(note) {
+    note.classList.add('selected');
+}
+
+function deselectNote(note) {
+    note.classList.remove('selected');
 }
 
 function hideNote(note) {
