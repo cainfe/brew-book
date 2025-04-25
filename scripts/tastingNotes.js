@@ -87,16 +87,28 @@ export function toggleTastingNotesEditable(tastingNotesContainer, isEditable) {
     const notes = tastingNotesContainer.querySelectorAll('.tasting-note');
     notes.forEach(note => {
         if (isEditable) {
-            note.classList.remove('disabled');
-            note.addEventListener('click', handleNoteClick);
+            enableNote(note);
             showNote(note);
         } else {
-            note.classList.add('disabled');
-            note.removeEventListener('click', handleNoteClick);
+            disableNote(note);
             if (isNoteSelected(note)) showNote(note);
             else hideNote(note);
         }
     });
+}
+
+function isNoteDisabled(note) {
+    return note.classList.contains('disabled');
+}
+
+function disableNote(note) {
+    note.classList.add('disabled');
+    note.removeEventListener('click', handleNoteClick);
+}
+
+function enableNote(note) {
+    note.classList.remove('disabled');
+    note.addEventListener('click', handleNoteClick);
 }
 
 function updateSuggestions(query, notesListContainer) {
