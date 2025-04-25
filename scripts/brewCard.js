@@ -1,6 +1,6 @@
 import { upsertBrew, deleteBrew, getBrewById } from './storage.js';
 import { getBeans } from './storage.js';
-import { getTastingNotesInput, toggleTastingNotesEditable, getSelectedTastingNotes } from './tastingNotes.js';
+import { getTastingNotesInput, toggleTastingNotesEditable, getSelectedTastingNotes, selectTastingNotes } from './tastingNotes.js';
 
 export function buildBrewCard(brew = {}) {
     const isNewBrew = Object.keys(brew).length === 0;
@@ -94,9 +94,43 @@ export function buildBrewCard(brew = {}) {
         }
     });
 
+    if (!isNewBrew) populateBrewCardFields(brew, brewCard);
+
     brewCard.appendChild(form);
 
     return brewCard;
+}
+
+function populateBrewCardFields(brew, brewCard) {
+    if (!brew || !brewCard) return;
+
+    brewCard.querySelector('input[name="id"]').value = brew.id || '';
+    const methodRadio = brewCard.querySelector(`input[name="method"][value="${brew.method}"]`);
+    if (methodRadio) {
+        methodRadio.checked = true;
+    }
+    brewCard.querySelector('input[name="date"]').value = brew.date || '';
+    brewCard.querySelector('input[name="time"]').value = brew.time || '';
+    brewCard.querySelector('select[name="bean-id"]').value = brew.beanId || '';
+    brewCard.querySelector('input[name="grind-setting"]').value = brew.grindSetting || '';
+    brewCard.querySelector('input[name="water-temperature"]').value = brew.waterTemperature || '';
+    brewCard.querySelector('input[name="water-volume"]').value = brew.waterVolume || '';
+    brewCard.querySelector('input[name="dose"]').value = brew.dose || '';
+    brewCard.querySelector('input[name="yield"]').value = brew.yield || '';
+    brewCard.querySelector('input[name="brew-ratio"]').value = brew.brewRatio || '';
+    brewCard.querySelector('input[name="elapsed-time"]').value = brew.elapsedTime || '';
+    brewCard.querySelector('input[name="aroma"]').value = brew.aroma || '';
+    brewCard.querySelector('input[name="flavor"]').value = brew.flavor || '';
+    brewCard.querySelector('input[name="acidity"]').value = brew.acidity || '';
+    brewCard.querySelector('input[name="body"]').value = brew.body || '';
+    brewCard.querySelector('input[name="aftertaste"]').value = brew.aftertaste || '';
+    brewCard.querySelector('input[name="overall-impression"]').value = brew.overallImpression || '';
+
+    const tastingNotesContainer = brewCard.querySelector('.tasting-notes-container');
+    if (tastingNotesContainer) {
+        const tastingNotes = brew.tastingNotes ? brew.tastingNotes.split(', ') : [];
+        selectTastingNotes(tastingNotesContainer, tastingNotes);
+    }
 }
 
 export function listBrews(brews = {}) {
