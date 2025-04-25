@@ -61,7 +61,7 @@ export function buildBrewCard(brew = {}) {
     if (isNewBrew) editButton.classList.add('hidden');
     else editButton.classList.remove('hidden');
     editButton.addEventListener('click', function () {
-        initiateEditBrew(brew.id);
+        enableBrewEditing(brew.id);
     });
 
     const saveEditsButton = clone.querySelector('.save-button');
@@ -69,7 +69,7 @@ export function buildBrewCard(brew = {}) {
 
     const cancelButton = clone.querySelector('.cancel-button');
     cancelButton.addEventListener('click', function () {
-        cancelEditBrew(brew.id);
+        disableBrewEditing(brew.id);
     });
 
 
@@ -118,7 +118,7 @@ function submitDeleteBrew(brewId) {
     }
 }
 
-function initiateEditBrew(brewId) {
+function enableBrewEditing(brewId) {
     const brewCard = document.getElementById(`brew-form-${brewId}`);
     if (brewCard) {
         const inputs = brewCard.querySelectorAll('input, select, textarea');
@@ -141,7 +141,7 @@ function initiateEditBrew(brewId) {
     }
 }
 
-function cancelEditBrew(brewId) {
+function disableBrewEditing(brewId) {
     const brewCardForm = document.getElementById(`brew-form-${brewId}`);
     if (brewCardForm) {
         const inputs = brewCardForm.querySelectorAll('input, select, textarea');
