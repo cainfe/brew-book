@@ -7,7 +7,10 @@ export function buildBrewCard(brew = {}) {
 
     const template = document.getElementById('brew-card-template');
 
-    if (!template) return null;
+    if (!template) {
+        console.error('Brew card template not found!');
+        return null;
+    }
     const clone = template.content.cloneNode(true);
     
     const allElements = clone.querySelectorAll('*');
