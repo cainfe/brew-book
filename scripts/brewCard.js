@@ -94,7 +94,10 @@ export function buildBrewCard(brew = {}) {
         }
     });
 
-    if (!isNewBrew) populateBrewCardFields(brew, brewCard);
+    if (!isNewBrew) {
+        populateBrewCardFields(brew, brewCard);
+        disableBrewEditing(brewCard);
+    }
 
     brewCard.appendChild(form);
 
