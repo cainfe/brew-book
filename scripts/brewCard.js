@@ -61,7 +61,7 @@ export function buildBrewCard(brew = {}) {
     if (isNewBrew) editButton.classList.add('hidden');
     else editButton.classList.remove('hidden');
     editButton.addEventListener('click', function () {
-        enableBrewEditing(brew.id);
+        enableBrewEditing(brewCard);
     });
 
     const saveEditsButton = clone.querySelector('.save-button');
@@ -69,7 +69,7 @@ export function buildBrewCard(brew = {}) {
 
     const cancelButton = clone.querySelector('.cancel-button');
     cancelButton.addEventListener('click', function () {
-        disableBrewEditing(brew.id);
+        disableBrewEditing(brewCard);
     });
 
 
@@ -152,8 +152,7 @@ function submitDeleteBrew(brewId) {
     }
 }
 
-function enableBrewEditing(brewId) {
-    const brewCard = document.getElementById(`brew-form-${brewId}`);
+function enableBrewEditing(brewCard) {
     if (brewCard) {
         const inputs = brewCard.querySelectorAll('input, select, textarea');
         inputs.forEach(input => {
@@ -175,32 +174,29 @@ function enableBrewEditing(brewId) {
     }
 }
 
-function disableBrewEditing(brewId) {
-    const brewCardForm = document.getElementById(`brew-form-${brewId}`);
-    if (brewCardForm) {
-        const inputs = brewCardForm.querySelectorAll('input, select, textarea');
+function disableBrewEditing(brewCard) {
+    if (brewCard) {
+        const inputs = brewCard.querySelectorAll('input, select, textarea');
         inputs.forEach(input => {
             input.disabled = true;
         });
 
-        const tastingNotesContainer = brewCardForm.querySelector('.tasting-notes-container');
+        const tastingNotesContainer = brewCard.querySelector('.tasting-notes-container');
         if (tastingNotesContainer) {
             toggleTastingNotesEditable(tastingNotesContainer, false);
         }
         
-        const brew = getBrewById(brewId);
+        const brew = getBrewById(brewCard.querySelector('input[name="id"]').value);
         if (brew) {
-            const oldBrewCard = brewCardForm.closest('.brew-card');
-            const newBrewCard = buildBrewCard(brew);
-            oldBrewCard.replaceWith(newBrewCard);
+            populateBrewCardFields(brew, brewCard);
         }
 
-        const saveButton = brewCardForm.querySelector('.save-button');
-        const cancelButton = brewCardForm.querySelector('.cancel-button');
+        const saveButton = brewCard.querySelector('.save-button');
+        const cancelButton = brewCard.querySelector('.cancel-button');
         saveButton.classList.add('hidden');
         cancelButton.classList.add('hidden');
 
-        const editButton = brewCardForm.querySelector('.edit-button');
+        const editButton = brewCard.querySelector('.edit-button');
         editButton.classList.remove('hidden');
     }
 }
