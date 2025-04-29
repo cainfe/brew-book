@@ -148,4 +148,50 @@
     </li>
 </template>
 
+<template id="bean-card-template">
+    <li class="bean-card content-card">
+        <form class="content-card-form" id="bean-form">
+            <div class="content-card-form-field"><input type="hidden" name="id" id="bean-id"></div>
+            <div class="content-card-form-field">
+                <label for="bean-name">Name:</label>
+                <input type="text" name="name" id="bean-name">
+            </div>
+            <div class="content-card-form-field">
+                <label for="bean-region-country">Region/Country:</label>
+                <input type="text" name="region-country" id="bean-region-country">
+            </div>
+            <div class="content-card-form-field">
+                <label for="bean-altitude">Altitude:</label>
+                <input type="text" name="altitude" id="bean-altitude">
+            </div>
+            <div class="content-card-form-field">
+                <label for="bean-variety">Variety:</label>
+                <input type="text" name="variety" id="bean-variety">
+            </div>
+            <div class="content-card-form-field">
+                <label for="bean-process">Process:</label>
+                <input type="text" name="process" id="bean-process">
+            </div>
+            <div class="content-card-form-field">
+                <label for="bean-roaster">Roaster:</label>
+                <input type="text" name="roaster" id="bean-roaster">
+            </div>
+            <div class="content-card-form-field">
+                <label for="bean-roast-level">Roast Level:</label>
+                <select name="roast-level" id="bean-roast-level">
+                    <option value="Light">Light</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Dark">Dark</option>
+                </select>
+            </div>
+            <h3 class="tasting-notes-title">Tasting Notes</h3>
+            <button type="submit" class="submit-button">Add Bean</button>
+            <button type="button" class="delete-button dangerous">Delete Bean</button>
+            <button type="button" class="edit-button">Edit Bean</button>
+            <button type="submit" class="hidden save-button">Save Edits</button>
+            <button type="button" class="hidden cancel-button">Cancel</button>
+        </form>
+    </li>
+</template>
+
 </html>
