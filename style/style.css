@@ -216,8 +216,9 @@ body {
     transform: scale(1.1);
 }
 
-input[name="method"]:disabled + .method-label:hover {
+input[type="radio"]:disabled + label:hover {
     transform: none;
+    cursor: default;
 }
 
 .method-image {
