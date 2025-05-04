@@ -55,14 +55,11 @@ export function getTastingNotesInput(preSelectedNotes) {
         noteElement.classList.add('tasting-note');
         noteElement.textContent = note;
 
-        if (preSelectedNotes && preSelectedNotes.includes(note)) {
-            noteElement.classList.add('selected');
-        }
-
         noteElement.addEventListener('click', handleNoteClick);
 
         notesListContainer.appendChild(noteElement);
     }
+    selectTastingNotes(notesListContainer, preSelectedNotes || []);
     container.appendChild(notesListContainer);
 
     searchBar.addEventListener('input', function () {
@@ -70,6 +67,21 @@ export function getTastingNotesInput(preSelectedNotes) {
     });
 
     return container;
+}
+
+export function selectTastingNotes(tastingNotesContainer, selectedNotes) {
+    const notes = tastingNotesContainer.querySelectorAll('.tasting-note');
+    notes.forEach(note => {
+        if (selectedNotes.includes(note.textContent)) {
+            selectNote(note);
+            showNote(note);
+        } else {
+            deselectNote(note);
+            if (isNoteDisabled(note)) {
+                hideNote(note);
+            }
+        }
+    });
 }
 
 function handleNoteClick(event) {
@@ -87,16 +99,28 @@ export function toggleTastingNotesEditable(tastingNotesContainer, isEditable) {
     const notes = tastingNotesContainer.querySelectorAll('.tasting-note');
     notes.forEach(note => {
         if (isEditable) {
-            note.classList.remove('disabled');
-            note.addEventListener('click', handleNoteClick);
+            enableNote(note);
             showNote(note);
         } else {
-            note.classList.add('disabled');
-            note.removeEventListener('click', handleNoteClick);
+            disableNote(note);
             if (isNoteSelected(note)) showNote(note);
             else hideNote(note);
         }
     });
+}
+
+function isNoteDisabled(note) {
+    return note.classList.contains('disabled');
+}
+
+function disableNote(note) {
+    note.classList.add('disabled');
+    note.removeEventListener('click', handleNoteClick);
+}
+
+function enableNote(note) {
+    note.classList.remove('disabled');
+    note.addEventListener('click', handleNoteClick);
 }
 
 function updateSuggestions(query, notesListContainer) {
@@ -111,7 +135,19 @@ function updateSuggestions(query, notesListContainer) {
 }
 
 function toggleNoteSelected(noteElement) {
-    noteElement.classList.toggle('selected');
+    if (isNoteSelected(noteElement)) {
+        deselectNote(noteElement);
+    } else {
+        selectNote(noteElement);
+    }
+}
+
+function selectNote(note) {
+    note.classList.add('selected');
+}
+
+function deselectNote(note) {
+    note.classList.remove('selected');
 }
 
 function hideNote(note) {

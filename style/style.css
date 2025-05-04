@@ -17,6 +17,7 @@ body {
     border-radius: 1rem;
     background-color: #735751;
     color: white;
+    list-style: none;
 }
 
 .content-card-form {

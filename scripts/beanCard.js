@@ -1,139 +1,67 @@
 import { deleteBean, getBeanById, upsertBean } from './storage.js';
-import { getTastingNotesInput, toggleTastingNotesEditable, getSelectedTastingNotes } from './tastingNotes.js';
+import { getTastingNotesInput, toggleTastingNotesEditable, getSelectedTastingNotes, selectTastingNotes } from './tastingNotes.js';
 
 export function buildBeanCard(bean = {}) {
     const isNewBean = Object.keys(bean).length === 0;
 
-    const beanCard = document.createElement('li');
-    beanCard.classList.add('bean-card');
-    beanCard.classList.add('content-card');
-    const form = document.createElement('form');
-    form.classList.add('content-card-form');
-    if (isNewBean) form.id = 'new-bean-form';
-    else form.id = `bean-form-${bean.id}`;
+    const template = document.getElementById('bean-card-template');
 
-    const sections = [
-        { header: null, fields: [
-            { type: 'hidden', name: 'id', dataName: 'id' }
-        ]},
-        { header: null, fields: [
-            { label: 'Name:', type: 'text', name: 'name', dataName: 'name' },
-            { label: 'Region/Country:', type: 'text', name: 'region-country', dataName: 'regionCountry' },
-            { label: 'Altitude:', type: 'text', name: 'altitude', dataName: 'altitude' },
-            { label: 'Variety:', type: 'text', name: 'variety', dataName: 'variety' },
-            { label: 'Process:', type: 'text', name: 'process', dataName: 'process' },
-            { label: 'Roaster:', type: 'text', name: 'roaster', dataName: 'roaster' },
-            { label: 'Roast Level:', type: 'select', name: 'roast-level', dataName: 'roastLevel', options: ['Light', 'Medium', 'Dark'] },
-        ]},
-        { header: 'Tasting Notes', fields: [] }
-    ];
+    if (!template) {
+        console.error('Bean card template not found!');
+        return null;
+    }
+    const clone = template.content.cloneNode(true);
 
-    sections.forEach(section => {
-        if (section.header) {
-            const header = document.createElement('h3');
-            header.textContent = section.header;
-            form.appendChild(header);
-        }
-
-        section.fields.forEach(field => {
-            const div = document.createElement('div');
-            div.classList.add('content-card-form-field');
-
-            if (field.label) {
-                const label = document.createElement('label');
-                label.textContent = field.label;
-                div.appendChild(label);
-            }
-
-            let input;
-            if (field.type === 'select') {
-                input = document.createElement('select');
-                input.name = field.name;
-                field.options.forEach(option => {
-                    const opt = document.createElement('option');
-                    opt.value = option;
-                    opt.textContent = option;
-                    input.appendChild(opt);
-                });
-            } else if (field.type === 'textarea') {
-                input = document.createElement('textarea');
-                input.name = field.name;
-                if (field.name === 'tasting-notes') {
-                    input.classList.add('full-width');
+    const allElements = clone.querySelectorAll('*');
+    allElements.forEach(element => {
+        if (element.getAttribute('id')) {
+            const newId = `${element.getAttribute('id')}-${bean.id ? bean.id : 'new'}`;
+            allElements.forEach(forElement => {
+                if (forElement.getAttribute('for') === element.getAttribute('id')) {
+                    forElement.setAttribute('for', newId);
                 }
-            } else if (field.type === 'hidden') {
-                input = document.createElement('input');
-                input.type = 'hidden';
-                input.name = field.name;
-            } else {
-                input = document.createElement('input');
-                input.type = field.type;
-                input.name = field.name;
-            }
-
-            if (bean[field.dataName]) {
-                input.value = bean[field.dataName];
-            }
-
-            if (!isNewBean) {
-                input.disabled = true;
-            }
-
-            div.appendChild(input);
-            form.appendChild(div);
-        });
+            });
+            element.setAttribute('id', newId);
+        }
     });
 
-    const tastingNotesContainer = getTastingNotesInput(bean.tastingNotes ? bean.tastingNotes.split(', ') : []);
-    if (!isNewBean) {
-        toggleTastingNotesEditable(tastingNotesContainer, false);
+    const beanCard = clone.querySelector('.bean-card');
+    const form = clone.querySelector('form');
+
+    const tastingNotesContainer = getTastingNotesInput();
+    const tastingNotesTitle = clone.querySelector('.tasting-notes-title');
+    toggleTastingNotesEditable(tastingNotesContainer, isNewBean);
+    if (tastingNotesTitle) {
+        tastingNotesTitle.after(tastingNotesContainer);
     }
-    form.appendChild(tastingNotesContainer);
 
-    if (isNewBean) {
-        const submitButton = document.createElement('button');
-        submitButton.type = 'submit';
-        submitButton.textContent = 'Add Bean';
-        submitButton.classList.add('submit-button');
-        form.appendChild(submitButton);
-    } else {
-        const deleteButton = document.createElement('button');
-        deleteButton.type = 'button';
-        deleteButton.textContent = 'Delete Bean';
-        deleteButton.classList.add('delete-button');
-        deleteButton.classList.add('dangerous');
-        deleteButton.addEventListener('click', function () {
-            if (confirm(`Are you sure you want to delete the bean "${bean.name}"?`)) 
-                submitDeleteBean(bean.id);
-        });
-        form.appendChild(deleteButton);
+    const submitButton = clone.querySelector('.submit-button');
+    if (isNewBean) submitButton.classList.remove('hidden');
+    else submitButton.classList.add('hidden');
 
-        const editButton = document.createElement('button');
-        editButton.type = 'button';
-        editButton.textContent = 'Edit Bean';
-        editButton.classList.add('edit-button');
-        editButton.addEventListener('click', function () {
-            initiateEditBean(bean.id);
-        });
-        form.appendChild(editButton);
+    const deleteButton = clone.querySelector('.delete-button');
+    if (isNewBean) deleteButton.classList.add('hidden');
+    else deleteButton.classList.remove('hidden');
+    deleteButton.addEventListener('click', function () {
+        if (confirm(`Are you sure you want to delete the bean "${bean.name}"?`)) 
+            submitDeleteBean(bean.id);
+    });
 
-        const saveEditsButton = document.createElement('button');
-        saveEditsButton.type = 'submit';
-        saveEditsButton.textContent = 'Save Edits';
-        saveEditsButton.classList.add('hidden');
-        saveEditsButton.classList.add('save-button');
-        form.appendChild(saveEditsButton);
+    const editButton = clone.querySelector('.edit-button');
+    if (isNewBean) editButton.classList.add('hidden');
+    else editButton.classList.remove('hidden');
+    editButton.addEventListener('click', function () {
+        enableBeanEditing(beanCard);
+    });
 
-        const cancelButton = document.createElement('button');
-        cancelButton.type = 'button';
-        cancelButton.textContent = 'Cancel';
-        cancelButton.classList.add('hidden');
-        cancelButton.classList.add('cancel-button');
-        cancelButton.addEventListener('click', function () {
-            cancelEditBean(bean.id);
-        });
-        form.appendChild(cancelButton);
-    }
+    const saveEditsButton = clone.querySelector('.save-button');
+    saveEditsButton.classList.add('hidden');
+
+    const cancelEditsButton = clone.querySelector('.cancel-button');
+    cancelEditsButton.classList.add('hidden');
+    cancelEditsButton.addEventListener('click', function () {
+        disableBeanEditing(beanCard);
+    });
 
     form.addEventListener('submit', function (event) {
         event.preventDefault();
@@ -156,9 +84,34 @@ export function buildBeanCard(bean = {}) {
         }
     });
 
+    if (!isNewBean) {
+        populateBeanCardFields(bean, beanCard);
+        disableBeanEditing(beanCard);
+    }
+
     beanCard.appendChild(form);
 
     return beanCard;
+}
+
+function populateBeanCardFields(bean, beanCard) {
+    if (!bean || !beanCard) return;
+
+    beanCard.querySelector('input[name="id"]').value = bean.id || '';
+    beanCard.querySelector('input[name="name"]').value = bean.name || '';
+    beanCard.querySelector('input[name="region-country"]').value = bean.regionCountry || '';
+    beanCard.querySelector('input[name="altitude"]').value = bean.altitude || '';
+    beanCard.querySelector('input[name="variety"]').value = bean.variety || '';
+    beanCard.querySelector('input[name="process"]').value = bean.process || '';
+    beanCard.querySelector('input[name="roaster"]').value = bean.roaster || '';
+    beanCard.querySelector('select[name="roast-level"]').value = bean.roastLevel || '';
+    
+    const tastingNotesContainer = beanCard.querySelector('.tasting-notes-container');
+    if (tastingNotesContainer) {
+        const tastingNotes = bean.tastingNotes ? bean.tastingNotes.split(', ') : [];
+        toggleTastingNotesEditable(tastingNotesContainer, false);
+        selectTastingNotes(tastingNotesContainer, tastingNotes);
+    }
 }
 
 export function listBeans(beans = {}) {
@@ -180,8 +133,7 @@ function submitDeleteBean(beanId) {
     }
 }
 
-function initiateEditBean(beanId) {
-    const beanCard = document.getElementById(`bean-form-${beanId}`);
+function enableBeanEditing(beanCard) {
     if (beanCard) {
         const inputs = beanCard.querySelectorAll('input, select, textarea');
         inputs.forEach(input => {
@@ -203,32 +155,29 @@ function initiateEditBean(beanId) {
     }
 }
 
-function cancelEditBean(beanId) {
-    const beanCardForm = document.getElementById(`bean-form-${beanId}`);
-    if (beanCardForm) {
-        const inputs = beanCardForm.querySelectorAll('input, select, textarea');
+function disableBeanEditing(beanCard) {
+    if (beanCard) {
+        const inputs = beanCard.querySelectorAll('input, select, textarea');
         inputs.forEach(input => {
             input.disabled = true;
         });
 
-        const tastingNotesContainer = beanCardForm.querySelector('.tasting-notes-container');
+        const tastingNotesContainer = beanCard.querySelector('.tasting-notes-container');
         if (tastingNotesContainer) {
             toggleTastingNotesEditable(tastingNotesContainer, false);
         }
         
-        const bean = getBeanById(beanId);
+        const bean = getBeanById(beanCard.querySelector('input[name="id"]').value);
         if (bean) {
-            const oldBeanCard = beanCardForm.closest('.bean-card');
-            const newBeanCard = buildBeanCard(bean);
-            oldBeanCard.replaceWith(newBeanCard);
+            populateBeanCardFields(bean, beanCard);
         }
 
-        const saveButton = beanCardForm.querySelector('.save-button');
-        const cancelButton = beanCardForm.querySelector('.cancel-button');
+        const saveButton = beanCard.querySelector('.save-button');
+        const cancelButton = beanCard.querySelector('.cancel-button');
         saveButton.classList.add('hidden');
         cancelButton.classList.add('hidden');
 
-        const editButton = beanCardForm.querySelector('.edit-button');
+        const editButton = beanCard.querySelector('.edit-button');
         editButton.classList.remove('hidden');
     }
 }

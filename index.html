@@ -21,7 +21,7 @@
                 <li><a onclick="toggleMenu('settings-menu')"><img src="./images/cogwheel.png" alt="cogwheel" title="Settings Menu"></a></li>
             </ul>
         </div>
-        
+
         <div id="bean-menu" class="menu-panel">
             <div class="menu-panel-header">
                 <h1>Beans</h1>
@@ -52,5 +52,146 @@
         </div>
     </div>
 </body>
+
+<template id="brew-card-template">
+    <li class="brew-card content-card">
+        <form class="content-card-form" id="brew-form">
+            <div class="methods-container">
+                <input type="radio" name="method" value="Pour Over" id="method-pour-over">
+                <label for="method-pour-over" class="method-label">
+                    <img src="./images/pour-over.png" alt="Pour Over" class="method-image" title="Pour Over">
+                </label>
+                <input type="radio" name="method" value="French Press" id="method-french-press">
+                <label for="method-french-press" class="method-label">
+                    <img src="./images/french-press.png" alt="French Press" class="method-image" title="French Press">
+                </label>
+                <input type="radio" name="method" value="Aeropress" id="method-aeropress">
+                <label for="method-aeropress" class="method-label">
+                    <img src="./images/aeropress.png" alt="Aeropress" class="method-image" title="Aeropress">
+                </label>
+                <input type="radio" name="method" value="Espresso" id="method-espresso">
+                <label for="method-espresso" class="method-label">
+                    <img src="./images/coffee-machine.png" alt="Espresso" class="method-image" title="Espresso">
+                </label>
+                <input type="radio" name="method" value="Cold Brew" id="method-cold-brew">
+                <label for="method-cold-brew" class="method-label">
+                    <img src="./images/cold-brew.png" alt="Cold Brew" class="method-image" title="Cold Brew">
+                </label>
+            </div>
+            <div class="content-card-form-field">
+                <input type="hidden" name="id" id="id"></div>
+            <div class="content-card-form-field">
+                <label for="date">Date:</label>
+                <input type="date" name="date" id="date"></div>
+            <div class="content-card-form-field">
+                <label for="time">Time:</label>
+                <input type="time" name="time" id="time"></div>
+            <div class="content-card-form-field">
+                <label for="bean-id">Beans:</label>
+                <select name="bean-id" id="bean-id">
+                    <option value="Select Bean" disabled selected>Select Bean</option>
+                </select></div>
+            <h3>Water</h3>
+            <div class="content-card-form-field">
+                <label for="water-temperature">Temperature:</label>
+                <input type="number" name="water-temperature" id="water-temperature"></div>
+            <div class="content-card-form-field">
+                <label for="water-volume">Volume:</label>
+                <input type="number" name="water-volume" id="water-volume"></div>
+            <h3>Brewing Parameters</h3>
+            <div class="content-card-form-field">
+                <label for="grind-setting">Grind Setting:</label>
+                <input type="number" name="grind-setting" id="grind-setting">
+            </div>
+            <div class="content-card-form-field">
+                <label for="dose">Dose (g):</label>
+                <input type="number" name="dose" id="dose" step="0.1">
+            </div>
+            <div class="content-card-form-field">
+                <label for="yield">Yield (g):</label>
+                <input type="number" name="yield" id="yield" step="0.1">
+            </div>
+            <div class="content-card-form-field">
+                <label for="brew-ratio">Brew Ratio:</label>
+                <input type="number" name="brew-ratio" id="brew-ratio" step="0.1"></div>
+            <div class="content-card-form-field">
+                <label for="elapsed-time">Elapsed Time (s):</label>
+                <input type="number" name="elapsed-time" id="elapsed-time" step="1"></div>
+            <h3>Sensory Profile</h3>
+            <div class="content-card-form-field">
+                <label for="aroma">Aroma:</label>
+                <input type="text" name="aroma" id="aroma"></div>
+            <div class="content-card-form-field">
+                <label for="flavor">Flavor:</label>
+                <input type="text" name="flavor" id="flavor"></div>
+            <div class="content-card-form-field">
+                <label for="acidity">Acidity:</label>
+                <input type="text" name="acidity" id="acidity"></div>
+            <div class="content-card-form-field">
+                <label for="body">Body:</label>
+                <input type="text" name="body" id="body"></div>
+            <div class="content-card-form-field">
+                <label for="aftertaste">Aftertaste:</label>
+                <input type="text" name="aftertaste" id="aftertaste"></div>
+            <div class="content-card-form-field">
+                <label for="overall-impression">Overall:</label>
+                <input type="text" name="overall-impression" id="overall-impression">
+            </div>
+            <h3 class="tasting-notes-title">Tasting Notes</h3>
+            
+            <button type="submit" class="submit-button">Add Brew</button>
+            <button type="button" class="hidden delete-button dangerous">Delete Brew</button>
+            <button type="button" class="hidden edit-button">Edit Brew</button>
+            <button type="submit" class="hidden save-button">Save Edits</button>
+            <button type="button" class="hidden cancel-button">Cancel</button>
+        </form>
+    </li>
+</template>
+
+<template id="bean-card-template">
+    <li class="bean-card content-card">
+        <form class="content-card-form" id="bean-form">
+            <div class="content-card-form-field"><input type="hidden" name="id" id="bean-id"></div>
+            <div class="content-card-form-field">
+                <label for="bean-name">Name:</label>
+                <input type="text" name="name" id="bean-name">
+            </div>
+            <div class="content-card-form-field">
+                <label for="bean-region-country">Region/Country:</label>
+                <input type="text" name="region-country" id="bean-region-country">
+            </div>
+            <div class="content-card-form-field">
+                <label for="bean-altitude">Altitude:</label>
+                <input type="text" name="altitude" id="bean-altitude">
+            </div>
+            <div class="content-card-form-field">
+                <label for="bean-variety">Variety:</label>
+                <input type="text" name="variety" id="bean-variety">
+            </div>
+            <div class="content-card-form-field">
+                <label for="bean-process">Process:</label>
+                <input type="text" name="process" id="bean-process">
+            </div>
+            <div class="content-card-form-field">
+                <label for="bean-roaster">Roaster:</label>
+                <input type="text" name="roaster" id="bean-roaster">
+            </div>
+            <div class="content-card-form-field">
+                <label for="bean-roast-level">Roast Level:</label>
+                <select name="roast-level" id="bean-roast-level">
+                    <option value="Light">Light</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Dark">Dark</option>
+                </select>
+            </div>
+            <h3 class="tasting-notes-title">Tasting Notes</h3>
+            <button type="submit" class="submit-button">Add Bean</button>
+            <button type="button" class="delete-button dangerous">Delete Bean</button>
+            <button type="button" class="edit-button">Edit Bean</button>
+            <button type="submit" class="hidden save-button">Save Edits</button>
+            <button type="button" class="hidden cancel-button">Cancel</button>
+        </form>
+    </li>
+</template>
 
 </html>
