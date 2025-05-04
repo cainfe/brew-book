@@ -35,6 +35,8 @@ body {
 .content-card-form-field label {
     margin-right: auto;
     white-space: nowrap;
+    display: flex;
+    align-items: center;
 }
 
 .content-card-form input:disabled, .content-card-form select:disabled, .content-card-form textarea:disabled {
@@ -273,4 +275,38 @@ input[name="method"]:checked + .method-label .method-image {
 
 .tasting-note.selected {
     background-color: #a78a7f;
+}
+
+.rating-container {
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 0 0;
+}
+
+.rating-container input[type="radio"] {
+    display: none;
+}
+
+.rating-container label {
+    display: inline-block;
+    cursor: pointer;
+    margin: 0.25rem;
+    transition: transform 0.2s ease;
+    border-radius: 50%;
+    background-color: #a78a7f;
+    color: black;
+    padding: 0.5rem;
+    width: 1rem;
+    height: 1rem;
+    text-align: center;
+}
+
+.rating-container label:hover {
+    transform: scale(1.1);
+}
+
+.rating-container input[type="radio"]:checked + label{
+    background-color: #E7D7C1;
 }
