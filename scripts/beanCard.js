@@ -85,7 +85,7 @@ export function buildBeanCard(bean = {}) {
     });
 
     if (!isNewBean) {
-        popupulateBeanCardFields(bean, beanCard);
+        populateBeanCardFields(bean, beanCard);
         disableBeanEditing(beanCard);
     }
 
@@ -94,7 +94,7 @@ export function buildBeanCard(bean = {}) {
     return beanCard;
 }
 
-function popupulateBeanCardFields(bean, beanCard) {
+function populateBeanCardFields(bean, beanCard) {
     if (!bean || !beanCard) return;
 
     beanCard.querySelector('input[name="id"]').value = bean.id || '';
@@ -169,7 +169,7 @@ function disableBeanEditing(beanCard) {
         
         const bean = getBeanById(beanCard.querySelector('input[name="id"]').value);
         if (bean) {
-            popupulateBeanCardFields(bean, beanCard);
+            populateBeanCardFields(bean, beanCard);
         }
 
         const saveButton = beanCard.querySelector('.save-button');
