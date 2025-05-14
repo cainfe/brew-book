@@ -125,12 +125,24 @@ function populateBrewCardFields(brew, brewCard) {
     brewCard.querySelector('input[name="yield"]').value = brew.yield || '';
     brewCard.querySelector('input[name="brew-ratio"]').value = brew.brewRatio || '';
     brewCard.querySelector('input[name="elapsed-time"]').value = brew.elapsedTime || '';
-    brewCard.querySelector('input[name="aroma"]').value = brew.aroma || '';
-    brewCard.querySelector('input[name="flavor"]').value = brew.flavor || '';
-    brewCard.querySelector('input[name="acidity"]').value = brew.acidity || '';
-    brewCard.querySelector('input[name="body"]').value = brew.body || '';
-    brewCard.querySelector('input[name="aftertaste"]').value = brew.aftertaste || '';
-    brewCard.querySelector('input[name="overall-impression"]').value = brew.overallImpression || '';
+    
+    const aromaRadio = brewCard.querySelector(`input[name="aroma"][value="${brew.aroma}"]`);
+    if (aromaRadio && brew.aroma) aromaRadio.checked = true;
+
+    const flavorRadio = brewCard.querySelector(`input[name="flavor"][value="${brew.flavor}"]`);
+    if (flavorRadio && brew.flavor) flavorRadio.checked = true;
+
+    const acidityRadio = brewCard.querySelector(`input[name="acidity"][value="${brew.acidity}"]`);
+    if (acidityRadio && brew.acidity) acidityRadio.checked = true;
+
+    const bodyRadio = brewCard.querySelector(`input[name="body"][value="${brew.body}"]`);
+    if (bodyRadio && brew.body) bodyRadio.checked = true;
+
+    const aftertasteRadio = brewCard.querySelector(`input[name="aftertaste"][value="${brew.aftertaste}"]`);
+    if (aftertasteRadio && brew.aftertaste) aftertasteRadio.checked = true;
+
+    const overallImpressionRadio = brewCard.querySelector(`input[name="overall-impression"][value="${brew.overallImpression}"]`);
+    if (overallImpressionRadio && brew.overallImpression) overallImpressionRadio.checked = true;
 
     const tastingNotesContainer = brewCard.querySelector('.tasting-notes-container');
     if (tastingNotesContainer) {

@@ -35,6 +35,8 @@ body {
 .content-card-form-field label {
     margin-right: auto;
     white-space: nowrap;
+    display: flex;
+    align-items: center;
 }
 
 .content-card-form input:disabled, .content-card-form select:disabled, .content-card-form textarea:disabled {
@@ -216,8 +218,9 @@ body {
     transform: scale(1.1);
 }
 
-input[name="method"]:disabled + .method-label:hover {
+input[type="radio"]:disabled + label:hover {
     transform: none;
+    cursor: default;
 }
 
 .method-image {
@@ -272,4 +275,47 @@ input[name="method"]:checked + .method-label .method-image {
 
 .tasting-note.selected {
     background-color: #a78a7f;
+}
+
+.rating-container {
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 0 0;
+}
+
+.rating-container input[type="radio"] {
+    display: none;
+}
+
+.rating-container label {
+    display: inline-block;
+    cursor: pointer;
+    margin: 0.25rem;
+    transition: transform 0.2s ease;
+    background-color: transparent;
+    color: #E7D7C1;
+    opacity: 0.8;
+    padding: 0 0.2rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    background-image: url('../images/bean.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.rating-container label:hover {
+    transform: scale(1.2);
+    opacity: 0.95;
+    transform: rotate(-15deg);
+}
+
+.rating-container input[type="radio"]:checked + label {
+    opacity: 1;
+    scale: 1.2;
+}
+
+.rating-container input[type="radio"]:checked + label ~ label {
+    opacity: 0.2;
 }
