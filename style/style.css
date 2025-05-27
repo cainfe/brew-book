@@ -319,3 +319,52 @@ input[name="method"]:checked + .method-label .method-image {
 .rating-container input[type="radio"]:checked + label ~ label {
     opacity: 0.2;
 }
+
+input, select {
+    display: inline-block;
+    margin: 0.25rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 8px;
+    border: 1px solid white;
+    background-color: #a78a7f;
+    color: white;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    opacity: 1;
+}
+
+input[type="date"]::-ms-input-placeholder,
+input[type="time"]::-ms-input-placeholder {
+    color: white;
+}
+
+input[type="date"]::-moz-placeholder,
+input[type="time"]::-moz-placeholder {
+    color: white;
+}
+
+input[type="date"]:-ms-input-placeholder,
+input[type="time"]:-ms-input-placeholder {
+    color: white;
+}
+
+input[type="date"]::placeholder,
+input[type="time"]::placeholder {
+    color: white;
+}
+
+select option {
+    background-color: white;
+    color: black;
+}
+
+select option:disabled {
+    color: gray;
+}
+
+input:disabled, select:disabled {
+    border-radius: 0px;
+}
