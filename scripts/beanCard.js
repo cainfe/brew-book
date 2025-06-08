@@ -74,6 +74,13 @@ export function buildBeanCard(bean = {}) {
 
         upsertBean(bean);
 
+        const beanUpsertedEvent = new CustomEvent('bean-upserted', {
+            detail: {
+                bean: bean
+            }
+        });
+        document.dispatchEvent(beanUpsertedEvent);
+
         if (isNewBean) {
             const newBeanCard = buildBeanCard(bean);
             document.getElementById("beans-list").appendChild(newBeanCard);
@@ -131,6 +138,13 @@ function submitDeleteBean(beanId) {
             beanCardContainer.remove();
         }
     }
+
+    const beanDeletedEvent = new CustomEvent('bean-deleted', {
+        detail: {
+            beanId: beanId
+        }
+    });
+    document.dispatchEvent(beanDeletedEvent);
 }
 
 function enableBeanEditing(beanCard) {
