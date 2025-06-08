@@ -99,7 +99,7 @@ function populateBeanCardFields(bean, beanCard) {
 
     beanCard.querySelector('input[name="id"]').value = bean.id || '';
     beanCard.querySelector('input[name="name"]').value = bean.name || '';
-    beanCard.querySelector('input[name="region-country"]').value = bean.regionCountry || '';
+    beanCard.querySelector('input[name="origin"]').value = bean.origin || '';
     beanCard.querySelector('input[name="altitude"]').value = bean.altitude || '';
     beanCard.querySelector('input[name="variety"]').value = bean.variety || '';
     beanCard.querySelector('input[name="process"]').value = bean.process || '';
@@ -185,7 +185,7 @@ function disableBeanEditing(beanCard) {
 function getBeanFromForm(beanFormData) {
     let bean = {
         name: beanFormData.get('name'),
-        regionCountry: beanFormData.get('region-country'),
+        origin: beanFormData.get('origin'),
         altitude: beanFormData.get('altitude'),
         variety: beanFormData.get('variety'),
         process: beanFormData.get('process'),
