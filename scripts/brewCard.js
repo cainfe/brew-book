@@ -39,13 +39,7 @@ export function buildBrewCard(brew = {}) {
     const beans = getBeans();
     const beanSelect = clone.querySelector('select[name="bean-id"]');
     if (beanSelect) {
-        beans.forEach(bean => {
-            const option = document.createElement('option');
-            option.value = bean.id;
-            option.textContent = bean.name;
-            if (brew.beanId === bean.id) option.selected = true;
-            beanSelect.appendChild(option);
-        });
+        populateBeanSelect(beanSelect, beans);
     }
 
     const submitButton = clone.querySelector('.submit-button');
@@ -248,3 +242,37 @@ function getBrewFromForm(brewFormData) {
 
     return brew;
 }
+
+function populateBeanSelect(beanSelect, beans) {
+    if (beanSelect) {
+        const currentValue = beanSelect.value;
+        beanSelect.innerHTML = '';
+        
+        const option = document.createElement('option');
+        option.value = '';
+        option.textContent = 'Select a bean';
+        option.disabled = true;
+        option.selected = true;
+        beanSelect.appendChild(option);
+
+        beans.forEach(bean => {
+            const option = document.createElement('option');
+            option.value = bean.id;
+            option.textContent = bean.name;
+            if (bean.id === currentValue) {
+                option.selected = true;
+            }
+            beanSelect.appendChild(option);
+        });
+    }
+}
+
+function refreshAllBeanSelects() {
+    const beans = getBeans();
+    document.querySelectorAll('select[name="bean-id"]').forEach(select => {
+        populateBeanSelect(select, beans);
+    });
+}
+
+document.addEventListener('bean-upserted', refreshAllBeanSelects);
+document.addEventListener('bean-deleted', refreshAllBeanSelects);

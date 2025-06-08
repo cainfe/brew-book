@@ -74,6 +74,13 @@ export function buildBeanCard(bean = {}) {
 
         upsertBean(bean);
 
+        const beanUpsertedEvent = new CustomEvent('bean-upserted', {
+            detail: {
+                bean: bean
+            }
+        });
+        document.dispatchEvent(beanUpsertedEvent);
+
         if (isNewBean) {
             const newBeanCard = buildBeanCard(bean);
             document.getElementById("beans-list").appendChild(newBeanCard);
@@ -99,7 +106,7 @@ function populateBeanCardFields(bean, beanCard) {
 
     beanCard.querySelector('input[name="id"]').value = bean.id || '';
     beanCard.querySelector('input[name="name"]').value = bean.name || '';
-    beanCard.querySelector('input[name="region-country"]').value = bean.regionCountry || '';
+    beanCard.querySelector('input[name="origin"]').value = bean.origin || '';
     beanCard.querySelector('input[name="altitude"]').value = bean.altitude || '';
     beanCard.querySelector('input[name="variety"]').value = bean.variety || '';
     beanCard.querySelector('input[name="process"]').value = bean.process || '';
@@ -131,6 +138,13 @@ function submitDeleteBean(beanId) {
             beanCardContainer.remove();
         }
     }
+
+    const beanDeletedEvent = new CustomEvent('bean-deleted', {
+        detail: {
+            beanId: beanId
+        }
+    });
+    document.dispatchEvent(beanDeletedEvent);
 }
 
 function enableBeanEditing(beanCard) {
@@ -185,7 +199,7 @@ function disableBeanEditing(beanCard) {
 function getBeanFromForm(beanFormData) {
     let bean = {
         name: beanFormData.get('name'),
-        regionCountry: beanFormData.get('region-country'),
+        origin: beanFormData.get('origin'),
         altitude: beanFormData.get('altitude'),
         variety: beanFormData.get('variety'),
         process: beanFormData.get('process'),
