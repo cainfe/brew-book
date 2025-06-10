@@ -29,6 +29,23 @@ export function buildBrewCard(brew = {}) {
     const brewCard = clone.querySelector('.brew-card');
     const form = clone.querySelector('form');
 
+    if (!isNewBrew) {
+        brewCard.classList.add('brew-card-filled');
+    }
+
+    const doseInput = form.querySelector('input[name="dose"]');
+    const yieldInput = form.querySelector('input[name="yield"]');
+    const ratioInput = form.querySelector('input[name="brew-ratio"]');
+    
+    const updateBrewRatio = () => {
+        const doseValue = parseFloat(doseInput.value);
+        const yieldValue = parseFloat(yieldInput.value);
+        ratioInput.value = getBrewRatio(doseValue, yieldValue);
+    };
+        
+    doseInput.addEventListener('input', updateBrewRatio);
+    yieldInput.addEventListener('input', updateBrewRatio);
+
     const tastingNotesContainer = getTastingNotesInput();
     const tastingNotesTitle = clone.querySelector('.tasting-notes-title');
     toggleTastingNotesEditable(tastingNotesContainer, isNewBrew);
@@ -117,7 +134,7 @@ function populateBrewCardFields(brew, brewCard) {
     brewCard.querySelector('input[name="water-volume"]').value = brew.waterVolume || '';
     brewCard.querySelector('input[name="dose"]').value = brew.dose || '';
     brewCard.querySelector('input[name="yield"]').value = brew.yield || '';
-    brewCard.querySelector('input[name="brew-ratio"]').value = brew.brewRatio || '';
+    brewCard.querySelector('input[name="brew-ratio"]').value = getBrewRatio(brew.dose, brew.yield);
     brewCard.querySelector('input[name="elapsed-time"]').value = brew.elapsedTime || '';
     
     const aromaRadio = brewCard.querySelector(`input[name="aroma"][value="${brew.aroma}"]`);
@@ -168,6 +185,7 @@ function enableBrewEditing(brewCard) {
     if (brewCard) {
         const inputs = brewCard.querySelectorAll('input, select, textarea');
         inputs.forEach(input => {
+            if (input.classList.contains('always-disabled')) return;
             input.disabled = false;
         });
 
@@ -224,9 +242,7 @@ function getBrewFromForm(brewFormData) {
         waterVolume: brewFormData.get('water-volume'),
         dose: brewFormData.get('dose'),
         yield: brewFormData.get('yield'),
-        brewRatio: brewFormData.get('brew-ratio'),
         elapsedTime: brewFormData.get('elapsed-time'),
-        ratio: brewFormData.get('ratio'),
         aroma: brewFormData.get('aroma'),
         flavor: brewFormData.get('flavor'),
         acidity: brewFormData.get('acidity'),
@@ -272,6 +288,13 @@ function refreshAllBeanSelects() {
     document.querySelectorAll('select[name="bean-id"]').forEach(select => {
         populateBeanSelect(select, beans);
     });
+}
+
+function getBrewRatio(doseValue, yieldValue) {
+    if (doseValue > 0 && yieldValue > 0) {
+        return `1:${Math.round(yieldValue / doseValue)}`;
+    }
+    return '';
 }
 
 document.addEventListener('bean-upserted', refreshAllBeanSelects);

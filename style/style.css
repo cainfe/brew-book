@@ -45,6 +45,7 @@ body {
     border-bottom: 1px solid white;
     color: white;
     opacity: 1;
+    border-radius: 0px;
 }
 
 .content-card button {
@@ -363,8 +364,4 @@ select option {
 
 select option:disabled {
     color: gray;
-}
-
-input:disabled, select:disabled {
-    border-radius: 0px;
 }
