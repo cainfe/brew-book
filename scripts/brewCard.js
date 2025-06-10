@@ -45,7 +45,6 @@ export function buildBrewCard(brew = {}) {
         
     doseInput.addEventListener('input', updateBrewRatio);
     yieldInput.addEventListener('input', updateBrewRatio);
-    updateBrewRatio(); // Initialize the brew ratio on page load
 
     const tastingNotesContainer = getTastingNotesInput();
     const tastingNotesTitle = clone.querySelector('.tasting-notes-title');
@@ -135,6 +134,7 @@ function populateBrewCardFields(brew, brewCard) {
     brewCard.querySelector('input[name="water-volume"]').value = brew.waterVolume || '';
     brewCard.querySelector('input[name="dose"]').value = brew.dose || '';
     brewCard.querySelector('input[name="yield"]').value = brew.yield || '';
+    brewCard.querySelector('input[name="brew-ratio"]').value = getBrewRatio(brew.dose, brew.yield);
     brewCard.querySelector('input[name="elapsed-time"]').value = brew.elapsedTime || '';
     
     const aromaRadio = brewCard.querySelector(`input[name="aroma"][value="${brew.aroma}"]`);
