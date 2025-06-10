@@ -45,6 +45,7 @@ export function buildBrewCard(brew = {}) {
         
     doseInput.addEventListener('input', updateBrewRatio);
     yieldInput.addEventListener('input', updateBrewRatio);
+    updateBrewRatio(); // Initialize the brew ratio on page load
 
     const tastingNotesContainer = getTastingNotesInput();
     const tastingNotesTitle = clone.querySelector('.tasting-notes-title');
