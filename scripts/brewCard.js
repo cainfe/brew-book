@@ -29,6 +29,10 @@ export function buildBrewCard(brew = {}) {
     const brewCard = clone.querySelector('.brew-card');
     const form = clone.querySelector('form');
 
+    if (!isNewBrew) {
+        brewCard.classList.add('brew-card-filled');
+    }
+
     const doseInput = form.querySelector('input[name="dose"]');
     const yieldInput = form.querySelector('input[name="yield"]');
     const ratioInput = form.querySelector('input[name="brew-ratio"]');
@@ -180,6 +184,7 @@ function enableBrewEditing(brewCard) {
     if (brewCard) {
         const inputs = brewCard.querySelectorAll('input, select, textarea');
         inputs.forEach(input => {
+            if (input.classList.contains('always-disabled')) return;
             input.disabled = false;
         });
 
