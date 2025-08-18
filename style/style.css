@@ -361,3 +361,31 @@ select option {
 select option:disabled {
     color: gray;
 }
+
+.unit-input-container {
+    display: flex;
+    align-items: center;
+    margin: 0.25rem;
+}
+
+.has-unit {
+    border-radius: 8px 0 0 8px;
+    margin: 0;
+    padding-right: 0;
+    border-right: none;
+}
+
+.unit {
+    display: block;
+    margin-left: 0;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0 8px 8px 0;
+    background-color: #d4c0b0;
+    font-weight: bold;
+    border: 1px solid white;
+    border-left: none;
+}
+
+input.has-unit:disabled + .unit {
+    border: none;
+}

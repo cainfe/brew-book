@@ -105,20 +105,30 @@
                 <input type="number" name="grind-setting" id="grind-setting">
             </div>
             <div class="content-card-form-field">
-                <label for="dose">Dose (g):</label>
-                <input type="number" name="dose" id="dose" step="0.1">
+                <label for="dose">Dose:</label>
+                <div class="unit-input-container">
+                    <input type="number" name="dose" id="dose" class="has-unit" step="0.1">
+                    <span class="unit">g</span>
+                </div>
             </div>
             <div class="content-card-form-field">
-                <label for="yield">Yield (g):</label>
-                <input type="number" name="yield" id="yield" step="0.1">
+                <label for="yield">Yield:</label>
+                <div class="unit-input-container">
+                    <input type="number" name="yield" id="yield" class="has-unit" step="0.1">
+                    <span class="unit">g</span>
+                </div>
             </div>
             <div class="content-card-form-field">
                 <label for="brew-ratio">Brew Ratio:</label>
                 <input type="text" name="brew-ratio" id="brew-ratio" class="always-disabled" disabled aria-disabled="true" title="This field is auto-calculated and not editable."></div>
             <div class="content-card-form-field">
-                <label for="elapsed-time">Elapsed Time (s):</label>
-                <input type="number" name="elapsed-time" id="elapsed-time" step="1"></div>
-            <h3>Sensory Profile</h3>
+                <label for="brew-time">Brew Time:</label>
+                <div class="unit-input-container">
+                    <input type="number" name="elapsed-time" id="elapsed-time" class="has-unit" step="0.1">
+                    <span class="unit">s</span>
+                </div>
+            </div>
+            </h3>Sensory Profile</h3>
             <div class="content-card-form-field">
                 <label for="aroma">Aroma:</label>
                 <div class="rating-container">
