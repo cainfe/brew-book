@@ -33,10 +33,10 @@ body {
 }
 
 .content-card-form-field label {
-    margin-right: auto;
     white-space: nowrap;
     display: flex;
     align-items: center;
+    flex: 1;
 }
 
 .content-card-form input:disabled, .content-card-form select:disabled, .content-card-form textarea:disabled {
@@ -376,7 +376,6 @@ select option:disabled {
 }
 
 .unit {
-    display: block;
     margin-left: 0;
     padding: 0.25rem 0.5rem;
     border-radius: 0 8px 8px 0;
