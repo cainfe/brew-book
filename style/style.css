@@ -317,9 +317,20 @@ input[name="method"]:checked + .method-label .method-image {
     opacity: 0.2;
 }
 
+.input-container {
+    display: flex;
+    align-items: center;
+    padding: 0.25rem 0;
+    width: 200px;
+    max-width: 200px;
+}
+
+.input-container input, .input-container select {
+    width: 100%;
+}
+
 input, select {
     display: inline-block;
-    margin: 0.25rem;
     padding: 0.25rem 0.5rem;
     border-radius: 8px;
     border: 1px solid white;
@@ -360,12 +371,6 @@ select option {
 
 select option:disabled {
     color: gray;
-}
-
-.unit-input-container {
-    display: flex;
-    align-items: center;
-    margin: 0.25rem;
 }
 
 .has-unit {
