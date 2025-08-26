@@ -33,18 +33,15 @@ body {
 }
 
 .content-card-form-field label {
-    margin-right: auto;
     white-space: nowrap;
     display: flex;
     align-items: center;
+    flex: 1;
 }
 
 .content-card-form input:disabled, .content-card-form select:disabled, .content-card-form textarea:disabled {
-    background-color: transparent;
-    border: none;
-    border-bottom: 1px solid white;
-    color: white;
     opacity: 1;
+    border: none;
 }
 
 .content-card button {
@@ -320,9 +317,20 @@ input[name="method"]:checked + .method-label .method-image {
     opacity: 0.2;
 }
 
+.input-container {
+    display: flex;
+    align-items: center;
+    padding: 0.25rem 0;
+    width: 200px;
+    max-width: 200px;
+}
+
+.input-container input, .input-container select {
+    width: 100%;
+}
+
 input, select {
     display: inline-block;
-    margin: 0.25rem;
     padding: 0.25rem 0.5rem;
     border-radius: 8px;
     border: 1px solid white;
@@ -365,6 +373,23 @@ select option:disabled {
     color: gray;
 }
 
-input:disabled, select:disabled {
-    border-radius: 0px;
+.has-unit {
+    border-radius: 8px 0 0 8px;
+    margin: 0;
+    padding-right: 0;
+    border-right: none;
+}
+
+.unit {
+    margin-left: 0;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0 8px 8px 0;
+    background-color: #d4c0b0;
+    font-weight: bold;
+    border: 1px solid white;
+    border-left: none;
+}
+
+input.has-unit:disabled + .unit {
+    border: none;
 }

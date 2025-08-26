@@ -80,44 +80,75 @@
                 </label>
             </div>
             <div class="content-card-form-field">
-                <input type="hidden" name="id" id="id"></div>
+                <input type="hidden" name="id" id="id">
+            </div>
             <div class="content-card-form-field">
                 <label for="date">Date:</label>
-                <input type="date" name="date" id="date"></div>
+                <div class="input-container">
+                    <input type="date" name="date" id="date">
+                </div>
+            </div>
             <div class="content-card-form-field">
                 <label for="time">Time:</label>
-                <input type="time" name="time" id="time"></div>
+                <div class="input-container">
+                    <input type="time" name="time" id="time">
+                </div>
+            </div>
             <div class="content-card-form-field">
                 <label for="bean-id">Beans:</label>
-                <select name="bean-id" id="bean-id">
-                    <option value="Select Bean" disabled selected>Select Bean</option>
-                </select></div>
+                <div class="input-container">
+                    <select name="bean-id" id="bean-id">
+                        <option value="Select Bean" disabled selected>Select Bean</option>
+                    </select>
+                </div>
+            </div>
             <h3>Water</h3>
             <div class="content-card-form-field">
                 <label for="water-temperature">Temperature:</label>
-                <input type="number" name="water-temperature" id="water-temperature"></div>
+                <div class="input-container">
+                    <input type="number" name="water-temperature" id="water-temperature">
+                </div>
+            </div>
             <div class="content-card-form-field">
                 <label for="water-volume">Volume:</label>
-                <input type="number" name="water-volume" id="water-volume"></div>
+                <div class="input-container">
+                    <input type="number" name="water-volume" id="water-volume">
+                </div>
+            </div>
             <h3>Brewing Parameters</h3>
             <div class="content-card-form-field">
                 <label for="grind-setting">Grind Setting:</label>
-                <input type="number" name="grind-setting" id="grind-setting">
+                <div class="input-container">
+                    <input type="number" name="grind-setting" id="grind-setting">
+                </div>
             </div>
             <div class="content-card-form-field">
-                <label for="dose">Dose (g):</label>
-                <input type="number" name="dose" id="dose" step="0.1">
+                <label for="dose">Dose:</label>
+                <div class="input-container">
+                    <input type="number" name="dose" id="dose" class="has-unit" step="0.1">
+                    <span class="unit">g</span>
+                </div>
             </div>
             <div class="content-card-form-field">
-                <label for="yield">Yield (g):</label>
-                <input type="number" name="yield" id="yield" step="0.1">
+                <label for="yield">Yield:</label>
+                <div class="input-container">
+                    <input type="number" name="yield" id="yield" class="has-unit" step="0.1">
+                    <span class="unit">g</span>
+                </div>
             </div>
             <div class="content-card-form-field">
                 <label for="brew-ratio">Brew Ratio:</label>
-                <input type="number" name="brew-ratio" id="brew-ratio" step="0.1"></div>
+                <div class="input-container">
+                    <input type="text" name="brew-ratio" id="brew-ratio" class="always-disabled" disabled aria-disabled="true" title="This field is auto-calculated and not editable.">
+                </div>
+            </div>
             <div class="content-card-form-field">
-                <label for="elapsed-time">Elapsed Time (s):</label>
-                <input type="number" name="elapsed-time" id="elapsed-time" step="1"></div>
+                <label for="elapsed-time">Brew Time:</label>
+                <div class="input-container">
+                    <input type="number" name="elapsed-time" id="elapsed-time" class="has-unit" step="1">
+                    <span class="unit">s</span>
+                </div>
+            </div>
             <h3>Sensory Profile</h3>
             <div class="content-card-form-field">
                 <label for="aroma">Aroma:</label>
