@@ -42,6 +42,8 @@ export function getTastingNotesInput(preSelectedNotes) {
     container.classList.add('tasting-notes-container');
 
     const searchBar = document.createElement('input');
+    searchBar.id = 'tasting-notes-search';
+    searchBar.name = 'tasting-notes-search';
     searchBar.type = 'text';
     searchBar.placeholder = 'Type a tasting note...';
     searchBar.classList.add('tasting-notes-search');

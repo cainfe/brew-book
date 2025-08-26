@@ -32,7 +32,7 @@ body {
     min-width: min-content;
 }
 
-.content-card-form-field label {
+.content-card-form-field label,.content-card-form-field span {
     white-space: nowrap;
     display: flex;
     align-items: center;
