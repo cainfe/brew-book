@@ -177,15 +177,21 @@ ul {
     flex-direction: column;
 }
 
+.menu {
+    width: 388px;
+    height: 100%;
+    margin-left: 30px;
+    overflow: hidden;
+}
+
 .menu-panel-header {
-    width: 418px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .menu-panel-content {
-    width: 418px;
+    height: 100%;
     overflow: hidden;
     overflow-y: scroll;
     scrollbar-width: none;
