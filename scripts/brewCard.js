@@ -1,5 +1,4 @@
-import { upsertBrew, deleteBrew, getBrewById } from './storage.js';
-import { getBeans } from './storage.js';
+import { upsertBrew, deleteBrew, getBrewById, getBrews, getBeans } from './storage.js';
 import { getTastingNotesInput, toggleTastingNotesEditable, getSelectedTastingNotes, selectTastingNotes } from './tastingNotes.js';
 
 export function buildBrewCard(brew = {}) {
@@ -99,13 +98,13 @@ export function buildBrewCard(brew = {}) {
         upsertBrew(brew);
         
         if (isNewBrew) {
-            const newBrewCard = buildBrewCard(brew);
-            document.getElementById("brews-list").appendChild(newBrewCard);
             form.reset();
         } else {
             const updatedBrewCard = buildBrewCard(brew);
             brewCard.replaceWith(updatedBrewCard);
         }
+
+        listBrews(getBrews());
     });
 
     if (!isNewBrew) {
@@ -163,9 +162,13 @@ function populateBrewCardFields(brew, brewCard) {
 }
 
 export function listBrews(brews = {}) {
+    const brewsList = document.getElementById("brews-list");
+
+    brewsList.innerHTML = '';
+
     brews.forEach(brew => {
         const brewCard = buildBrewCard(brew);
-        document.getElementById("brews-list").appendChild(brewCard);
+        brewsList.appendChild(brewCard);
     });
 }
 

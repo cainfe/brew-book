@@ -19,7 +19,8 @@ export function upsertBrew(brew) {
 
 export function getBrews() {
     const brews = localStorage.getItem('brews');
-    return brews ? JSON.parse(brews) : [];
+    const brewList = brews ? JSON.parse(brews) : [];
+    return brewList.sort((a, b) => new Date(b.date + 'T' + b.time) - new Date(a.date + 'T' + a.time));
 }
 
 export function getBrewById(id) {

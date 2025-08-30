@@ -5,7 +5,7 @@ import { buildBeanCard, listBeans } from './beanCard.js';
 
 document.addEventListener('DOMContentLoaded', function () {
     const newBrewCard = buildBrewCard();
-    document.getElementById("brews-list").appendChild(newBrewCard);
+    document.querySelector("body").insertBefore(newBrewCard, document.getElementById("brews-list"));
     listBrews(getBrews());
 
     const newBeanCard = buildBeanCard();
