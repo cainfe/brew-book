@@ -32,6 +32,14 @@ export function buildBrewCard(brew = {}) {
         brewCard.classList.add('brew-card-filled');
     }
 
+    if (isNewBrew) {
+        const dateInput = form.querySelector('input[name="date"]');
+        const timeInput = form.querySelector('input[name="time"]');
+        const now = new Date();
+        dateInput.value = now.toISOString().split('T')[0];
+        timeInput.value = now.toTimeString().split(' ')[0].slice(0, 5);
+    }
+
     const doseInput = form.querySelector('input[name="dose"]');
     const yieldInput = form.querySelector('input[name="yield"]');
     const ratioInput = form.querySelector('input[name="brew-ratio"]');
