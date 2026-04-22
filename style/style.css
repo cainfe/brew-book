@@ -361,30 +361,9 @@ input, select {
     color: white;
 }
 
-input[type="date"]::-webkit-calendar-picker-indicator,
-input[type="time"]::-webkit-calendar-picker-indicator {
+input[type="date"]::-webkit-calendar-picker-indicator {
     filter: invert(1);
     opacity: 1;
-}
-
-input[type="date"]::-ms-input-placeholder,
-input[type="time"]::-ms-input-placeholder {
-    color: white;
-}
-
-input[type="date"]::-moz-placeholder,
-input[type="time"]::-moz-placeholder {
-    color: white;
-}
-
-input[type="date"]:-ms-input-placeholder,
-input[type="time"]:-ms-input-placeholder {
-    color: white;
-}
-
-input[type="date"]::placeholder,
-input[type="time"]::placeholder {
-    color: white;
 }
 
 select option {

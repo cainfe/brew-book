@@ -34,10 +34,9 @@ export function buildBrewCard(brew = {}) {
 
     if (isNewBrew) {
         const dateInput = form.querySelector('input[name="date"]');
-        const timeInput = form.querySelector('input[name="time"]');
         const now = new Date();
-        dateInput.value = now.toISOString().split('T')[0];
-        timeInput.value = now.toTimeString().split(' ')[0].slice(0, 5);
+        const pad = (value) => String(value).padStart(2, '0');
+        dateInput.value = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
     }
 
     const doseInput = form.querySelector('input[name="dose"]');
@@ -134,7 +133,6 @@ function populateBrewCardFields(brew, brewCard) {
         methodRadio.checked = true;
     }
     brewCard.querySelector('input[name="date"]').value = brew.date || '';
-    brewCard.querySelector('input[name="time"]').value = brew.time || '';
     brewCard.querySelector('select[name="bean-id"]').value = brew.beanId || '';
     brewCard.querySelector('input[name="grind-setting"]').value = brew.grindSetting || '';
     brewCard.querySelector('input[name="water-temperature"]').value = brew.waterTemperature || '';
@@ -246,7 +244,6 @@ function getBrewFromForm(brewFormData) {
     let brew = {
         method: brewFormData.get('method'),
         date: brewFormData.get('date'),
-        time: brewFormData.get('time'),
         beanId: brewFormData.get('bean-id'),
         grindSetting: brewFormData.get('grind-setting'),
         waterTemperature: brewFormData.get('water-temperature'),
