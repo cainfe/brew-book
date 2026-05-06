@@ -52,6 +52,7 @@
                                 <li><a href="https://www.flaticon.com/free-icons/coffee-machine" title="coffee machine icons" target="_blank">Coffee machine icons created by Freepik - Flaticon</a><br></li>
                                 <li><a href="https://www.flaticon.com/free-icons/cold-brew" title="cold brew icons" target="_blank">Cold brew icons created by Freepik - Flaticon</a><br></li>
                                 <li><a target="_blank" href="https://icons8.com/icon/J7H9f9W7LLb5/coffee-bean">coffee bean</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a></li>
+                                <li><a href="https://www.flaticon.com/free-icons/question-mark" title="question mark icons" target="_blank">Question mark icons created by Freepik - Flaticon</a></li>
                             </ul>
                         </li>
                 </div>
@@ -64,26 +65,32 @@
     <li class="brew-card content-card">
         <form class="content-card-form" id="brew-form">
             <div class="methods-container">
-                <input type="radio" name="method" value="Pour Over" id="method-pour-over">
-                <label for="method-pour-over" class="method-label">
-                    <img src="./images/pour-over.png" alt="Pour Over" class="method-image" title="Pour Over">
-                </label>
-                <input type="radio" name="method" value="French Press" id="method-french-press">
-                <label for="method-french-press" class="method-label">
-                    <img src="./images/french-press.png" alt="French Press" class="method-image" title="French Press">
-                </label>
-                <input type="radio" name="method" value="Aeropress" id="method-aeropress">
-                <label for="method-aeropress" class="method-label">
-                    <img src="./images/aeropress.png" alt="Aeropress" class="method-image" title="Aeropress">
-                </label>
-                <input type="radio" name="method" value="Espresso" id="method-espresso">
-                <label for="method-espresso" class="method-label">
-                    <img src="./images/coffee-machine.png" alt="Espresso" class="method-image" title="Espresso">
-                </label>
-                <input type="radio" name="method" value="Cold Brew" id="method-cold-brew">
-                <label for="method-cold-brew" class="method-label">
-                    <img src="./images/cold-brew.png" alt="Cold Brew" class="method-image" title="Cold Brew">
-                </label>
+                <div class="method-select">
+                    <input type="radio" name="method" value="Select Method" id="method-none" class="always-disabled" disabled checked>
+                    <label for="method-none" class="select-method-label">
+                        <img src="./images/question-mark.png" alt="Select Method" class="method-image" title="Select Method">
+                    </label>
+                    <input type="radio" name="method" value="Pour Over" id="method-pour-over">
+                    <label for="method-pour-over">
+                        <img src="./images/pour-over.png" alt="Pour Over" class="method-image" title="Pour Over">
+                    </label>
+                    <input type="radio" name="method" value="French Press" id="method-french-press">
+                    <label for="method-french-press">
+                        <img src="./images/french-press.png" alt="French Press" class="method-image" title="French Press">
+                    </label>
+                    <input type="radio" name="method" value="Aeropress" id="method-aeropress">
+                    <label for="method-aeropress">
+                        <img src="./images/aeropress.png" alt="Aeropress" class="method-image" title="Aeropress">
+                    </label>
+                    <input type="radio" name="method" value="Espresso" id="method-espresso">
+                    <label for="method-espresso">
+                        <img src="./images/coffee-machine.png" alt="Espresso" class="method-image" title="Espresso">
+                    </label>
+                    <input type="radio" name="method" value="Cold Brew" id="method-cold-brew">
+                    <label for="method-cold-brew">
+                        <img src="./images/cold-brew.png" alt="Cold Brew" class="method-image" title="Cold Brew">
+                    </label>
+                </div>
             </div>
             <div class="content-card-form-field">
                 <input type="hidden" name="id" id="id">

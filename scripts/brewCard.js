@@ -32,6 +32,19 @@ export function buildBrewCard(brew = {}) {
         brewCard.classList.add('brew-card-filled');
     }
 
+    const methodSelect = brewCard.querySelector(`.method-select`);
+    const methodSelectRadios = brewCard.querySelectorAll('.method-select input[type="radio"]');
+
+    methodSelect.addEventListener('click', () => {
+        if (!methodSelect.disabled && !methodSelect.classList.contains('selectable')) methodSelect.classList.add('selectable');
+    });
+
+    methodSelectRadios.forEach(radio => {
+        radio.addEventListener('change', () => {
+            methodSelect.classList.remove('selectable');
+        });
+    });
+
     if (isNewBrew) {
         const dateInput = form.querySelector('input[name="date"]');
         const now = new Date();
@@ -198,6 +211,11 @@ function enableBrewEditing(brewCard) {
             input.disabled = false;
         });
 
+        const methodSelect = brewCard.querySelector('.method-select');
+        if (methodSelect) {
+            methodSelect.disabled = false;
+        }
+
         const tastingNotesContainer = brewCard.querySelector('.tasting-notes-container');
         if (tastingNotesContainer) {
             toggleTastingNotesEditable(tastingNotesContainer, true);
@@ -219,6 +237,11 @@ function disableBrewEditing(brewCard) {
         inputs.forEach(input => {
             input.disabled = true;
         });
+
+        const methodSelect = brewCard.querySelector('.method-select');
+        if (methodSelect) {
+            methodSelect.disabled = true;
+        }
 
         const tastingNotesContainer = brewCard.querySelector('.tasting-notes-container');
         if (tastingNotesContainer) {

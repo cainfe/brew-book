@@ -1,3 +1,7 @@
+:root {
+    --method-image-size: 48px;
+}
+
 html {
     font-family: 'Roboto', sans-serif;
     background-color: #E7D7C1;
@@ -215,44 +219,45 @@ ul {
 }
 
 .methods-container {
+    display: inline-block;
+    width: calc(var(--method-image-size) + 2rem + 4px);
+    height: calc(var(--method-image-size) + 2rem + 4px);
+}
+
+.method-select {
     display: flex;
+    flex-direction: row;
     flex-wrap: wrap;
-    justify-content: center;
     align-items: center;
-    width: 100%;
-    padding: 1rem 0;
+    position: absolute;
+    background-color: #a78a7f;
+    border-radius: 8px;
+    transition: width 1s ease;
 }
 
-.methods-container input[type="radio"] {
-    display: none;
-}
-
-.method-label {
+.method-select input[type="radio"] + label {
     display: inline-block;
     cursor: pointer;
     margin: 0.5rem;
-    transition: transform 0.2s ease;
-}
-
-.method-label:hover {
-    transform: scale(1.1);
-}
-
-input[type="radio"]:disabled + label:hover {
-    transform: none;
-    cursor: default;
-}
-
-.method-image {
-    border: 2px solid transparent;
-    border-radius: 8px;
-    transition: border-color 0.2s ease;
     padding: 0.5rem;
+    border-radius: 8px;
+
+    transition: background-color 0.2s ease;
 }
 
-input[name="method"]:checked + .method-label .method-image {
+.method-select.selectable input[type="radio"]:checked + label {
     border-color: #a78a7f;
     background-color: #E7D7C1;
+} 
+
+.method-image {
+    width: var(--method-image-size);
+    height: var(--method-image-size);
+    display: block;
+}
+
+.method-select input[type="radio"], .method-select:not(.selectable) input[type="radio"]:not(:checked) + label {
+    display: none;
 }
 
 .tasting-notes-container {
