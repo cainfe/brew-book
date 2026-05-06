@@ -218,10 +218,14 @@ ul {
     display: none;
 }
 
-.brew-card-header-section {
+.brew-card-header {
     display: flex;
     align-items: center;
-    width: 100%;
+    margin: 0 -4rem;
+}
+
+.brew-card-header-right {
+    margin-left: auto;
 }
 
 .methods-container {
@@ -266,17 +270,47 @@ ul {
     display: none;
 }
 
-.bean-select {
+.bean-select, .date-input {
     margin-left: 1rem;
     background-color: transparent;
     border: none;
-    font-weight: bold;
-    font-size: large;
     outline: none;
 }
 
-.bean-select:disabled {
+.bean-select {
+    font-weight: bold;
+    font-size: large;
+}
+
+.date-input {
+    text-align: right;
+    font-weight: bold;
+}
+
+.bean-select:disabled, .date-input:disabled {
     appearance: none;
+}
+
+.date-input:disabled {
+    padding-right: 0;
+}
+
+.date-input:disabled::-webkit-calendar-picker-indicator {
+    display: none;
+}
+
+.date-and-rating {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 5px;
+}
+
+.rating-container.overall-rating label {
+    margin: 0;
+    padding: 0 2px;
+    width: 25px;
+    height: 25px;
 }
 
 .tasting-notes-container {

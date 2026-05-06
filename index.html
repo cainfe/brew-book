@@ -64,7 +64,7 @@
 <template id="brew-card-template">
     <li class="brew-card content-card">
         <form class="content-card-form" id="brew-form">
-            <div class="brew-card-header-section">
+            <div class="brew-card-header">
                 <div class="methods-container">
                     <div class="method-select">
                         <input type="radio" name="method" value="Select Method" id="method-none" class="always-disabled" disabled checked>
@@ -96,15 +96,27 @@
                 <select class="bean-select" name="bean-id" id="bean-id">
                     <option value="Select Bean" disabled selected>Select Bean</option>
                 </select>
+                <div class="brew-card-header-right">
+                    <div class="date-and-rating">
+                        <input class="date-input" type="date" name="date" id="date">
+                        <div class="rating-container overall-rating">
+                            <input type="radio" name="overall-impression" value="1" id="overall-impression-rating-1" checked>
+                            <label for="overall-impression-rating-1"></label>
+                            <input type="radio" name="overall-impression" value="2" id="overall-impression-rating-2">
+                            <label for="overall-impression-rating-2"></label>
+                            <input type="radio" name="overall-impression" value="3" id="overall-impression-rating-3">
+                            <label for="overall-impression-rating-3"></label>
+                            <input type="radio" name="overall-impression" value="4" id="overall-impression-rating-4">
+                            <label for="overall-impression-rating-4"></label>
+                            <input type="radio" name="overall-impression" value="5" id="overall-impression-rating-5">
+                            <label for="overall-impression-rating-5"></label>
+                        </div>
+                    </div>
+                </div>
             </div>
+            <br><hr>
             <div class="content-card-form-field">
                 <input type="hidden" name="id" id="id">
-            </div>
-            <div class="content-card-form-field">
-                <label for="date">Date:</label>
-                <div class="input-container">
-                    <input type="date" name="date" id="date">
-                </div>
             </div>
             <h3>Water</h3>
             <div class="content-card-form-field">
@@ -227,21 +239,6 @@
                     <label for="aftertaste-rating-4"></label>
                     <input type="radio" name="aftertaste" value="5" id="aftertaste-rating-5">
                     <label for="aftertaste-rating-5"></label>
-                </div>
-            </div>
-            <div class="content-card-form-field">
-                <span>Overall:</span>
-                <div class="rating-container">
-                    <input type="radio" name="overall-impression" value="1" id="overall-impression-rating-1" checked>
-                    <label for="overall-impression-rating-1"></label>
-                    <input type="radio" name="overall-impression" value="2" id="overall-impression-rating-2">
-                    <label for="overall-impression-rating-2"></label>
-                    <input type="radio" name="overall-impression" value="3" id="overall-impression-rating-3">
-                    <label for="overall-impression-rating-3"></label>
-                    <input type="radio" name="overall-impression" value="4" id="overall-impression-rating-4">
-                    <label for="overall-impression-rating-4"></label>
-                    <input type="radio" name="overall-impression" value="5" id="overall-impression-rating-5">
-                    <label for="overall-impression-rating-5"></label>
                 </div>
             </div>
             <h3 class="tasting-notes-title">Tasting Notes</h3>
