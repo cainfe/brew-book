@@ -64,33 +64,38 @@
 <template id="brew-card-template">
     <li class="brew-card content-card">
         <form class="content-card-form" id="brew-form">
-            <div class="methods-container">
-                <div class="method-select">
-                    <input type="radio" name="method" value="Select Method" id="method-none" class="always-disabled" disabled checked>
-                    <label for="method-none" class="select-method-label">
-                        <img src="./images/question-mark.png" alt="Select Method" class="method-image" title="Select Method">
-                    </label>
-                    <input type="radio" name="method" value="Pour Over" id="method-pour-over">
-                    <label for="method-pour-over">
-                        <img src="./images/pour-over.png" alt="Pour Over" class="method-image" title="Pour Over">
-                    </label>
-                    <input type="radio" name="method" value="French Press" id="method-french-press">
-                    <label for="method-french-press">
-                        <img src="./images/french-press.png" alt="French Press" class="method-image" title="French Press">
-                    </label>
-                    <input type="radio" name="method" value="Aeropress" id="method-aeropress">
-                    <label for="method-aeropress">
-                        <img src="./images/aeropress.png" alt="Aeropress" class="method-image" title="Aeropress">
-                    </label>
-                    <input type="radio" name="method" value="Espresso" id="method-espresso">
-                    <label for="method-espresso">
-                        <img src="./images/coffee-machine.png" alt="Espresso" class="method-image" title="Espresso">
-                    </label>
-                    <input type="radio" name="method" value="Cold Brew" id="method-cold-brew">
-                    <label for="method-cold-brew">
-                        <img src="./images/cold-brew.png" alt="Cold Brew" class="method-image" title="Cold Brew">
-                    </label>
+            <div class="brew-card-header-section">
+                <div class="methods-container">
+                    <div class="method-select">
+                        <input type="radio" name="method" value="Select Method" id="method-none" class="always-disabled" disabled checked>
+                        <label for="method-none" class="select-method-label">
+                            <img src="./images/question-mark.png" alt="Select Method" class="method-image" title="Select Method">
+                        </label>
+                        <input type="radio" name="method" value="Pour Over" id="method-pour-over">
+                        <label for="method-pour-over">
+                            <img src="./images/pour-over.png" alt="Pour Over" class="method-image" title="Pour Over">
+                        </label>
+                        <input type="radio" name="method" value="French Press" id="method-french-press">
+                        <label for="method-french-press">
+                            <img src="./images/french-press.png" alt="French Press" class="method-image" title="French Press">
+                        </label>
+                        <input type="radio" name="method" value="Aeropress" id="method-aeropress">
+                        <label for="method-aeropress">
+                            <img src="./images/aeropress.png" alt="Aeropress" class="method-image" title="Aeropress">
+                        </label>
+                        <input type="radio" name="method" value="Espresso" id="method-espresso">
+                        <label for="method-espresso">
+                            <img src="./images/coffee-machine.png" alt="Espresso" class="method-image" title="Espresso">
+                        </label>
+                        <input type="radio" name="method" value="Cold Brew" id="method-cold-brew">
+                        <label for="method-cold-brew">
+                            <img src="./images/cold-brew.png" alt="Cold Brew" class="method-image" title="Cold Brew">
+                        </label>
+                    </div>
                 </div>
+                <select class="bean-select" name="bean-id" id="bean-id">
+                    <option value="Select Bean" disabled selected>Select Bean</option>
+                </select>
             </div>
             <div class="content-card-form-field">
                 <input type="hidden" name="id" id="id">
@@ -99,14 +104,6 @@
                 <label for="date">Date:</label>
                 <div class="input-container">
                     <input type="date" name="date" id="date">
-                </div>
-            </div>
-            <div class="content-card-form-field">
-                <label for="bean-id">Beans:</label>
-                <div class="input-container">
-                    <select name="bean-id" id="bean-id">
-                        <option value="Select Bean" disabled selected>Select Bean</option>
-                    </select>
                 </div>
             </div>
             <h3>Water</h3>
