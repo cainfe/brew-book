@@ -36,9 +36,10 @@ export function buildBrewCard(brew = {}) {
 
     const methodSelect = brewCard.querySelector(`.method-select`);
     const methodSelectRadios = brewCard.querySelectorAll('.method-select input[type="radio"]');
+    const hasEnabledMethodRadio = () => Array.from(methodSelectRadios).some(radio => !radio.disabled);
 
     methodSelect.addEventListener('click', () => {
-        if (!methodSelect.disabled && !methodSelect.classList.contains('selectable')) methodSelect.classList.add('selectable');
+        if (hasEnabledMethodRadio() && !methodSelect.classList.contains('selectable')) methodSelect.classList.add('selectable');
     });
 
     methodSelectRadios.forEach(radio => {
@@ -257,11 +258,6 @@ function enableBrewEditing(brewCard) {
             input.disabled = false;
         });
 
-        const methodSelect = brewCard.querySelector('.method-select');
-        if (methodSelect) {
-            methodSelect.disabled = false;
-        }
-
         const tastingNotesContainer = brewCard.querySelector('.tasting-notes-container');
         if (tastingNotesContainer) {
             toggleTastingNotesEditable(tastingNotesContainer, true);
@@ -288,11 +284,6 @@ function disableBrewEditing(brewCard) {
         inputs.forEach(input => {
             input.disabled = true;
         });
-
-        const methodSelect = brewCard.querySelector('.method-select');
-        if (methodSelect) {
-            methodSelect.disabled = true;
-        }
 
         const tastingNotesContainer = brewCard.querySelector('.tasting-notes-container');
         if (tastingNotesContainer) {
