@@ -1,6 +1,8 @@
 import { upsertBrew, deleteBrew, getBrewById, getBrews, getBeans } from './storage.js';
 import { getTastingNotesInput, toggleTastingNotesEditable, getSelectedTastingNotes, selectTastingNotes } from './tastingNotes.js';
 
+const cardControllers = new WeakMap();
+
 export function buildBrewCard(brew = {}) {
     const isNewBrew = Object.keys(brew).length === 0;
 
@@ -50,6 +52,50 @@ export function buildBrewCard(brew = {}) {
         const now = new Date();
         const pad = (value) => String(value).padStart(2, '0');
         dateInput.value = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
+    }
+
+    const expandController = (brewCard) => {
+        const expandToggle = brewCard.querySelector('.brew-card-expand-toggle');
+        const expandToggleIcon = expandToggle.querySelector('span');
+        const expandedContent = brewCard.querySelector('.expanded-content');
+
+        const actions = {
+            disable: () => {
+                expandToggle.disabled = true;
+            },
+            enable: () => {
+                expandToggle.disabled = false;
+            },
+            expand: () => {
+                expandedContent.classList.add('expanded');
+                expandToggleIcon.classList.replace('icon-chevron-down', 'icon-chevron-up');
+            },
+            collapse: () => {
+                expandedContent.classList.remove('expanded');
+                expandToggleIcon.classList.replace('icon-chevron-up', 'icon-chevron-down');
+            },
+            toggle: () => {
+                const isExpanded = expandedContent.classList.contains('expanded');
+                isExpanded ? actions.collapse() : actions.expand();
+            }
+        };
+
+        expandToggle.addEventListener('click', () => {
+            actions.toggle();
+        });
+
+        return actions;
+    };
+
+    const expandToggle = expandController(brewCard);
+    cardControllers.set(brewCard, expandToggle);
+
+    if (isNewBrew) {
+        expandToggle.expand();
+        expandToggle.disable();
+    } else {
+        expandToggle.collapse();
+        expandToggle.enable();
     }
 
     const doseInput = form.querySelector('input[name="dose"]');
@@ -228,6 +274,11 @@ function enableBrewEditing(brewCard) {
 
         const editButton = brewCard.querySelector('.edit-button');
         editButton.classList.add('hidden');
+
+        const controller = cardControllers.get(brewCard);
+        if (controller) {
+            controller.disable();
+        }
     }
 }
 
@@ -260,6 +311,11 @@ function disableBrewEditing(brewCard) {
 
         const editButton = brewCard.querySelector('.edit-button');
         editButton.classList.remove('hidden');
+
+        const controller = cardControllers.get(brewCard);
+        if (controller) {
+            controller.enable();
+        }
     }
 }
 

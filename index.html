@@ -112,142 +112,147 @@
                             <label for="overall-impression-rating-5"></label>
                         </div>
                     </div>
+                    <button type="button" class="brew-card-expand-toggle">
+                        <span class="icon-chevron-down"></span>
+                    </button>
                 </div>
             </div>
-            <br><hr>
-            <div class="content-card-form-field">
-                <input type="hidden" name="id" id="id">
-            </div>
-            <h3>Water</h3>
-            <div class="content-card-form-field">
-                <label for="water-temperature">Temperature:</label>
-                <div class="input-container">
-                    <input type="number" name="water-temperature" id="water-temperature">
+            <div class="expanded-content">
+                <br><hr>
+                <div class="content-card-form-field">
+                    <input type="hidden" name="id" id="id">
                 </div>
-            </div>
-            <div class="content-card-form-field">
-                <label for="water-volume">Volume:</label>
-                <div class="input-container">
-                    <input type="number" name="water-volume" id="water-volume">
+                <h3>Water</h3>
+                <div class="content-card-form-field">
+                    <label for="water-temperature">Temperature:</label>
+                    <div class="input-container">
+                        <input type="number" name="water-temperature" id="water-temperature">
+                    </div>
                 </div>
-            </div>
-            <h3>Brewing Parameters</h3>
-            <div class="content-card-form-field">
-                <label for="grind-setting">Grind Setting:</label>
-                <div class="input-container">
-                    <input type="number" name="grind-setting" id="grind-setting">
+                <div class="content-card-form-field">
+                    <label for="water-volume">Volume:</label>
+                    <div class="input-container">
+                        <input type="number" name="water-volume" id="water-volume">
+                    </div>
                 </div>
-            </div>
-            <div class="content-card-form-field">
-                <label for="dose">Dose:</label>
-                <div class="input-container">
-                    <input type="number" name="dose" id="dose" class="has-unit" step="0.1">
-                    <span class="unit">g</span>
+                <h3>Brewing Parameters</h3>
+                <div class="content-card-form-field">
+                    <label for="grind-setting">Grind Setting:</label>
+                    <div class="input-container">
+                        <input type="number" name="grind-setting" id="grind-setting">
+                    </div>
                 </div>
-            </div>
-            <div class="content-card-form-field">
-                <label for="yield">Yield:</label>
-                <div class="input-container">
-                    <input type="number" name="yield" id="yield" class="has-unit" step="0.1">
-                    <span class="unit">g</span>
+                <div class="content-card-form-field">
+                    <label for="dose">Dose:</label>
+                    <div class="input-container">
+                        <input type="number" name="dose" id="dose" class="has-unit" step="0.1">
+                        <span class="unit">g</span>
+                    </div>
                 </div>
-            </div>
-            <div class="content-card-form-field">
-                <label for="brew-ratio">Brew Ratio:</label>
-                <div class="input-container">
-                    <input type="text" name="brew-ratio" id="brew-ratio" class="always-disabled" disabled aria-disabled="true" title="This field is auto-calculated and not editable.">
+                <div class="content-card-form-field">
+                    <label for="yield">Yield:</label>
+                    <div class="input-container">
+                        <input type="number" name="yield" id="yield" class="has-unit" step="0.1">
+                        <span class="unit">g</span>
+                    </div>
                 </div>
-            </div>
-            <div class="content-card-form-field">
-                <label for="elapsed-time">Brew Time:</label>
-                <div class="input-container">
-                    <input type="number" name="elapsed-time" id="elapsed-time" class="has-unit" step="1">
-                    <span class="unit">s</span>
+                <div class="content-card-form-field">
+                    <label for="brew-ratio">Brew Ratio:</label>
+                    <div class="input-container">
+                        <input type="text" name="brew-ratio" id="brew-ratio" class="always-disabled" disabled aria-disabled="true" title="This field is auto-calculated and not editable.">
+                    </div>
                 </div>
-            </div>
-            <h3>Sensory Profile</h3>
-            <div class="content-card-form-field">
-                <span>Aroma:</span>
-                <div class="rating-container">
-                    <input type="radio" name="aroma" value="1" id="aroma-rating-1" checked>
-                    <label for="aroma-rating-1"></label>
-                    <input type="radio" name="aroma" value="2" id="aroma-rating-2">
-                    <label for="aroma-rating-2"></label>
-                    <input type="radio" name="aroma" value="3" id="aroma-rating-3">
-                    <label for="aroma-rating-3"></label>
-                    <input type="radio" name="aroma" value="4" id="aroma-rating-4">
-                    <label for="aroma-rating-4"></label>
-                    <input type="radio" name="aroma" value="5" id="aroma-rating-5">
-                    <label for="aroma-rating-5"></label>
+                <div class="content-card-form-field">
+                    <label for="elapsed-time">Brew Time:</label>
+                    <div class="input-container">
+                        <input type="number" name="elapsed-time" id="elapsed-time" class="has-unit" step="1">
+                        <span class="unit">s</span>
+                    </div>
                 </div>
-            </div>
-            <div class="content-card-form-field">
-                <span>Flavor:</span>
-                <div class="rating-container">
-                    <input type="radio" name="flavor" value="1" id="flavor-rating-1" checked>
-                    <label for="flavor-rating-1"></label>
-                    <input type="radio" name="flavor" value="2" id="flavor-rating-2">
-                    <label for="flavor-rating-2"></label>
-                    <input type="radio" name="flavor" value="3" id="flavor-rating-3">
-                    <label for="flavor-rating-3"></label>
-                    <input type="radio" name="flavor" value="4" id="flavor-rating-4">
-                    <label for="flavor-rating-4"></label>
-                    <input type="radio" name="flavor" value="5" id="flavor-rating-5">
-                    <label for="flavor-rating-5"></label>
+                <h3>Sensory Profile</h3>
+                <div class="content-card-form-field">
+                    <span>Aroma:</span>
+                    <div class="rating-container">
+                        <input type="radio" name="aroma" value="1" id="aroma-rating-1" checked>
+                        <label for="aroma-rating-1"></label>
+                        <input type="radio" name="aroma" value="2" id="aroma-rating-2">
+                        <label for="aroma-rating-2"></label>
+                        <input type="radio" name="aroma" value="3" id="aroma-rating-3">
+                        <label for="aroma-rating-3"></label>
+                        <input type="radio" name="aroma" value="4" id="aroma-rating-4">
+                        <label for="aroma-rating-4"></label>
+                        <input type="radio" name="aroma" value="5" id="aroma-rating-5">
+                        <label for="aroma-rating-5"></label>
+                    </div>
                 </div>
-            </div>
-            <div class="content-card-form-field">
-                <span>Acidity:</span>
-                <div class="rating-container">
-                    <input type="radio" name="acidity" value="1" id="acidity-rating-1" checked>
-                    <label for="acidity-rating-1"></label>
-                    <input type="radio" name="acidity" value="2" id="acidity-rating-2">
-                    <label for="acidity-rating-2"></label>
-                    <input type="radio" name="acidity" value="3" id="acidity-rating-3">
-                    <label for="acidity-rating-3"></label>
-                    <input type="radio" name="acidity" value="4" id="acidity-rating-4">
-                    <label for="acidity-rating-4"></label>
-                    <input type="radio" name="acidity" value="5" id="acidity-rating-5">
-                    <label for="acidity-rating-5"></label>
+                <div class="content-card-form-field">
+                    <span>Flavor:</span>
+                    <div class="rating-container">
+                        <input type="radio" name="flavor" value="1" id="flavor-rating-1" checked>
+                        <label for="flavor-rating-1"></label>
+                        <input type="radio" name="flavor" value="2" id="flavor-rating-2">
+                        <label for="flavor-rating-2"></label>
+                        <input type="radio" name="flavor" value="3" id="flavor-rating-3">
+                        <label for="flavor-rating-3"></label>
+                        <input type="radio" name="flavor" value="4" id="flavor-rating-4">
+                        <label for="flavor-rating-4"></label>
+                        <input type="radio" name="flavor" value="5" id="flavor-rating-5">
+                        <label for="flavor-rating-5"></label>
+                    </div>
                 </div>
-            </div>
-            <div class="content-card-form-field">
-                <span>Body:</span>
-                <div class="rating-container">
-                    <input type="radio" name="body" value="1" id="body-rating-1" checked>
-                    <label for="body-rating-1"></label>
-                    <input type="radio" name="body" value="2" id="body-rating-2">
-                    <label for="body-rating-2"></label>
-                    <input type="radio" name="body" value="3" id="body-rating-3">
-                    <label for="body-rating-3"></label>
-                    <input type="radio" name="body" value="4" id="body-rating-4">
-                    <label for="body-rating-4"></label>
-                    <input type="radio" name="body" value="5" id="body-rating-5">
-                    <label for="body-rating-5"></label>
+                <div class="content-card-form-field">
+                    <span>Acidity:</span>
+                    <div class="rating-container">
+                        <input type="radio" name="acidity" value="1" id="acidity-rating-1" checked>
+                        <label for="acidity-rating-1"></label>
+                        <input type="radio" name="acidity" value="2" id="acidity-rating-2">
+                        <label for="acidity-rating-2"></label>
+                        <input type="radio" name="acidity" value="3" id="acidity-rating-3">
+                        <label for="acidity-rating-3"></label>
+                        <input type="radio" name="acidity" value="4" id="acidity-rating-4">
+                        <label for="acidity-rating-4"></label>
+                        <input type="radio" name="acidity" value="5" id="acidity-rating-5">
+                        <label for="acidity-rating-5"></label>
+                    </div>
                 </div>
-            </div>
-            <div class="content-card-form-field">
-                <span>Aftertaste:</span>
-                <div class="rating-container">
-                    <input type="radio" name="aftertaste" value="1" id="aftertaste-rating-1" checked>
-                    <label for="aftertaste-rating-1"></label>
-                    <input type="radio" name="aftertaste" value="2" id="aftertaste-rating-2">
-                    <label for="aftertaste-rating-2"></label>
-                    <input type="radio" name="aftertaste" value="3" id="aftertaste-rating-3">
-                    <label for="aftertaste-rating-3"></label>
-                    <input type="radio" name="aftertaste" value="4" id="aftertaste-rating-4">
-                    <label for="aftertaste-rating-4"></label>
-                    <input type="radio" name="aftertaste" value="5" id="aftertaste-rating-5">
-                    <label for="aftertaste-rating-5"></label>
+                <div class="content-card-form-field">
+                    <span>Body:</span>
+                    <div class="rating-container">
+                        <input type="radio" name="body" value="1" id="body-rating-1" checked>
+                        <label for="body-rating-1"></label>
+                        <input type="radio" name="body" value="2" id="body-rating-2">
+                        <label for="body-rating-2"></label>
+                        <input type="radio" name="body" value="3" id="body-rating-3">
+                        <label for="body-rating-3"></label>
+                        <input type="radio" name="body" value="4" id="body-rating-4">
+                        <label for="body-rating-4"></label>
+                        <input type="radio" name="body" value="5" id="body-rating-5">
+                        <label for="body-rating-5"></label>
+                    </div>
                 </div>
+                <div class="content-card-form-field">
+                    <span>Aftertaste:</span>
+                    <div class="rating-container">
+                        <input type="radio" name="aftertaste" value="1" id="aftertaste-rating-1" checked>
+                        <label for="aftertaste-rating-1"></label>
+                        <input type="radio" name="aftertaste" value="2" id="aftertaste-rating-2">
+                        <label for="aftertaste-rating-2"></label>
+                        <input type="radio" name="aftertaste" value="3" id="aftertaste-rating-3">
+                        <label for="aftertaste-rating-3"></label>
+                        <input type="radio" name="aftertaste" value="4" id="aftertaste-rating-4">
+                        <label for="aftertaste-rating-4"></label>
+                        <input type="radio" name="aftertaste" value="5" id="aftertaste-rating-5">
+                        <label for="aftertaste-rating-5"></label>
+                    </div>
+                </div>
+                <h3 class="tasting-notes-title">Tasting Notes</h3>
+                
+                <button type="submit" class="submit-button">Add Brew</button>
+                <button type="button" class="hidden delete-button dangerous">Delete Brew</button>
+                <button type="button" class="hidden edit-button">Edit Brew</button>
+                <button type="submit" class="hidden save-button">Save Edits</button>
+                <button type="button" class="hidden cancel-button">Cancel</button>
             </div>
-            <h3 class="tasting-notes-title">Tasting Notes</h3>
-            
-            <button type="submit" class="submit-button">Add Brew</button>
-            <button type="button" class="hidden delete-button dangerous">Delete Brew</button>
-            <button type="button" class="hidden edit-button">Edit Brew</button>
-            <button type="submit" class="hidden save-button">Save Edits</button>
-            <button type="button" class="hidden cancel-button">Cancel</button>
         </form>
     </li>
 </template>
