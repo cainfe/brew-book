@@ -84,10 +84,11 @@ button:disabled:hover {
 
 .content-card-list {
     list-style: none;
+    margin-top: 10px;
 }
 
 .content-card-list li {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .content-card-list li:last-child {
