@@ -70,10 +70,14 @@ export function buildBrewCard(brew = {}) {
             expand: () => {
                 expandedContent.classList.add('expanded');
                 expandToggleIcon.classList.replace('icon-chevron-down', 'icon-chevron-up');
+                expandToggle.setAttribute('aria-expanded', 'true');
+                expandToggle.setAttribute('aria-label', 'Collapse brew details');
             },
             collapse: () => {
                 expandedContent.classList.remove('expanded');
                 expandToggleIcon.classList.replace('icon-chevron-up', 'icon-chevron-down');
+                expandToggle.setAttribute('aria-expanded', 'false');
+                expandToggle.setAttribute('aria-label', 'Expand brew details');
             },
             toggle: () => {
                 const isExpanded = expandedContent.classList.contains('expanded');
