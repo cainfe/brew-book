@@ -39,6 +39,12 @@ export function buildBrewCard(brew = {}) {
         const methodSelect = brewCard.querySelector('.method-select');
         const methodRadios = brewCard.querySelectorAll('.method-select input[type="radio"]');
 
+        const outsideClickListener = (event) => {
+            if (!methodSelect.contains(event.target)) {
+                actions.collapse();
+            }
+        };
+
         const actions = {
             isEnabled: () => Array.from(methodRadios).some(radio => !radio.disabled),
             enable: () => {
@@ -57,9 +63,11 @@ export function buildBrewCard(brew = {}) {
             },
             expand: () => {
                 methodSelect.classList.add('expanded');
+                document.addEventListener('click', outsideClickListener);
             },
             collapse: () => {
                 methodSelect.classList.remove('expanded');
+                document.removeEventListener('click', outsideClickListener);
             }
         };
 
