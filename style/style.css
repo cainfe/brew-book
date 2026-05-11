@@ -88,7 +88,11 @@ button:disabled:hover {
     border: none;
 }
 
-.content-card button {
+.submit-button,
+.delete-button,
+.edit-button,
+.save-button,
+.cancel-button {
     width: 100%;
     margin-top: 1rem;
     font-weight: bold;
@@ -292,11 +296,24 @@ button:disabled:hover {
     background-color: #a78a7f;
     border-radius: 8px;
     transition: width 1s ease;
+    padding: 0;
+}
+
+.method-select:hover {
+    opacity: 1;
+}
+
+.method-select.expanded {
+    cursor: default;
+}
+
+.method-select:disabled, .method-select:disabled:hover {
+    opacity: 1;
+    cursor: default;
 }
 
 .method-select input[type="radio"] + label {
     display: inline-block;
-    cursor: pointer;
     margin: 0.5rem;
     padding: 0.5rem;
     border-radius: 8px;
@@ -304,10 +321,18 @@ button:disabled:hover {
     transition: background-color 0.2s ease;
 }
 
-.method-select.selectable input[type="radio"]:checked + label {
+.method-select:not(.expanded):not(:disabled) input[type="radio"] + label {
+    cursor: pointer;
+}
+
+.method-select input[type="radio"]:not(:disabled) + label:hover {
+    cursor: pointer;
+}
+
+.method-select.expanded input[type="radio"]:checked + label {
     border-color: #a78a7f;
     background-color: #E7D7C1;
-} 
+}
 
 .method-image {
     width: var(--method-image-size);
@@ -315,7 +340,7 @@ button:disabled:hover {
     display: block;
 }
 
-.method-select input[type="radio"], .method-select:not(.selectable) input[type="radio"]:not(:checked) + label {
+.method-select input[type="radio"], .method-select:not(.expanded) input[type="radio"]:not(:checked) + label {
     display: none;
 }
 

@@ -66,7 +66,7 @@
         <form class="content-card-form" id="brew-form">
             <div class="brew-card-header">
                 <div class="methods-container">
-                    <div class="method-select">
+                    <button type="button" class="method-select">
                         <input type="radio" name="method" value="Select Method" id="method-none" class="always-disabled" disabled checked>
                         <label for="method-none" class="select-method-label">
                             <img src="./images/question-mark.png" alt="Select Method" class="method-image" title="Select Method">
@@ -91,7 +91,7 @@
                         <label for="method-cold-brew">
                             <img src="./images/cold-brew.png" alt="Cold Brew" class="method-image" title="Cold Brew">
                         </label>
-                    </div>
+                    </button>
                 </div>
                 <select class="bean-select" name="bean-id" id="bean-id" aria-label="Bean">
                     <option value="Select Bean" disabled selected>Select Bean</option>
