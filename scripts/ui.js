@@ -1,14 +1,14 @@
 import { importData, exportData, clearData } from './storage.js';
 
 export function initialize() {
-    document.getElementById('delete-data').addEventListener('click', function () {
+    document.getElementById('delete-data-button').addEventListener('click', function () {
         if (confirm('Are you sure you want to delete all brew and bean data?')) {
             clearData();
             location.reload();
         }
     });
 
-    document.getElementById('export-data').addEventListener('click', function () {
+    document.getElementById('export-data-button').addEventListener('click', function () {
         const data = exportData();
 
         const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
