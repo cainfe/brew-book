@@ -69,6 +69,28 @@ export function deleteBean(id) {
     localStorage.setItem('beans', JSON.stringify(beans));
 }
 
+export function exportData() {
+    const data = {
+        brews: getBrews(),
+        beans: getBeans()
+    };
+    return data;
+}
+
+export function importData(jsonData) {
+    try {
+        const data = JSON.parse(jsonData);
+        if (data.brews) {
+            localStorage.setItem('brews', JSON.stringify(data.brews));
+        }
+        if (data.beans) {
+            localStorage.setItem('beans', JSON.stringify(data.beans));
+        }
+    } catch (error) {
+        console.error("Invalid JSON data:", error);
+    }
+}
+
 export function clearData() {
     localStorage.removeItem('brews');
     localStorage.removeItem('beans');
