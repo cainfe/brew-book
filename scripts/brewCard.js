@@ -1,6 +1,9 @@
 import { upsertBrew, deleteBrew, getBrewById, getBrews, getBeans } from './storage.js';
 import { getTastingNotesInput, toggleTastingNotesEditable, getSelectedTastingNotes, selectTastingNotes } from './tastingNotes.js';
 
+const cardControllers = new WeakMap();
+const methodControllers = new WeakMap();
+
 export function buildBrewCard(brew = {}) {
     const isNewBrew = Object.keys(brew).length === 0;
 
@@ -32,11 +35,115 @@ export function buildBrewCard(brew = {}) {
         brewCard.classList.add('brew-card-filled');
     }
 
+    const methodController = (brewCard) => {
+        const methodSelect = brewCard.querySelector('.method-select');
+        const methodRadios = brewCard.querySelectorAll('.method-select input[type="radio"]');
+
+        const outsideClickListener = (event) => {
+            if (!methodSelect.contains(event.target)) {
+                actions.collapse();
+            }
+        };
+
+        const actions = {
+            isEnabled: () => Array.from(methodRadios).some(radio => !radio.disabled),
+            enable: () => {
+                methodSelect.disabled = false;
+                methodRadios.forEach(radio => {
+                    if (radio.classList.contains('always-disabled')) return;
+                    radio.disabled = false;
+                });
+            },
+            disable: () => {
+                actions.collapse();
+                methodSelect.disabled = true;
+                methodRadios.forEach(radio => {
+                    radio.disabled = true;
+                });
+            },
+            expand: () => {
+                methodSelect.classList.add('expanded');
+                document.addEventListener('click', outsideClickListener);
+            },
+            collapse: () => {
+                methodSelect.classList.remove('expanded');
+                document.removeEventListener('click', outsideClickListener);
+            }
+        };
+
+        methodSelect.addEventListener('click', () => {
+            if (actions.isEnabled()) actions.expand();
+        });
+
+        methodRadios.forEach(radio => {
+            radio.addEventListener('change', () => {
+                if (radio.checked) {
+                    actions.collapse();
+                }
+            });
+        });
+
+        actions.enable();
+
+        return actions;
+    };
+
+    const methodActions = methodController(brewCard);
+    methodControllers.set(brewCard, methodActions);
+
     if (isNewBrew) {
         const dateInput = form.querySelector('input[name="date"]');
         const now = new Date();
         const pad = (value) => String(value).padStart(2, '0');
         dateInput.value = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
+    }
+
+    const expandController = (brewCard) => {
+        const expandToggle = brewCard.querySelector('.brew-card-expand-toggle');
+        const expandToggleIcon = expandToggle.querySelector('span');
+        const expandedContent = brewCard.querySelector('.expanded-content');
+
+        const actions = {
+            disable: () => {
+                expandToggle.disabled = true;
+            },
+            enable: () => {
+                expandToggle.disabled = false;
+            },
+            expand: () => {
+                expandedContent.classList.add('expanded');
+                expandToggleIcon.classList.replace('icon-chevron-down', 'icon-chevron-up');
+                expandToggle.setAttribute('aria-expanded', 'true');
+                expandToggle.setAttribute('aria-label', 'Collapse brew details');
+            },
+            collapse: () => {
+                expandedContent.classList.remove('expanded');
+                expandToggleIcon.classList.replace('icon-chevron-up', 'icon-chevron-down');
+                expandToggle.setAttribute('aria-expanded', 'false');
+                expandToggle.setAttribute('aria-label', 'Expand brew details');
+            },
+            toggle: () => {
+                const isExpanded = expandedContent.classList.contains('expanded');
+                isExpanded ? actions.collapse() : actions.expand();
+            }
+        };
+
+        expandToggle.addEventListener('click', () => {
+            actions.toggle();
+        });
+
+        return actions;
+    };
+
+    const expandToggle = expandController(brewCard);
+    cardControllers.set(brewCard, expandToggle);
+
+    if (isNewBrew) {
+        expandToggle.expand();
+        expandToggle.disable();
+    } else {
+        expandToggle.collapse();
+        expandToggle.enable();
     }
 
     const doseInput = form.querySelector('input[name="dose"]');
@@ -210,6 +317,16 @@ function enableBrewEditing(brewCard) {
 
         const editButton = brewCard.querySelector('.edit-button');
         editButton.classList.add('hidden');
+
+        const cardController = cardControllers.get(brewCard);
+        if (cardController) {
+            cardController.disable();
+        }
+
+        const methodController = methodControllers.get(brewCard);
+        if (methodController) {
+            methodController.enable();
+        }
     }
 }
 
@@ -237,6 +354,16 @@ function disableBrewEditing(brewCard) {
 
         const editButton = brewCard.querySelector('.edit-button');
         editButton.classList.remove('hidden');
+
+        const cardController = cardControllers.get(brewCard);
+        if (cardController) {
+            cardController.enable();
+        }
+
+        const methodController = methodControllers.get(brewCard);
+        if (methodController) {
+            methodController.disable();
+        }
     }
 }
 
