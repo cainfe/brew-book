@@ -80,14 +80,26 @@ export function exportData() {
 export function importData(jsonData) {
     try {
         const data = JSON.parse(jsonData);
-        if (data.brews) {
+        if (typeof data !== 'object' || data === null) {
+            throw new Error('Imported data must be an object.');
+        }
+        const hasBrews = Object.prototype.hasOwnProperty.call(data, 'brews');
+        const hasBeans = Object.prototype.hasOwnProperty.call(data, 'beans');
+        if (hasBrews && !Array.isArray(data.brews)) {
+            throw new Error('Imported data.brews must be an array.');
+        }
+        if (hasBeans && !Array.isArray(data.beans)) {
+            throw new Error('Imported data.beans must be an array.');
+        }
+        if (hasBrews) {
             localStorage.setItem('brews', JSON.stringify(data.brews));
         }
-        if (data.beans) {
+        if (hasBeans) {
             localStorage.setItem('beans', JSON.stringify(data.beans));
         }
     } catch (error) {
         console.error("Invalid JSON data:", error);
+        throw new Error('Failed to import data: ' + error.message);
     }
 }
 
