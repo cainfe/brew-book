@@ -330,7 +330,6 @@ button:disabled:hover {
 }
 
 .method-select.expanded input[type="radio"]:checked + label {
-    border-color: #a78a7f;
     background-color: #E7D7C1;
 }
 
