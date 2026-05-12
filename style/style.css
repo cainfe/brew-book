@@ -64,6 +64,22 @@ button:disabled:hover {
     list-style: none;
 }
 
+.content-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.content-card ul li {
+    margin-bottom: 0.5rem;
+    padding: 5px;
+}
+
+.content-card ul li:hover {
+    background-color: #d4c0b05e;
+    border-radius: 8px;
+}
+
 .content-card-form {
     width: 100%;
 }

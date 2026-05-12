@@ -2,6 +2,7 @@ import { getBrews, getBeans } from './storage.js';
 import { toggleMenu } from './sideMenu.js';
 import { buildBrewCard, listBrews } from './brewCard.js';
 import { buildBeanCard, listBeans } from './beanCard.js';
+import { initialize } from './ui.js';
 
 document.addEventListener('DOMContentLoaded', function () {
     const newBrewCard = buildBrewCard();
@@ -14,3 +15,5 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 window.toggleMenu = toggleMenu;
+
+initialize();

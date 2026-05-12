@@ -68,3 +68,8 @@ export function deleteBean(id) {
     beans = beans.filter(bean => bean.id !== id);
     localStorage.setItem('beans', JSON.stringify(beans));
 }
+
+export function clearData() {
+    localStorage.removeItem('brews');
+    localStorage.removeItem('beans');
+}
