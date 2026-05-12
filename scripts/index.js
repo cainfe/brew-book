@@ -12,8 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const newBeanCard = buildBeanCard();
     document.getElementById("beans-list").appendChild(newBeanCard);
     listBeans(getBeans());
+    initialize();
 });
 
 window.toggleMenu = toggleMenu;
-
-initialize();
